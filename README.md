@@ -54,7 +54,7 @@ npm install --save-dev prettier-eslint-cli
 Thanks goes to these people ([emoji key][emojis]):
 
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
-| [<img src="https://avatars.githubusercontent.com/u/1500684?v=3" width="100px;"/><br /><sub>Kent C. Dodds</sub>](https://kentcdodds.com)<br />[💻](https://github.com/kentcdodds/prettier-eslint/commits?author=kentcdodds) [📖](https://github.com/kentcdodds/prettier-eslint/commits?author=kentcdodds) 🚇 [⚠️](https://github.com/kentcdodds/prettier-eslint/commits?author=kentcdodds) |
+| [<img src="https://avatars.githubusercontent.com/u/1500684?v=3" width="100px;"/><br /><sub>Kent C. Dodds</sub>](https://kentcdodds.com)<br />[💻](https://github.com/kentcdodds/prettier-eslint-cli/commits?author=kentcdodds) [📖](https://github.com/kentcdodds/prettier-eslint-cli/commits?author=kentcdodds) 🚇 [⚠️](https://github.com/kentcdodds/prettier-eslint-cli/commits?author=kentcdodds) |
 | :---: |
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
