@@ -1,6 +1,6 @@
 # prettier-eslint-cli
 
-CLI for prettier-eslint
+CLI for [`prettier-eslint`][prettier-eslint]
 
 [![Build Status][build-badge]][build]
 [![Code Coverage][coverage-badge]][coverage]
@@ -9,7 +9,7 @@ CLI for prettier-eslint
 [![downloads][downloads-badge]][npm-stat]
 [![MIT License][license-badge]][LICENSE]
 
-[![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors)
+[![All Contributors](https://img.shields.io/badge/all_contributors-3-orange.svg?style=flat-square)](#contributors)
 [![PRs Welcome][prs-badge]][prs]
 [![Donate][donate-badge]][donate]
 [![Code of Conduct][coc-badge]][coc]
@@ -22,40 +22,112 @@ CLI for prettier-eslint
 
 ## The problem
 
-
+You have a bunch of files that you want to format using [`prettier-eslint`][prettier-eslint].
+But `prettier-eslint` can only operate on strings.
 
 ## This solution
 
-
+This is a [CLI](https://en.wikipedia.org/wiki/Command-line_interface) that allows you to use
+`prettier-eslint` on one or multiple files. It identifies the relevant ESLint config for each
+file and uses that to determine the options for `prettier` and `eslint --fix`.
 
 ## Installation
 
 This module is distributed via [npm][npm] which is bundled with [node][node] and should
-be installed as one of your project's `devDependencies`:
+be installed (with [`yarn`][yarn]) as one of your project's `devDependencies`:
 
 ```
-npm install --save-dev prettier-eslint-cli
+yarn add --dev prettier-eslint-cli
 ```
+
+> If you're still using the [`npm`][npm] client: `npm install --save-dev prettier-eslint-cli`
 
 ## Usage
 
+Typically you'll use this in your [npm scripts][npm scripts] (or [package scripts][package scripts]):
 
+```json
+{
+  "scripts": {
+    "format": "prettier-eslint src/**/*.js"
+  }
+}
+```
 
-## Inspiration
+This will format all `.js` files in the `src` directory. The argument you pass to the CLI
+is a [glob][glob] and you can pass as many as you wish. You can also pass options.
 
+### CLI Options
 
+```
+prettier-eslint --help
+Usage: dist/index.js <globs>...
 
-## Other Solutions
+Options:
+  -h, --help      Show help                                            [boolean]
+  --version       Show version number                                  [boolean]
+  --write         Edit the file in-place (beware!)              [default: false]
+  --stdin         Read input via stdin                          [default: false]
+  --eslintPath    The path to the eslint module to use
+    [default: "<your_project>/node_modules/eslint"]
+  --prettierPath  The path to the prettier module to use
+  [default: "<your_project>/node_modules/prettier"]
+  --log           Show logs                                     [default: false]
+  --sillyLogs     Show silly amount of logs (good for debugging)[default: false]
+```
 
+#### <globs>
 
+Any number of [globs][glob] you wish to use to match the files you wish to format. By default, `glob` will ignore
+`**/node_modules/**` unless the glob you provide
+includes the string `node_modules`.
+
+#### --write
+
+By default `prettier-eslint` will simply log the formatted version to the terminal. If you want to overwrite the file
+itself (a common use-case) then add `--write`.
+
+> **NOTE:** It is recommended that you keep your files under source control and committed
+> before running `prettier-eslint --write` as it will overwrite your files!
+
+#### --stdin
+
+Accept input via `stdin`. For example:
+
+```
+echo "var   foo =    'bar'" | prettier-eslint --stdin
+# results in: "var foo = 'bar';" (depending on your eslint config)
+```
+
+#### --eslint-path
+
+Forwarded as the `eslintPath` option to `prettier-eslint`
+
+#### --prettier-path
+
+Forwarded as the `prettierPath` option to `prettier-eslint`
+
+#### --log
+
+If `prettier-eslint` encounters an error formatting a file, it logs an error to the console.
+`prettier-eslint-cli` disables this behavior by default. You can turn it on with `--log`.
+
+#### --silly-logs
+
+This will be forwarded onto `prettier-eslint` as (`sillyLogs`) and is useful for debugging.
+
+## Related
+
+- [prettier-eslint](https://github.com/kentcdodds/prettier-eslint) - the core package
+- [prettier-eslint-atom](https://github.com/kentcdodds/prettier-eslint-atom) - an atom plugin
 
 ## Contributors
 
 Thanks goes to these people ([emoji key][emojis]):
 
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
-| [<img src="https://avatars.githubusercontent.com/u/1500684?v=3" width="100px;"/><br /><sub>Kent C. Dodds</sub>](https://kentcdodds.com)<br />[💻](https://github.com/kentcdodds/prettier-eslint-cli/commits?author=kentcdodds) [📖](https://github.com/kentcdodds/prettier-eslint-cli/commits?author=kentcdodds) 🚇 [⚠️](https://github.com/kentcdodds/prettier-eslint-cli/commits?author=kentcdodds) |
-| :---: |
+| [<img src="https://avatars.githubusercontent.com/u/1500684?v=3" width="100px;"/><br /><sub>Kent C. Dodds</sub>](https://kentcdodds.com)<br />[💻](https://github.com/kentcdodds/prettier-eslint-cli/commits?author=kentcdodds) [📖](https://github.com/kentcdodds/prettier-eslint-cli/commits?author=kentcdodds) 🚇 [⚠️](https://github.com/kentcdodds/prettier-eslint-cli/commits?author=kentcdodds) | [<img src="https://avatars3.githubusercontent.com/u/3266363?v=3" width="100px;"/><br /><sub>Adam Harris</sub>](https://github.com/aharris88)<br />👀 | [<img src="https://avatars.githubusercontent.com/u/622118?v=3" width="100px;"/><br /><sub>Eric McCormick</sub>](https://ericmccormick.io)<br />👀 |
+| :---: | :---: | :---: |
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
 This project follows the [all-contributors][all-contributors] specification. Contributions of any kind welcome!
@@ -64,6 +136,7 @@ This project follows the [all-contributors][all-contributors] specification. Con
 
 MIT
 
+[yarn]: https://yarnpkg.com/
 [npm]: https://www.npmjs.com/
 [node]: https://nodejs.org
 [build-badge]: https://img.shields.io/travis/kentcdodds/prettier-eslint-cli.svg?style=flat-square
@@ -96,3 +169,7 @@ MIT
 [twitter-badge]: https://img.shields.io/twitter/url/https/github.com/kentcdodds/prettier-eslint-cli.svg?style=social
 [emojis]: https://github.com/kentcdodds/all-contributors#emoji-key
 [all-contributors]: https://github.com/kentcdodds/all-contributors
+[prettier-eslint]: https://github.com/kentcdodds/prettier-eslint
+[npm scripts]: https://docs.npmjs.com/misc/scripts
+[package scripts]: https://github.com/kentcdodds/p-s
+[glob]: https://github.com/isaacs/node-glob

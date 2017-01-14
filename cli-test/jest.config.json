@@ -1,0 +1,12 @@
+{
+  "testPathDirs": [
+    "<rootDir>/cli-test/tests"
+  ],
+  "testEnvironment": "jest-environment-node",
+  "testPathIgnorePatterns": [
+    "/node_modules/",
+    "/helpers/",
+    "/fixtures/"
+  ],
+  "testRegex": "^.*.js$"
+}

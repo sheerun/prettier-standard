@@ -1,0 +1,20 @@
+exports[`file contents: prettier-eslint cli-test/fixtures/example1.js cli-test/fixtures/example2.js 1`] = `
+Object {
+  "example1Result": "const {example1} = baz.bar
+",
+  "example2Result": "function example2(thing) {
+  return thing
+}
+",
+}
+`;
+
+exports[`stdout: --version 1`] = `
+"0.0.0-semantically-released
+"
+`;
+
+exports[`stdout: prettier-eslint cli-test/fixtures/example1.js cli-test/fixtures/example2.js 1`] = `
+"success formatting 2 files with prettier-eslint
+"
+`;

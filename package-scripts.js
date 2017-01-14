@@ -5,12 +5,21 @@ module.exports = {
       script: 'git-cz',
     },
     test: {
-      default: `jest --coverage`,
-      watch: 'jest --watch',
+      default: `nps --parallel test.unit,test.cli`,
+      unit: {
+        script: 'jest --coverage',
+        description: 'Run the unit tests',
+        watch: 'jest --watch',
+      },
+      cli: {
+        script: 'jest --config=cli-test/jest.config.json',
+        description: 'The E2E tests for the full CLI',
+        watch: 'nps test.cli --watch',
+      },
     },
     build: {
       description: 'delete the dist directory and run babel to build the files',
-      script: 'rimraf dist && babel --copy-files --out-dir dist --ignore *.test.js src',
+      script: 'rimraf dist && babel --copy-files --out-dir dist --ignore *.test.js,__mocks__ src',
     },
     lint: {
       description: 'lint the entire project',

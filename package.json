@@ -4,7 +4,7 @@
   "description": "CLI for prettier-eslint",
   "main": "dist/no-main.js",
   "bin": {
-    "prettier-eslint": "dist/bin/prettier-eslint-cli.js"
+    "prettier-eslint": "dist/index.js"
   },
   "scripts": {
     "start": "nps",
@@ -19,13 +19,20 @@
   "author": "Kent C. Dodds <kent@doddsfamily.us> (http://kentcdodds.com/)",
   "license": "MIT",
   "dependencies": {
-    "prettier-eslint": "^1.0.1",
+    "babel-runtime": "^6.20.0",
+    "chalk": "^1.1.3",
+    "find-up": "^2.1.0",
+    "get-stdin": "^5.0.1",
+    "glob": "^7.1.1",
+    "prettier-eslint": "^2.2.0",
+    "rxjs": "^5.0.3",
     "yargs": "^6.6.0"
   },
   "devDependencies": {
     "all-contributors-cli": "^3.0.7",
     "babel-cli": "^6.18.0",
     "babel-jest": "^18.0.0",
+    "babel-plugin-transform-runtime": "^6.15.0",
     "babel-preset-env": "^1.1.8",
     "babel-preset-stage-2": "^6.18.0",
     "babel-register": "^6.18.0",
@@ -38,9 +45,13 @@
     "jest-cli": "^18.1.0",
     "opt-cli": "^1.5.1",
     "p-s": "^3.0.3",
+    "pify": "^2.3.0",
     "rimraf": "^2.5.4",
     "semantic-release": "^6.3.3",
-    "validate-commit-msg": "^2.8.2"
+    "spawn-command": "^0.0.2-1",
+    "strip-indent": "^2.0.0",
+    "validate-commit-msg": "^2.8.2",
+    "yargs-parser": "^4.2.1"
   },
   "eslintConfig": {
     "extends": [
