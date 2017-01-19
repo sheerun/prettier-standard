@@ -28,8 +28,9 @@ But `prettier-eslint` can only operate on strings.
 ## This solution
 
 This is a [CLI](https://en.wikipedia.org/wiki/Command-line_interface) that allows you to use
-`prettier-eslint` on one or multiple files. It identifies the relevant ESLint config for each
-file and uses that to determine the options for `prettier` and `eslint --fix`.
+`prettier-eslint` on one or multiple files. `prettier-eslint-cli` forwards on the `filePath`
+and other relevant options to `prettier-eslint` which identifies the applicable `ESLint`
+config for each file and uses that to determine the options for `prettier` and `eslint --fix`.
 
 ## Installation
 
