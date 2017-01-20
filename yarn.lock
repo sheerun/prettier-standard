@@ -249,10 +249,6 @@ ast-types@0.8.18:
   version "0.8.18"
   resolved "https://registry.yarnpkg.com/ast-types/-/ast-types-0.8.18.tgz#c8b98574898e8914e9d8de74b947564a9fe929af"
 
-ast-types@0.9.2:
-  version "0.9.2"
-  resolved "https://registry.yarnpkg.com/ast-types/-/ast-types-0.9.2.tgz#2cc19979d15c655108bf565323b8e7ee38751f6b"
-
 "ast-types@git+https://github.com/jlongster/ast-types.git":
   version "0.9.3"
   resolved "git+https://github.com/jlongster/ast-types.git#4b373d7e710105b07b22a12389ef2d8e1bcf2412"
@@ -914,7 +910,7 @@ babel-types@^6.13.0, babel-types@^6.15.0, babel-types@^6.16.0, babel-types@^6.18
     lodash "^4.2.0"
     to-fast-properties "^1.0.1"
 
-babylon@^6.11.0, babylon@^6.13.0, babylon@^6.15.0:
+babylon@6.15.0, babylon@^6.11.0, babylon@^6.13.0:
   version "6.15.0"
   resolved "https://registry.yarnpkg.com/babylon/-/babylon-6.15.0.tgz#ba65cfa1a80e1759b0e89fb562e27dccae70348e"
 
@@ -1853,10 +1849,6 @@ esprima@~3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/esprima/-/esprima-3.0.0.tgz#53cf247acda77313e551c3aa2e73342d3fb4f7d9"
 
-esprima@~3.1.0:
-  version "3.1.3"
-  resolved "https://registry.yarnpkg.com/esprima/-/esprima-3.1.3.tgz#fdca51cee6133895e3c88d535ce49dbff62a4633"
-
 esrecurse@^4.1.0:
   version "4.1.0"
   resolved "https://registry.yarnpkg.com/esrecurse/-/esrecurse-4.1.0.tgz#4713b6536adf7f2ac4f327d559e7756bff648220"
@@ -1876,7 +1868,7 @@ estraverse@~4.1.0:
   version "4.1.1"
   resolved "https://registry.yarnpkg.com/estraverse/-/estraverse-4.1.1.tgz#f6caca728933a850ef90661d0e17982ba47111a2"
 
-esutils@^2.0.2:
+esutils@2.0.2, esutils@^2.0.2:
   version "2.0.2"
   resolved "https://registry.yarnpkg.com/esutils/-/esutils-2.0.2.tgz#0abf4f1caa5bcb1f7a9d8acc6dea4faaa04bac9b"
 
@@ -2074,9 +2066,9 @@ flat-cache@^1.2.1:
     graceful-fs "^4.1.2"
     write "^0.2.1"
 
-flow-parser@^0.37.0:
-  version "0.37.0"
-  resolved "https://registry.yarnpkg.com/flow-parser/-/flow-parser-0.37.0.tgz#1065c612a30f037ac3ee60053f6e797a6d9be8d6"
+flow-parser@0.38.0:
+  version "0.38.0"
+  resolved "https://registry.yarnpkg.com/flow-parser/-/flow-parser-0.38.0.tgz#a631c46170c5b42400d905a75cfc83ce8db29424"
   dependencies:
     ast-types "0.8.18"
     colors ">=0.6.2"
@@ -2217,13 +2209,13 @@ get-caller-file@^1.0.1:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/get-caller-file/-/get-caller-file-1.0.2.tgz#f702e63127e7e231c160a80c1554acb70d5047e5"
 
+get-stdin@5.0.1, get-stdin@^5.0.1:
+  version "5.0.1"
+  resolved "https://registry.yarnpkg.com/get-stdin/-/get-stdin-5.0.1.tgz#122e161591e21ff4c52530305693f20e6393a398"
+
 get-stdin@^4.0.1:
   version "4.0.1"
   resolved "https://registry.yarnpkg.com/get-stdin/-/get-stdin-4.0.1.tgz#b968c6b0a04384324902e8bf1a5df32579a450fe"
-
-get-stdin@^5.0.1:
-  version "5.0.1"
-  resolved "https://registry.yarnpkg.com/get-stdin/-/get-stdin-5.0.1.tgz#122e161591e21ff4c52530305693f20e6393a398"
 
 getpass@^0.1.1:
   version "0.1.6"
@@ -3044,6 +3036,10 @@ jsdom@^9.9.1:
     whatwg-encoding "^1.0.1"
     whatwg-url "^4.1.0"
     xml-name-validator ">= 2.0.1 < 3.0.0"
+
+jsesc@2.4.0:
+  version "2.4.0"
+  resolved "https://registry.yarnpkg.com/jsesc/-/jsesc-2.4.0.tgz#8568d223ff69c0b5e081b4f8edf5a23d978c9867"
 
 jsesc@^1.3.0:
   version "1.3.0"
@@ -3968,25 +3964,25 @@ preserve@^0.2.0:
   version "0.2.0"
   resolved "https://registry.yarnpkg.com/preserve/-/preserve-0.2.0.tgz#815ed1f6ebc65926f865b310c0713bcb3315ce4b"
 
-prettier-eslint@^2.1.1:
-  version "2.1.1"
-  resolved "https://registry.yarnpkg.com/prettier-eslint/-/prettier-eslint-2.1.1.tgz#84287a771a52751d9acf3fc30b5acdbd51f85648"
+prettier-eslint@^2.2.1:
+  version "2.2.1"
+  resolved "https://registry.yarnpkg.com/prettier-eslint/-/prettier-eslint-2.2.1.tgz#c09cedf880edc5f16a4be5e65fde42309e5959c7"
   dependencies:
     eslint "^3.13.1"
-    prettier "^0.0.5"
+    prettier "^0.0.9"
 
-prettier@^0.0.5:
-  version "0.0.5"
-  resolved "https://registry.yarnpkg.com/prettier/-/prettier-0.0.5.tgz#9f3a67b57e5836d925e7038ea841580915c039eb"
+prettier@^0.0.9:
+  version "0.0.9"
+  resolved "https://registry.yarnpkg.com/prettier/-/prettier-0.0.9.tgz#af32f6ad26b67365ebf2f4b48f7149dd1a21d177"
   dependencies:
     ast-types "git+https://github.com/jlongster/ast-types.git"
-    babylon "^6.15.0"
-    flow-parser "^0.37.0"
-    get-stdin "^5.0.1"
-    minimist "^1.2.0"
-    private "^0.1.6"
-    recast "^0.11.18"
-    source-map "^0.5.6"
+    babylon "6.15.0"
+    esutils "2.0.2"
+    flow-parser "0.38.0"
+    get-stdin "5.0.1"
+    jsesc "2.4.0"
+    minimist "1.2.0"
+    private "0.1.6"
 
 pretty-format@^18.1.0:
   version "18.1.0"
@@ -3994,7 +3990,7 @@ pretty-format@^18.1.0:
   dependencies:
     ansi-styles "^2.2.1"
 
-private@^0.1.6, private@~0.1.5:
+private@0.1.6, private@^0.1.6:
   version "0.1.6"
   resolved "https://registry.yarnpkg.com/private/-/private-0.1.6.tgz#55c6a976d0f9bafb9924851350fe47b9b5fbb7c1"
 
@@ -4144,15 +4140,6 @@ readline2@^1.0.1:
     code-point-at "^1.0.0"
     is-fullwidth-code-point "^1.0.0"
     mute-stream "0.0.5"
-
-recast@^0.11.18:
-  version "0.11.18"
-  resolved "https://registry.yarnpkg.com/recast/-/recast-0.11.18.tgz#07af6257ca769868815209401d4d60eef1b5b947"
-  dependencies:
-    ast-types "0.9.2"
-    esprima "~3.1.0"
-    private "~0.1.5"
-    source-map "~0.5.0"
 
 rechoir@^0.6.2:
   version "0.6.2"
@@ -4538,7 +4525,7 @@ source-map@^0.4.4, source-map@~0.4.1:
   dependencies:
     amdefine ">=0.0.4"
 
-source-map@^0.5.0, source-map@^0.5.3, source-map@^0.5.6, source-map@~0.5.0, source-map@~0.5.1:
+source-map@^0.5.0, source-map@^0.5.3, source-map@~0.5.1:
   version "0.5.6"
   resolved "https://registry.yarnpkg.com/source-map/-/source-map-0.5.6.tgz#75ce38f52bf0733c5a7f0c118d81334a2bb5f412"
 

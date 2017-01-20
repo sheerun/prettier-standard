@@ -3,19 +3,13 @@ import findUp from 'find-up'
 import yargs from 'yargs'
 
 const parser = yargs
-  .usage('Usage: $0 <globs>...')
+  .usage('Usage: $0 <globs>... [--option-1 option-1-value --option-2]')
   .help('h')
   .alias('h', 'help')
   .version()
   .options({
-    write: {
-      default: false,
-      describe: 'Edit the file in-place (beware!)',
-    },
-    stdin: {
-      default: false,
-      describe: 'Read input via stdin',
-    },
+    write: {default: false, describe: 'Edit the file in-place (beware!)'},
+    stdin: {default: false, describe: 'Read input via stdin'},
     eslintPath: {
       default: getPathInHostNodeModules('eslint'),
       describe: 'The path to the eslint module to use',
@@ -24,14 +18,7 @@ const parser = yargs
       default: getPathInHostNodeModules('prettier'),
       describe: 'The path to the prettier module to use',
     },
-    log: {
-      default: false,
-      describe: 'Show logs',
-    },
-    sillyLogs: {
-      default: false,
-      describe: 'Show silly amount of logs (good for debugging)',
-    },
+    log: {default: false, describe: 'Show logs'},
     // TODO: if we allow people to to specify a config path,
     // we need to read that somehow. These can come invarious
     // formats and we'd have to work out `extends` somehow as well.
@@ -46,6 +33,10 @@ const parser = yargs
     // prettierOptions: {
     //   describe: 'Path to the prettier config to use',
     // },
+    sillyLogs: {
+      default: false,
+      describe: 'Show silly amount of logs (good for debugging)',
+    },
   })
 
 export default parser

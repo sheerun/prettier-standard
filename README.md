@@ -62,7 +62,7 @@ is a [glob][glob] and you can pass as many as you wish. You can also pass option
 
 ```
 prettier-eslint --help
-Usage: dist/index.js <globs>...
+Usage: prettier-eslint <globs>... [--option-1 option-1-value --option-2]
 
 Options:
   -h, --help      Show help                                            [boolean]

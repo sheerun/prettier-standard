@@ -1,3 +1,4 @@
+/* eslint max-len:[2, 120] */
 module.exports = {
   scripts: {
     commit: {
@@ -21,9 +22,10 @@ module.exports = {
       description: 'delete the dist directory and run babel to build the files',
       script: 'rimraf dist && babel --copy-files --out-dir dist --ignore *.test.js,__mocks__ src',
     },
-    lint: {
-      description: 'lint the entire project',
-      script: 'eslint .',
+    lint: {description: 'lint the entire project', script: 'eslint .'},
+    format: {
+      description: 'Uses dist/index.js to format the project (formatting itself). Recommended to run the build first!',
+      script: './dist/index.js src/**/*.js cli-test/tests/index.js __mocks__/*.js package-scripts.js --write',
     },
     reportCoverage: {
       description: 'Report coverage stats to codecov. This should be run after the `test` script',
@@ -35,7 +37,7 @@ module.exports = {
     },
     validate: {
       description: 'This runs several scripts to make sure things look good before committing or on clean install',
-      script: 'p-s -p lint,build,test',
+      script: 'nps build && nps format && nps --parallel lint,test',
     },
     addContributor: {
       description: 'When new people contribute to the project, run this',
@@ -46,7 +48,5 @@ module.exports = {
       script: 'all-contributors generate',
     },
   },
-  options: {
-    silent: false,
-  },
+  options: {silent: false},
 }

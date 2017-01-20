@@ -12,16 +12,23 @@ const rxWriteFile = Rx.Observable.bindNodeCallback(fs.writeFile)
 
 export default formatFilesFromArgv
 
-async function formatFilesFromArgv({
-  _: fileGlobs,
-  log: enableLog,
-  sillyLogs,
-  stdin,
-  write,
-  eslintPath,
-  prettierPath,
-}) {
-  const prettierESLintOptions = {disableLog: !enableLog, sillyLogs, eslintPath, prettierPath}
+async function formatFilesFromArgv(
+  {
+    _: fileGlobs,
+    log: enableLog,
+    sillyLogs,
+    stdin,
+    write,
+    eslintPath,
+    prettierPath,
+  },
+) {
+  const prettierESLintOptions = {
+    disableLog: !enableLog,
+    sillyLogs,
+    eslintPath,
+    prettierPath,
+  }
   const cliOptions = {write}
   if (stdin) {
     return formatStdin(prettierESLintOptions)
@@ -37,54 +44,69 @@ async function formatStdin(prettierESLintOptions) {
     console.log(formatted)
     return Promise.resolve(formatted)
   } catch (error) {
-    logError('There was a problem trying to format the stdin text', error.stack)
+    logError(
+      'There was a problem trying to format the stdin text',
+      error.stack,
+    )
     return Promise.resolve(stdinValue)
   }
 }
 
-async function formatFilesFromGlobs(fileGlobs, cliOptions, prettierESLintOptions) {
+async function formatFilesFromGlobs(
+  fileGlobs,
+  cliOptions,
+  prettierESLintOptions,
+) {
   const concurrentGlobs = 3
   const concurrentFormats = 10
   return new Promise(resolve => {
     const successes = []
     const failures = []
-    Rx.Observable.from(fileGlobs)
+    Rx.Observable
+      .from(fileGlobs)
       .mergeMap(getFilesFromGlob, null, concurrentGlobs)
       .concatAll()
       .distinct()
-      .mergeMap(
-        filePath => formatFile(filePath, prettierESLintOptions, cliOptions),
-        null,
-        concurrentFormats,
+      .mergeMap(filePathToFormatted, null, concurrentFormats)
+      .subscribe(onNext, onError, onComplete)
+
+    function filePathToFormatted(filePath) {
+      return formatFile(filePath, prettierESLintOptions, cliOptions)
+    }
+
+    function onNext(info) {
+      if (info.error) {
+        failures.push(info)
+      } else {
+        successes.push(info)
+      }
+    }
+
+    function onError(error) {
+      logError(
+        'There was an unhandled error while formatting the files',
+        error.stack,
       )
-      .subscribe(
-        function onNext(info) {
-          if (info.error) {
-            failures.push(info)
-          } else {
-            successes.push(info)
-          }
-        },
-        function onError(error) {
-          logError('There was an unhandled error while formatting the files', error.stack)
-          resolve({error, successes, failures})
-        },
-        function onComplete() {
-          if (successes.length) {
-            const count = chalk.bold(successes.length)
-            console.log(
-              `${chalk.green('success')} formatting ${count} files with prettier-eslint`,
-            )
-          }
-          if (failures.length) {
-            const count = chalk.bold(failures.length)
-            console.log(
-              `${chalk.red('failure')} formatting ${count} files with prettier-eslint`,
-            )
-          }
-          resolve({successes, failures})
-        },
-      )
+      resolve({error, successes, failures})
+    }
+
+    function onComplete() {
+      if (successes.length) {
+        const count = chalk.bold(successes.length)
+        const success = chalk.green('success')
+        console.log(
+          `${success} formatting ${count} files with prettier-eslint`,
+        )
+      }
+      if (failures.length) {
+        const count = chalk.bold(failures.length)
+        const failure = chalk.red('failure')
+        console.log(
+          `${failure} formatting ${count} files with prettier-eslint`,
+        )
+      }
+      resolve({successes, failures})
+    }
   })
 }
 
@@ -100,18 +122,16 @@ function getFilesFromGlob(fileGlob) {
 
 function formatFile(filePath, prettierESLintOptions, cliOptions) {
   const fileInfo = {filePath}
-  let format$ = rxReadFile(filePath, 'utf8')
-    .map(text => {
-      fileInfo.text = text
-      fileInfo.formatted = format({text, filePath, ...prettierESLintOptions})
-      return fileInfo
-    })
+  let format$ = rxReadFile(filePath, 'utf8').map(text => {
+    fileInfo.text = text
+    fileInfo.formatted = format({text, filePath, ...prettierESLintOptions})
+    return fileInfo
+  })
 
   if (cliOptions.write) {
-    format$ = format$.mergeMap(info => (
-      rxWriteFile(filePath, info.formatted)
-        .map(() => fileInfo)
-    ))
+    format$ = format$.mergeMap(
+      info => rxWriteFile(filePath, info.formatted).map(() => fileInfo),
+    )
   } else {
     format$ = format$.map(info => {
       console.log(info.formatted)

@@ -22,23 +22,23 @@ test('sanity test', async () => {
   expect(formatMock).toHaveBeenCalledTimes(6)
   expect(fsMock.writeFile).toHaveBeenCalledTimes(0)
   expect(console.log).toHaveBeenCalledTimes(7)
-  expect(console.log).toHaveBeenCalledWith(expect.stringMatching(/MOCK_OUTPUT.*index.js/))
-  expect(console.log).toHaveBeenCalledWith(expect.stringMatching(/success.*6.*files/))
+  const mockOutput = expect.stringMatching(/MOCK_OUTPUT.*index.js/)
+  const successOutput = expect.stringMatching(/success.*6.*files/)
+  expect(console.log).toHaveBeenCalledWith(mockOutput)
+  expect(console.log).toHaveBeenCalledWith(successOutput)
 })
 
 test('glob call inclues an ignore of node_modules', async () => {
   const fileGlob = 'src/**/1*.js'
   await formatFiles({_: [fileGlob]})
-  expect(globMock).toHaveBeenCalledWith(
-    fileGlob,
-    expect.objectContaining({
-      ignore: expect.arrayContaining(['**/node_modules/**']),
-    }),
-    expect.any(Function),
-  )
+  const globOptions = expect.objectContaining({
+    ignore: expect.arrayContaining(['**/node_modules/**']),
+  })
+  const callback = expect.any(Function)
+  expect(globMock).toHaveBeenCalledWith(fileGlob, globOptions, callback)
 })
 
-test('glob call excludes an ignore of node_modules when the given glob includes node_modules', async () => {
+test('glob call excludes an ignore of node_modules', async () => {
   const fileGlob = 'foo/node_modules/stuff*.js'
   await formatFiles({_: [fileGlob]})
   expect(globMock).not.toHaveBeenCalledWith(
@@ -57,7 +57,8 @@ test('should accept stdin', async () => {
   expect(formatMock).toHaveBeenCalledTimes(1)
   expect(formatMock).toHaveBeenCalledWith(
     expect.objectContaining({
-      text: mockGetStdin.stdin.trim(), // the trim is part of the test
+      // the trim is part of the test
+      text: mockGetStdin.stdin.trim(),
     }),
   )
   expect(console.log).toHaveBeenCalledTimes(1)
@@ -81,30 +82,29 @@ test('handles file errors gracefully', async () => {
   await formatFiles({_: globs, write: true})
   expect(fsMock.writeFile).toHaveBeenCalledTimes(4)
   expect(console.log).toHaveBeenCalledTimes(2)
-  expect(console.log).toHaveBeenCalledWith(expect.stringMatching(/success.*4.*files/))
-  expect(console.log).toHaveBeenCalledWith(expect.stringMatching(/failure.*2.*files/))
+  const successOutput = expect.stringMatching(/success.*4.*files/)
+  const failureOutput = expect.stringMatching(/failure.*2.*files/)
+  expect(console.log).toHaveBeenCalledWith(successOutput)
+  expect(console.log).toHaveBeenCalledWith(failureOutput)
 })
 
 test('does not print success if there were no successful files', async () => {
   await formatFiles({_: ['no-match/*.js']})
-  expect(console.log).not.toHaveBeenCalledWith(expect.stringMatching(/success/))
+  const successOutput = expect.stringMatching(/unhandled error/)
+  expect(console.log).not.toHaveBeenCalledWith(successOutput)
 })
 
 test('fails gracefully if something odd happens', async () => {
   await formatFiles({_: ['throw-error/*.js']})
   expect(console.error).toHaveBeenCalledTimes(1)
-  expect(console.error).toHaveBeenCalledWith(
-    expect.stringMatching(/prettier-eslint-cli/),
-    expect.stringMatching(/unhandled error/),
-    expect.stringMatching(/something weird happened/),
-  )
+  const label = expect.stringMatching(/prettier-eslint-cli/)
+  const notice = expect.stringMatching(/unhandled error/)
+  const errorStack = expect.stringMatching(/something weird happened/)
+  expect(console.error).toHaveBeenCalledWith(label, notice, errorStack)
 })
 
 test('forwards sillyLogs onto prettier-eslint', async () => {
   await formatFiles({_: ['src/**/1*.js'], sillyLogs: true})
-  expect(formatMock).toHaveBeenCalledWith(
-    expect.objectContaining({
-      sillyLogs: true,
-    }),
-  )
+  const options = expect.objectContaining({sillyLogs: true})
+  expect(formatMock).toHaveBeenCalledWith(options)
 })

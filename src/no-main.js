@@ -1,10 +1,11 @@
+/* eslint no-console:0 */
 const message = `
 Looks like you're trying to require/import \`prettier-eslint-cli\`.
 This module doesn't actually expose a NodeJS interface.
 This module's just the CLI for \`prettier-eslint\`.
-If you want to use \`prettier-eslint\` via NodeJS, install \`prettier-eslint\` instead.
+If you want to use this via NodeJS, install \`prettier-eslint\` instead.
 `.trim()
 
-console.info(message) // eslint-disable-line
+console.info(message)
 
 module.exports = message

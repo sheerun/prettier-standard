@@ -1,4 +1,4 @@
-exports[`file contents: prettier-eslint cli-test/fixtures/example1.js cli-test/fixtures/example2.js 1`] = `
+exports[`file contents: prettier-eslint cli-test/fixtures/example*.js --write 1`] = `
 Object {
   "example1Result": "const {example1} = baz.bar
 ",
@@ -14,7 +14,7 @@ exports[`stdout: --version 1`] = `
 "
 `;
 
-exports[`stdout: prettier-eslint cli-test/fixtures/example1.js cli-test/fixtures/example2.js 1`] = `
+exports[`stdout: prettier-eslint cli-test/fixtures/example*.js --write 1`] = `
 "success formatting 2 files with prettier-eslint
 "
 `;

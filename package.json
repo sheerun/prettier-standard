@@ -24,7 +24,7 @@
     "find-up": "^2.1.0",
     "get-stdin": "^5.0.1",
     "glob": "^7.1.1",
-    "prettier-eslint": "^2.2.0",
+    "prettier-eslint": "^2.2.1",
     "rxjs": "^5.0.3",
     "yargs": "^6.6.0"
   },
@@ -57,7 +57,10 @@
     "extends": [
       "kentcdodds",
       "kentcdodds/jest"
-    ]
+    ],
+    "rules": {
+      "max-len": [2, 80]
+    }
   },
   "jest": {
     "testEnvironment": "node",
