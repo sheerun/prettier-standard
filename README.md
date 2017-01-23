@@ -58,6 +58,20 @@ Typically you'll use this in your [npm scripts][npm scripts] (or [package script
 This will format all `.js` files in the `src` directory. The argument you pass to the CLI
 is a [glob][glob] and you can pass as many as you wish. You can also pass options.
 
+### Vim
+
+Vim users can add the following to their .vimrc:
+
+```
+autocmd FileType javascript set formatprg=prettier-eslint\ --stdin
+```
+
+This makes prettier-eslint-cli power the gq command for automatic formatting without any plugins. You can also add the following to your .vimrc to run prettier-eslint-cli when .js files are saved:
+
+```
+autocmd BufWritePre *.js :normal gggqG
+```
+
 ### CLI Options
 
 ```
