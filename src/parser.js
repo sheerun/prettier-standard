@@ -14,10 +14,7 @@ const parser = yargs
       default: getPathInHostNodeModules('eslint'),
       describe: 'The path to the eslint module to use',
     },
-    prettierPath: {
-      default: getPathInHostNodeModules('prettier'),
-      describe: 'The path to the prettier module to use',
-    },
+    prettierPath: {describe: 'The path to the prettier module to use'},
     log: {default: false, describe: 'Show logs'},
     // TODO: if we allow people to to specify a config path,
     // we need to read that somehow. These can come invarious
