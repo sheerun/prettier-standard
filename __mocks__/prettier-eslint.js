@@ -6,6 +6,8 @@
 const format = jest.fn(({text, filePath = ''}) => {
   if (text === 'MOCK_SYNTAX_ERROR' || filePath.includes('syntax-error')) {
     throw new Error('Mock error for a syntax error')
+  } else if (filePath.includes('no-change')) {
+    return text
   }
   return `MOCK_OUTPUT for ${filePath || 'stdin'}`
 })

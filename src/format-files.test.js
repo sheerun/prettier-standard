@@ -12,6 +12,7 @@ beforeEach(() => {
   console.error = jest.fn()
   formatMock.mockClear()
   fsMock.writeFile.mockClear()
+  fsMock.readFile.mockClear()
 })
 
 test('sanity test', async () => {
@@ -55,12 +56,9 @@ test('should accept stdin', async () => {
   mockGetStdin.stdin = '  var [ foo, {  bar } ] = window.APP ;'
   await formatFiles({stdin: true})
   expect(formatMock).toHaveBeenCalledTimes(1)
-  expect(formatMock).toHaveBeenCalledWith(
-    expect.objectContaining({
-      // the trim is part of the test
-      text: mockGetStdin.stdin.trim(),
-    }),
-  )
+  // the trim is part of the test
+  const text = mockGetStdin.stdin.trim()
+  expect(formatMock).toHaveBeenCalledWith(expect.objectContaining({text}))
   expect(console.log).toHaveBeenCalledTimes(1)
   expect(console.log).toHaveBeenCalledWith('MOCK_OUTPUT for stdin')
 })
@@ -107,4 +105,13 @@ test('forwards sillyLogs onto prettier-eslint', async () => {
   await formatFiles({_: ['src/**/1*.js'], sillyLogs: true})
   const options = expect.objectContaining({sillyLogs: true})
   expect(formatMock).toHaveBeenCalledWith(options)
+})
+
+test('wont save file if contents did not change', async () => {
+  const fileGlob = 'no-change/*.js'
+  await formatFiles({_: [fileGlob], write: true})
+  expect(fsMock.readFile).toHaveBeenCalledTimes(3)
+  expect(fsMock.writeFile).toHaveBeenCalledTimes(0)
+  const unchangedOutput = expect.stringMatching(/3.*?files.*?unchanged/)
+  expect(console.log).toHaveBeenCalledWith(unchangedOutput)
 })

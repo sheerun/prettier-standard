@@ -29,6 +29,12 @@ module.exports = jest.fn(function mockGlob(globString, options, callback) {
     callback(null, [])
   } else if (globString.includes('throw-error')) {
     callback(new Error('something weird happened'))
+  } else if (globString.includes('no-change')) {
+    callback(null, [
+      fredProject('no-change/1.js'),
+      fredProject('no-change/2.js'),
+      fredProject('no-change/3.js'),
+    ])
   } else {
     throw new Error(
       `Your test globString: "${globString}"` +

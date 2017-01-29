@@ -24,7 +24,7 @@
     "find-up": "^2.1.0",
     "get-stdin": "^5.0.1",
     "glob": "^7.1.1",
-    "prettier-eslint": "^2.3.3",
+    "prettier-eslint": "^3.0.0",
     "rxjs": "^5.0.3",
     "yargs": "^6.6.0"
   },
@@ -41,7 +41,7 @@
     "cz-conventional-changelog": "^1.2.0",
     "eslint": "^3.10.2",
     "eslint-config-kentcdodds": "^11.1.0",
-    "husky": "^0.12.0",
+    "husky": "^0.13.1",
     "jest-cli": "^18.1.0",
     "opt-cli": "^1.5.1",
     "p-s": "^3.0.3",
@@ -59,7 +59,10 @@
       "kentcdodds/jest"
     ],
     "rules": {
-      "max-len": [2, 80]
+      "max-len": [
+        2,
+        80
+      ]
     }
   },
   "jest": {

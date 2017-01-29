@@ -62,6 +62,7 @@ async function formatFilesFromGlobs(
   return new Promise(resolve => {
     const successes = []
     const failures = []
+    const unchanged = []
     Rx.Observable
       .from(fileGlobs)
       .mergeMap(getFilesFromGlob, null, concurrentGlobs)
@@ -77,6 +78,8 @@ async function formatFilesFromGlobs(
     function onNext(info) {
       if (info.error) {
         failures.push(info)
+      } else if (info.unchanged) {
+        unchanged.push(info)
       } else {
         successes.push(info)
       }
@@ -105,6 +108,10 @@ async function formatFilesFromGlobs(
           `${failure} formatting ${count} files with prettier-eslint`,
         )
       }
+      if (unchanged.length) {
+        const count = chalk.bold(unchanged.length)
+        console.log(`${count} files were ${chalk.gray('unchanged')}`)
+      }
       resolve({successes, failures})
     }
   })
@@ -129,9 +136,13 @@ function formatFile(filePath, prettierESLintOptions, cliOptions) {
   })
 
   if (cliOptions.write) {
-    format$ = format$.mergeMap(
-      info => rxWriteFile(filePath, info.formatted).map(() => fileInfo),
-    )
+    format$ = format$.mergeMap(info => {
+      if (info.text === info.formatted) {
+        return Rx.Observable.of(Object.assign(fileInfo, {unchanged: true}))
+      } else {
+        return rxWriteFile(filePath, info.formatted).map(() => fileInfo)
+      }
+    })
   } else {
     format$ = format$.map(info => {
       console.log(info.formatted)
