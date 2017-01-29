@@ -9,7 +9,7 @@ CLI for [`prettier-eslint`][prettier-eslint]
 [![downloads][downloads-badge]][npm-stat]
 [![MIT License][license-badge]][LICENSE]
 
-[![All Contributors](https://img.shields.io/badge/all_contributors-3-orange.svg?style=flat-square)](#contributors)
+[![All Contributors](https://img.shields.io/badge/all_contributors-4-orange.svg?style=flat-square)](#contributors)
 [![PRs Welcome][prs-badge]][prs]
 [![Donate][donate-badge]][donate]
 [![Code of Conduct][coc-badge]][coc]
@@ -141,8 +141,8 @@ This will be forwarded onto `prettier-eslint` as (`sillyLogs`) and is useful for
 Thanks goes to these people ([emoji key][emojis]):
 
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
-| [<img src="https://avatars.githubusercontent.com/u/1500684?v=3" width="100px;"/><br /><sub>Kent C. Dodds</sub>](https://kentcdodds.com)<br />[💻](https://github.com/kentcdodds/prettier-eslint-cli/commits?author=kentcdodds) [📖](https://github.com/kentcdodds/prettier-eslint-cli/commits?author=kentcdodds) 🚇 [⚠️](https://github.com/kentcdodds/prettier-eslint-cli/commits?author=kentcdodds) | [<img src="https://avatars3.githubusercontent.com/u/3266363?v=3" width="100px;"/><br /><sub>Adam Harris</sub>](https://github.com/aharris88)<br />[💻](https://github.com/kentcdodds/prettier-eslint-cli/commits?author=aharris88) [📖](https://github.com/kentcdodds/prettier-eslint-cli/commits?author=aharris88) 👀 | [<img src="https://avatars.githubusercontent.com/u/622118?v=3" width="100px;"/><br /><sub>Eric McCormick</sub>](https://ericmccormick.io)<br />👀 |
-| :---: | :---: | :---: |
+| [<img src="https://avatars.githubusercontent.com/u/1500684?v=3" width="100px;"/><br /><sub>Kent C. Dodds</sub>](https://kentcdodds.com)<br />[💻](https://github.com/kentcdodds/prettier-eslint-cli/commits?author=kentcdodds) [📖](https://github.com/kentcdodds/prettier-eslint-cli/commits?author=kentcdodds) 🚇 [⚠️](https://github.com/kentcdodds/prettier-eslint-cli/commits?author=kentcdodds) | [<img src="https://avatars3.githubusercontent.com/u/3266363?v=3" width="100px;"/><br /><sub>Adam Harris</sub>](https://github.com/aharris88)<br />[💻](https://github.com/kentcdodds/prettier-eslint-cli/commits?author=aharris88) [📖](https://github.com/kentcdodds/prettier-eslint-cli/commits?author=aharris88) 👀 | [<img src="https://avatars.githubusercontent.com/u/622118?v=3" width="100px;"/><br /><sub>Eric McCormick</sub>](https://ericmccormick.io)<br />👀 | [<img src="https://avatars.githubusercontent.com/u/12389411?v=3" width="100px;"/><br /><sub>Joel Sequeira</sub>](https://github.com/joelseq)<br />[📖](https://github.com/kentcdodds/prettier-eslint-cli/commits?author=joelseq) |
+| :---: | :---: | :---: | :---: |
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
 This project follows the [all-contributors][all-contributors] specification. Contributions of any kind welcome!

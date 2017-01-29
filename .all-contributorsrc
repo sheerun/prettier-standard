@@ -38,6 +38,15 @@
       "contributions": [
         "review"
       ]
+    },
+    {
+      "login": "joelseq",
+      "name": "Joel Sequeira",
+      "avatar_url": "https://avatars.githubusercontent.com/u/12389411?v=3",
+      "profile": "https://github.com/joelseq",
+      "contributions": [
+        "doc"
+      ]
     }
   ]
 }
