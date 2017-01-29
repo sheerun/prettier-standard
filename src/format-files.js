@@ -5,6 +5,7 @@ import Rx from 'rxjs/Rx'
 import format from 'prettier-eslint'
 import chalk from 'chalk'
 import getStdin from 'get-stdin'
+import * as messages from './messages'
 
 const rxGlob = Rx.Observable.bindNodeCallback(glob)
 const rxReadFile = Rx.Observable.bindNodeCallback(fs.readFile)
@@ -95,22 +96,31 @@ async function formatFilesFromGlobs(
 
     function onComplete() {
       if (successes.length) {
-        const count = chalk.bold(successes.length)
-        const success = chalk.green('success')
         console.log(
-          `${success} formatting ${count} files with prettier-eslint`,
+          messages.success({
+            success: chalk.green('success'),
+            count: successes.length,
+            countString: chalk.bold(successes.length),
+          }),
         )
       }
       if (failures.length) {
-        const count = chalk.bold(failures.length)
-        const failure = chalk.red('failure')
         console.log(
-          `${failure} formatting ${count} files with prettier-eslint`,
+          messages.failure({
+            failure: chalk.red('failure'),
+            count: failures.length,
+            countString: chalk.bold(failures.length),
+          }),
         )
       }
       if (unchanged.length) {
-        const count = chalk.bold(unchanged.length)
-        console.log(`${count} files were ${chalk.gray('unchanged')}`)
+        console.log(
+          messages.unchanged({
+            unchanged: chalk.gray('unchanged'),
+            count: unchanged.length,
+            countString: chalk.bold(unchanged.length),
+          }),
+        )
       }
       resolve({successes, failures})
     }

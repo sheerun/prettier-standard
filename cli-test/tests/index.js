@@ -90,10 +90,9 @@ test(`prettier-eslint ${writeCommand}`, async () => {
     pReadFile(example1Path, 'utf8'),
     pReadFile(example2Path, 'utf8'),
   ])
-  expect({
-    example1Result,
-    example2Result,
-  }).toMatchSnapshot(`file contents: prettier-eslint ${writeCommand}`)
+  expect({example1Result, example2Result}).toMatchSnapshot(
+    `file contents: prettier-eslint ${writeCommand}`,
+  )
   await Promise.all([pUnlink(example1Path), pUnlink(example2Path)])
 })
 

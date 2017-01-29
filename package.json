@@ -24,6 +24,7 @@
     "find-up": "^2.1.0",
     "get-stdin": "^5.0.1",
     "glob": "^7.1.1",
+    "messageformat": "^1.0.2",
     "prettier-eslint": "^3.0.0",
     "rxjs": "^5.0.3",
     "yargs": "^6.6.0"
