@@ -1,5 +1,7 @@
 # prettier-eslint-cli
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/kentcdodds/prettier-eslint-cli.svg)](https://greenkeeper.io/)
+
 CLI for [`prettier-eslint`][prettier-eslint]
 
 [![Build Status][build-badge]][build]
