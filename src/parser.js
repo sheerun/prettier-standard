@@ -8,14 +8,18 @@ const parser = yargs
   .alias('h', 'help')
   .version()
   .options({
-    write: {default: false, describe: 'Edit the file in-place (beware!)'},
-    stdin: {default: false, describe: 'Read input via stdin'},
+    write: {
+      default: false,
+      describe: 'Edit the file in-place (beware!)',
+      type: 'boolean',
+    },
+    stdin: {default: false, describe: 'Read input via stdin', type: 'boolean'},
     eslintPath: {
       default: getPathInHostNodeModules('eslint'),
       describe: 'The path to the eslint module to use',
     },
     prettierPath: {describe: 'The path to the prettier module to use'},
-    log: {default: false, describe: 'Show logs'},
+    log: {default: false, describe: 'Show logs', type: 'boolean'},
     // TODO: if we allow people to to specify a config path,
     // we need to read that somehow. These can come invarious
     // formats and we'd have to work out `extends` somehow as well.
@@ -33,6 +37,7 @@ const parser = yargs
     sillyLogs: {
       default: false,
       describe: 'Show silly amount of logs (good for debugging)',
+      type: 'boolean',
     },
   })
 
