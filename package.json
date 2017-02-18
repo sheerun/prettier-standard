@@ -54,7 +54,7 @@
     "spawn-command": "^0.0.2-1",
     "strip-indent": "^2.0.0",
     "validate-commit-msg": "^2.8.2",
-    "yargs-parser": "^4.2.1"
+    "yargs-parser": "^5.0.0"
   },
   "eslintConfig": {
     "extends": [
