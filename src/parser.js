@@ -1,6 +1,8 @@
 import path from 'path'
 import findUp from 'find-up'
 import yargs from 'yargs'
+import {oneLine} from 'common-tags'
+import arrify from 'arrify'
 
 const parser = yargs
   .usage('Usage: $0 <globs>... [--option-1 option-1-value --option-2]')
@@ -19,6 +21,16 @@ const parser = yargs
       describe: 'The path to the eslint module to use',
     },
     prettierPath: {describe: 'The path to the prettier module to use'},
+    ignore: {
+      describe: (
+        oneLine`
+          pattern(s) you wish to ignore
+          (can be used multiple times
+          and includes **/node_modules/** automatically)
+        `
+      ),
+      coerce: arrify,
+    },
     log: {default: false, describe: 'Show logs', type: 'boolean'},
     // TODO: if we allow people to to specify a config path,
     // we need to read that somehow. These can come invarious

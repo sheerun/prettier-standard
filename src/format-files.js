@@ -22,6 +22,7 @@ async function formatFilesFromArgv(
     write,
     eslintPath,
     prettierPath,
+    ignore: ignoreGlobs = [],
   },
 ) {
   const prettierESLintOptions = {
@@ -34,7 +35,12 @@ async function formatFilesFromArgv(
   if (stdin) {
     return formatStdin(prettierESLintOptions)
   } else {
-    return formatFilesFromGlobs(fileGlobs, cliOptions, prettierESLintOptions)
+    return formatFilesFromGlobs(
+      fileGlobs,
+      [...ignoreGlobs], // make a copy to avoid manipulation
+      cliOptions,
+      prettierESLintOptions,
+    )
   }
 }
 
@@ -55,6 +61,7 @@ async function formatStdin(prettierESLintOptions) {
 
 async function formatFilesFromGlobs(
   fileGlobs,
+  ignoreGlobs,
   cliOptions,
   prettierESLintOptions,
 ) {
@@ -66,7 +73,7 @@ async function formatFilesFromGlobs(
     const unchanged = []
     Rx.Observable
       .from(fileGlobs)
-      .mergeMap(getFilesFromGlob, null, concurrentGlobs)
+      .mergeMap(getFilesFromGlob.bind(null, ignoreGlobs), null, concurrentGlobs)
       .concatAll()
       .distinct()
       .mergeMap(filePathToFormatted, null, concurrentFormats)
@@ -127,8 +134,8 @@ async function formatFilesFromGlobs(
   })
 }
 
-function getFilesFromGlob(fileGlob) {
-  const globOptions = {ignore: []}
+function getFilesFromGlob(ignoreGlobs, fileGlob) {
+  const globOptions = {ignore: ignoreGlobs}
   if (!fileGlob.includes('node_modules')) {
     // basically, we're going to protect you from doing something
     // not smart unless you explicitly include it in your glob

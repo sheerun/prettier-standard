@@ -115,3 +115,15 @@ test('wont save file if contents did not change', async () => {
   const unchangedOutput = expect.stringMatching(/3.*?files.*?unchanged/)
   expect(console.log).toHaveBeenCalledWith(unchangedOutput)
 })
+
+test('allows you to specify an ignore glob', async () => {
+  const ignore = ['src/ignore/thing', 'src/ignore/otherthing']
+  const fileGlob = 'src/**/1*.js'
+  await formatFiles({_: [fileGlob], ignore})
+
+  const globOptions = expect.objectContaining({
+    ignore: [...ignore, '**/node_modules/**'],
+  })
+  const callback = expect.any(Function)
+  expect(globMock).toHaveBeenCalledWith(fileGlob, globOptions, callback)
+})

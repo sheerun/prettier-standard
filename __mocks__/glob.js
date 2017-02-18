@@ -35,6 +35,13 @@ module.exports = jest.fn(function mockGlob(globString, options, callback) {
       fredProject('no-change/2.js'),
       fredProject('no-change/3.js'),
     ])
+  } else if (globString.includes('ignored')) {
+    callback(null, [
+      fredProject('ignored1.js'),
+      fredProject('ignored2.js'),
+      fredProject('ignored3.js'),
+      fredProject('applied4.js'),
+    ])
   } else {
     throw new Error(
       `Your test globString: "${globString}"` +
