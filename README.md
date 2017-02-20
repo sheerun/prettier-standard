@@ -79,16 +79,18 @@ prettier-eslint --help
 Usage: prettier-eslint <globs>... [--option-1 option-1-value --option-2]
 
 Options:
-  -h, --help      Show help                                            [boolean]
-  --version       Show version number                                  [boolean]
-  --write         Edit the file in-place (beware!)              [default: false]
-  --stdin         Read input via stdin                          [default: false]
-  --eslintPath    The path to the eslint module to use
-    [default: "<your_project>/node_modules/eslint"]
-  --prettierPath  The path to the prettier module to use
-  [default: "<your_project>/node_modules/prettier"]
-  --log           Show logs                                     [default: false]
-  --sillyLogs     Show silly amount of logs (good for debugging)[default: false]
+  -h, --help       Show help                                           [boolean]
+  --version        Show version number                                 [boolean]
+  --write          Edit the file in-place (beware!)   [boolean] [default: false]
+  --stdin          Read input via stdin               [boolean] [default: false]
+  --eslintPath     The path to the eslint module to use
+    [default: "/Users/kdodds/Developer/prettier-eslint-cli/node_modules/eslint"]
+  --prettierPath   The path to the prettier module to use
+  --ignore         pattern(s) you wish to ignore (can be used multiple times and
+                   includes **/node_modules/** automatically)
+  --log-level, -l  The log level to use
+        [choices: "silent", "error", "warn", "info", "debug", "trace"] [default:
+                                                                         "warn"]
 ```
 
 #### <globs>
@@ -130,14 +132,11 @@ Forwarded as the `eslintPath` option to `prettier-eslint`
 
 Forwarded as the `prettierPath` option to `prettier-eslint`
 
-#### --log
+#### --log-level
 
-If `prettier-eslint` encounters an error formatting a file, it logs an error to the console.
-`prettier-eslint-cli` disables this behavior by default. You can turn it on with `--log`.
+Forwarded as `logLevel` option to `prettier-eslint`
 
-#### --silly-logs
-
-This will be forwarded onto `prettier-eslint` as (`sillyLogs`) and is useful for debugging.
+> Note: You can also set the `LOG_LEVEL` environment variable to control logging in `prettier-eslint`
 
 ## Related
 

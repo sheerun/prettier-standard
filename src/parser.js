@@ -22,16 +22,19 @@ const parser = yargs
     },
     prettierPath: {describe: 'The path to the prettier module to use'},
     ignore: {
-      describe: (
-        oneLine`
+      describe: oneLine`
           pattern(s) you wish to ignore
           (can be used multiple times
           and includes **/node_modules/** automatically)
-        `
-      ),
+        `,
       coerce: arrify,
     },
-    log: {default: false, describe: 'Show logs', type: 'boolean'},
+    'log-level': {
+      describe: 'The log level to use',
+      choices: ['silent', 'error', 'warn', 'info', 'debug', 'trace'],
+      alias: 'l',
+      default: 'warn',
+    },
     // TODO: if we allow people to to specify a config path,
     // we need to read that somehow. These can come invarious
     // formats and we'd have to work out `extends` somehow as well.
@@ -45,12 +48,7 @@ const parser = yargs
     // so we'll have to be careful how we do this (if we do it at all).
     // prettierOptions: {
     //   describe: 'Path to the prettier config to use',
-    // },
-    sillyLogs: {
-      default: false,
-      describe: 'Show silly amount of logs (good for debugging)',
-      type: 'boolean',
-    },
+    // },,
   })
 
 export default parser

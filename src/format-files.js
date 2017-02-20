@@ -16,8 +16,7 @@ export default formatFilesFromArgv
 async function formatFilesFromArgv(
   {
     _: fileGlobs,
-    log: enableLog,
-    sillyLogs,
+    logLevel,
     stdin,
     write,
     eslintPath,
@@ -25,12 +24,7 @@ async function formatFilesFromArgv(
     ignore: ignoreGlobs = [],
   },
 ) {
-  const prettierESLintOptions = {
-    disableLog: !enableLog,
-    sillyLogs,
-    eslintPath,
-    prettierPath,
-  }
+  const prettierESLintOptions = {logLevel, eslintPath, prettierPath}
   const cliOptions = {write}
   if (stdin) {
     return formatStdin(prettierESLintOptions)
@@ -55,6 +49,7 @@ async function formatStdin(prettierESLintOptions) {
       'There was a problem trying to format the stdin text',
       error.stack,
     )
+    process.exitCode = 1
     return Promise.resolve(stdinValue)
   }
 }
@@ -98,6 +93,7 @@ async function formatFilesFromGlobs(
         'There was an unhandled error while formatting the files',
         error.stack,
       )
+      process.exitCode = 1
       resolve({error, successes, failures})
     }
 
@@ -112,6 +108,7 @@ async function formatFilesFromGlobs(
         )
       }
       if (failures.length) {
+        process.exitCode = 1
         console.log(
           messages.failure({
             failure: chalk.red('failure'),

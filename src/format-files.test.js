@@ -101,9 +101,9 @@ test('fails gracefully if something odd happens', async () => {
   expect(console.error).toHaveBeenCalledWith(label, notice, errorStack)
 })
 
-test('forwards sillyLogs onto prettier-eslint', async () => {
-  await formatFiles({_: ['src/**/1*.js'], sillyLogs: true})
-  const options = expect.objectContaining({sillyLogs: true})
+test('forwards logLevel onto prettier-eslint', async () => {
+  await formatFiles({_: ['src/**/1*.js'], logLevel: 'debug'})
+  const options = expect.objectContaining({logLevel: 'debug'})
   expect(formatMock).toHaveBeenCalledWith(options)
 })
 
