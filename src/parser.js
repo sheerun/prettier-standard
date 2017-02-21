@@ -19,8 +19,12 @@ const parser = yargs
     eslintPath: {
       default: getPathInHostNodeModules('eslint'),
       describe: 'The path to the eslint module to use',
+      coerce: coercePath,
     },
-    prettierPath: {describe: 'The path to the prettier module to use'},
+    prettierPath: {
+      describe: 'The path to the prettier module to use',
+      coerce: coercePath,
+    },
     ignore: {
       describe: oneLine`
           pattern(s) you wish to ignore
@@ -60,4 +64,8 @@ function getPathInHostNodeModules(module) {
   } else {
     return path.relative(__dirname, `../node_modules/${module}`)
   }
+}
+
+function coercePath(input) {
+  return path.isAbsolute(input) ? input : path.join(process.cwd(), input)
 }
