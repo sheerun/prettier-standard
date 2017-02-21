@@ -5,4 +5,12 @@ const writeFile = jest.fn((filePath, contents, callback) => {
   callback(null)
 })
 
-module.exports = {readFile, writeFile}
+const readFileSync = jest.fn(filePath => {
+  if (filePath.indexOf('eslintignore')) {
+    return '*ignored*\n**/ignored/**\n'
+  } else {
+    throw new Error('readFileSync mock does nto yet handle ', filePath)
+  }
+})
+
+module.exports = {readFile, writeFile, readFileSync}

@@ -83,9 +83,13 @@ Options:
   --version        Show version number                                 [boolean]
   --write          Edit the file in-place (beware!)   [boolean] [default: false]
   --stdin          Read input via stdin               [boolean] [default: false]
+  --eslint-ignore  Only format matching files even if they are not ignored by
+                   .eslintignore. (can use --no-eslint-ignore to disable this)
+                                                       [boolean] [default: true]
   --eslintPath     The path to the eslint module to use
-    [default: "/Users/kdodds/Developer/prettier-eslint-cli/node_modules/eslint"]
+    [default: "<path-to-root>/node_modules/eslint"]
   --prettierPath   The path to the prettier module to use
+  [default: "<path-to-root>/node_modules/prettier"]
   --ignore         pattern(s) you wish to ignore (can be used multiple times and
                    includes **/node_modules/** automatically)
   --log-level, -l  The log level to use
@@ -135,6 +139,12 @@ Forwarded as the `prettierPath` option to `prettier-eslint`
 #### --log-level
 
 Forwarded as `logLevel` option to `prettier-eslint`
+
+#### --no-eslint-ignore
+
+Disables application of `.eslintignore` to the files resolved from the glob. By
+default, `prettier-eslint-cli` will exclude files if they are matched by a
+`.eslintignore`. Add this flag to disable this behavior.
 
 > Note: You can also set the `LOG_LEVEL` environment variable to control logging in `prettier-eslint`
 

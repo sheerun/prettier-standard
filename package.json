@@ -26,6 +26,8 @@
     "find-up": "^2.1.0",
     "get-stdin": "^5.0.1",
     "glob": "^7.1.1",
+    "ignore": "^3.2.4",
+    "lodash.memoize": "^4.1.2",
     "messageformat": "^1.0.2",
     "prettier-eslint": "^4.0.4",
     "rxjs": "^5.1.1",

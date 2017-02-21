@@ -27,7 +27,7 @@ test('help outputs usage information and flags', async () => {
   expect(stdout).toContain('Options:\n')
   // just a sanity check.
   // If it's ever longer than 2000 then we've probably got a problem...
-  if (stdout.length > 1600) {
+  if (stdout.length > 2000) {
     console.error(stdout)
     throw new Error(
       'We probably have a problem. The --help output is probably too long...',
@@ -38,7 +38,9 @@ test('help outputs usage information and flags', async () => {
 test('formats files and outputs to stdout', async () => {
   // can't just do the testOutput function here because
   // the output is in an undeterministic order
-  const stdout = await runPrettierESLintCLI('cli-test/fixtures/stdout*.js')
+  const stdout = await runPrettierESLintCLI(
+    'cli-test/fixtures/stdout*.js --no-eslint-ignore',
+  )
   expect(stdout).toContain(
     stripIndent(
       `
@@ -71,7 +73,7 @@ test('accepts stdin of code', async () => {
   expect(stdout).toEqual('console.log(window.baz, typeof [])\n\n')
 })
 
-const writeCommand = 'cli-test/fixtures/example*.js --write'
+const writeCommand = 'cli-test/fixtures/example*.js --write --no-eslint-ignore'
 
 test(`prettier-eslint ${writeCommand}`, async () => {
   // because we're using --write,

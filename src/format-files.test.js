@@ -1,5 +1,6 @@
 /* eslint no-console:0 */
 import fsMock from 'fs'
+import findUpMock from 'find-up'
 import formatMock from 'prettier-eslint'
 import globMock from 'glob'
 import mockGetStdin from 'get-stdin'
@@ -126,4 +127,49 @@ test('allows you to specify an ignore glob', async () => {
   })
   const callback = expect.any(Function)
   expect(globMock).toHaveBeenCalledWith(fileGlob, globOptions, callback)
+})
+
+test('wont modify a file if it is eslint ignored', async () => {
+  await formatFiles({_: ['src/**/ignored*.js'], write: true})
+  expect(fsMock.readFile).toHaveBeenCalledTimes(1)
+  expect(fsMock.writeFile).toHaveBeenCalledTimes(1)
+  expect(fsMock.readFile).toHaveBeenCalledWith(
+    expect.stringMatching(/applied/),
+    'utf8',
+    expect.any(Function),
+  )
+  expect(fsMock.writeFile).toHaveBeenCalledWith(
+    expect.stringMatching(/applied/),
+    expect.stringMatching(/MOCK_OUTPUT.*?applied/),
+    expect.any(Function),
+  )
+  const ignoredOutput = expect.stringMatching(/success.*1.*file/)
+  expect(console.log).toHaveBeenCalledWith(ignoredOutput)
+})
+
+test('will modify a file if it is eslint ignored with noIgnore', async () => {
+  await formatFiles({
+    _: ['src/**/ignored*.js'],
+    write: true,
+    eslintIgnore: false,
+  })
+  expect(fsMock.readFile).toHaveBeenCalledTimes(4)
+  expect(fsMock.writeFile).toHaveBeenCalledTimes(4)
+  const ignoredOutput = expect.stringMatching(/success.*4.*files/)
+  expect(console.log).toHaveBeenCalledWith(ignoredOutput)
+})
+
+test('will not blow up if an .eslintignore cannot be found', async () => {
+  const originalSync = findUpMock.sync
+  findUpMock.sync = () => null
+  try {
+    await formatFiles({
+      _: ['src/**/no-eslint-ignore/*.js'],
+      write: true,
+    })
+  } catch (error) {
+    throw error
+  } finally {
+    findUpMock.sync = originalSync
+  }
 })

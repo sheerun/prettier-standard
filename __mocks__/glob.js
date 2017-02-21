@@ -42,6 +42,12 @@ module.exports = jest.fn(function mockGlob(globString, options, callback) {
       fredProject('ignored3.js'),
       fredProject('applied4.js'),
     ])
+  } else if (globString.includes('no-eslint-ignore')) {
+    callback(null, [
+      barneyProject('no-ignore/1.js'),
+      barneyProject('no-ignore/2.js'),
+      barneyProject('no-ignore/3.js'),
+    ])
   } else {
     throw new Error(
       `Your test globString: "${globString}"` +
@@ -52,4 +58,8 @@ module.exports = jest.fn(function mockGlob(globString, options, callback) {
 
 function fredProject(path) {
   return `/Users/fredFlintstone/Developer/top-secret/footless-carriage/${path}`
+}
+
+function barneyProject(path) {
+  return `/Users/barneyRubble/Developer/top-secret/tesla/${path}`
 }

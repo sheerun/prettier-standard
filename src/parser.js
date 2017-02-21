@@ -16,6 +16,15 @@ const parser = yargs
       type: 'boolean',
     },
     stdin: {default: false, describe: 'Read input via stdin', type: 'boolean'},
+    'eslint-ignore': {
+      default: true,
+      type: 'boolean',
+      describe: oneLine`
+        Only format matching files even if
+        they are not ignored by .eslintignore.
+        (can use --no-eslint-ignore to disable this)
+      `,
+    },
     eslintPath: {
       default: getPathInHostNodeModules('eslint'),
       describe: 'The path to the eslint module to use',
@@ -23,6 +32,7 @@ const parser = yargs
     },
     prettierPath: {
       describe: 'The path to the prettier module to use',
+      default: getPathInHostNodeModules('prettier'),
       coerce: coercePath,
     },
     ignore: {
@@ -54,6 +64,7 @@ const parser = yargs
     //   describe: 'Path to the prettier config to use',
     // },,
   })
+  .strict()
 
 export default parser
 

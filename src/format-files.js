@@ -1,15 +1,24 @@
 /* eslint no-console:0 */
+import path from 'path'
 import fs from 'fs'
 import glob from 'glob'
 import Rx from 'rxjs/Rx'
 import format from 'prettier-eslint'
 import chalk from 'chalk'
 import getStdin from 'get-stdin'
+import nodeIgnore from 'ignore'
+import findUp from 'find-up'
+import memoize from 'lodash.memoize'
 import * as messages from './messages'
 
+const LINE_SEPERATOR_REGEX = /(\r|\n|\r\n)/
 const rxGlob = Rx.Observable.bindNodeCallback(glob)
 const rxReadFile = Rx.Observable.bindNodeCallback(fs.readFile)
 const rxWriteFile = Rx.Observable.bindNodeCallback(fs.writeFile)
+const findUpSyncMemoized = memoize(findUpSync, function resolver(...args) {
+  return args.join('::')
+})
+const getIsIgnoredMemoized = memoize(getIsIgnored)
 
 export default formatFilesFromArgv
 
@@ -22,6 +31,7 @@ async function formatFilesFromArgv(
     eslintPath,
     prettierPath,
     ignore: ignoreGlobs = [],
+    eslintIgnore: applyEslintIgnore = true,
   },
 ) {
   const prettierESLintOptions = {logLevel, eslintPath, prettierPath}
@@ -34,6 +44,7 @@ async function formatFilesFromArgv(
       [...ignoreGlobs], // make a copy to avoid manipulation
       cliOptions,
       prettierESLintOptions,
+      applyEslintIgnore,
     )
   }
 }
@@ -59,6 +70,7 @@ async function formatFilesFromGlobs(
   ignoreGlobs,
   cliOptions,
   prettierESLintOptions,
+  applyEslintIgnore,
 ) {
   const concurrentGlobs = 3
   const concurrentFormats = 10
@@ -68,7 +80,11 @@ async function formatFilesFromGlobs(
     const unchanged = []
     Rx.Observable
       .from(fileGlobs)
-      .mergeMap(getFilesFromGlob.bind(null, ignoreGlobs), null, concurrentGlobs)
+      .mergeMap(
+        getFilesFromGlob.bind(null, ignoreGlobs, applyEslintIgnore),
+        null,
+        concurrentGlobs,
+      )
       .concatAll()
       .distinct()
       .mergeMap(filePathToFormatted, null, concurrentFormats)
@@ -131,14 +147,20 @@ async function formatFilesFromGlobs(
   })
 }
 
-function getFilesFromGlob(ignoreGlobs, fileGlob) {
+function getFilesFromGlob(ignoreGlobs, applyEslintIgnore, fileGlob) {
   const globOptions = {ignore: ignoreGlobs}
   if (!fileGlob.includes('node_modules')) {
     // basically, we're going to protect you from doing something
     // not smart unless you explicitly include it in your glob
     globOptions.ignore.push('**/node_modules/**')
   }
-  return rxGlob(fileGlob, globOptions)
+  return rxGlob(fileGlob, globOptions).map(filePaths => {
+    return filePaths.filter(filePath => {
+      return applyEslintIgnore ?
+        !isFilePathMatchedByEslintignore(filePath) :
+        true
+    })
+  })
 }
 
 function formatFile(filePath, prettierESLintOptions, cliOptions) {
@@ -169,6 +191,40 @@ function formatFile(filePath, prettierESLintOptions, cliOptions) {
   })
 }
 
+function getNearestEslintignorePath(filePath) {
+  const {dir} = path.parse(filePath)
+  return findUpSyncMemoized('.eslintignore', dir)
+}
+
+function isFilePathMatchedByEslintignore(filePath) {
+  const eslintignorePath = getNearestEslintignorePath(filePath)
+  if (!eslintignorePath) {
+    return false
+  }
+
+  const eslintignoreDir = path.parse(eslintignorePath).dir
+  const filePathRelativeToEslintignoreDir = path.relative(
+    eslintignoreDir,
+    filePath,
+  )
+  const isIgnored = getIsIgnoredMemoized(eslintignorePath)
+  return isIgnored(filePathRelativeToEslintignoreDir)
+}
+
 function logError(...args) {
   console.error('prettier-eslint-cli error:', ...args)
+}
+
+function findUpSync(filename, cwd) {
+  return findUp.sync('.eslintignore', {cwd})
+}
+
+function getIsIgnored(filename) {
+  const ignoreLines = fs
+    .readFileSync(filename, 'utf8')
+    .split(LINE_SEPERATOR_REGEX)
+    .filter(line => Boolean(line.trim()))
+  const instance = nodeIgnore()
+  instance.add(ignoreLines)
+  return instance.ignores.bind(instance)
 }
