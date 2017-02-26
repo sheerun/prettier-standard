@@ -1,3 +1,5 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
 exports[`file contents: prettier-eslint cli-test/fixtures/example*.js --write --no-eslint-ignore 1`] = `
 Object {
   "example1Result": "const {example1} = baz.bar
