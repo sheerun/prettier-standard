@@ -63,7 +63,7 @@ async function formatStdin(prettierESLintOptions) {
   } catch (error) {
     logger.error(
       'There was a problem trying to format the stdin text',
-      error.stack,
+      `\n${indentString(error.stack, 4)}`,
     )
     process.exitCode = 1
     return Promise.resolve(stdinValue)
@@ -112,7 +112,7 @@ async function formatFilesFromGlobs(
     function onError(error) {
       logger.error(
         'There was an unhandled error while formatting the files',
-        error.stack,
+        `\n${indentString(error.stack, 4)}`,
       )
       process.exitCode = 1
       resolve({error, successes, failures})
@@ -194,7 +194,7 @@ function formatFile(filePath, prettierESLintOptions, cliOptions) {
   return format$.catch(error => {
     logger.error(
       `There was an error formatting "${fileInfo.filePath}":`,
-      indentString(error.stack, 4),
+      `\n${indentString(error.stack, 4)}`,
     )
     return Rx.Observable.of(Object.assign(fileInfo, {error}))
   })
