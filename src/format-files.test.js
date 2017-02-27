@@ -102,6 +102,26 @@ test('fails gracefully if something odd happens', async () => {
   expect(console.error).toHaveBeenCalledWith(label, notice, errorStack)
 })
 
+test('logs errors to the console if something goes wrong', async () => {
+  const globs = ['eslint-config-error/*.js', 'src/**/2*.js']
+  await formatFiles({_: globs, write: true})
+  expect(fsMock.writeFile).toHaveBeenCalledTimes(4)
+  expect(console.log).toHaveBeenCalledTimes(2)
+  const successOutput = expect.stringMatching(/success.*4.*files/)
+  const failureOutput = expect.stringMatching(/failure.*2.*files/)
+  expect(console.log).toHaveBeenCalledWith(successOutput)
+  expect(console.log).toHaveBeenCalledWith(failureOutput)
+  const errorPrefix = expect.stringMatching(/prettier-eslint-cli.*ERROR/)
+  const cliError = expect.stringContaining('eslint-config-error')
+  const errorOutput = expect.stringContaining('Some weird eslint config error')
+  expect(console.error).toHaveBeenCalledTimes(2)
+  expect(console.error).toHaveBeenCalledWith(
+    errorPrefix,
+    cliError,
+    errorOutput,
+  )
+})
+
 test('forwards logLevel onto prettier-eslint', async () => {
   await formatFiles({_: ['src/**/1*.js'], logLevel: 'debug'})
   const options = expect.objectContaining({logLevel: 'debug'})

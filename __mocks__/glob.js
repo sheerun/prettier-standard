@@ -48,6 +48,11 @@ module.exports = jest.fn(function mockGlob(globString, options, callback) {
       barneyProject('no-ignore/2.js'),
       barneyProject('no-ignore/3.js'),
     ])
+  } else if (globString.includes('eslint-config-error')) {
+    callback(null, [
+      fredProject('eslint-config-error/1.js'),
+      fredProject('eslint-config-error/2.js'),
+    ])
   } else {
     throw new Error(
       `Your test globString: "${globString}"` +

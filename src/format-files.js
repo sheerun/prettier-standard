@@ -9,6 +9,8 @@ import getStdin from 'get-stdin'
 import nodeIgnore from 'ignore'
 import findUp from 'find-up'
 import memoize from 'lodash.memoize'
+import indentString from 'indent-string'
+import getLogger from 'loglevel-colored-level-prefix'
 import * as messages from './messages'
 
 const LINE_SEPERATOR_REGEX = /(\r|\n|\r\n)/
@@ -20,12 +22,14 @@ const findUpSyncMemoized = memoize(findUpSync, function resolver(...args) {
 })
 const getIsIgnoredMemoized = memoize(getIsIgnored)
 
+const logger = getLogger({prefix: 'prettier-eslint-cli'})
+
 export default formatFilesFromArgv
 
 async function formatFilesFromArgv(
   {
     _: fileGlobs,
-    logLevel,
+    logLevel = logger.getLevel(),
     stdin,
     write,
     eslintPath,
@@ -34,6 +38,7 @@ async function formatFilesFromArgv(
     eslintIgnore: applyEslintIgnore = true,
   },
 ) {
+  logger.setLevel(logLevel)
   const prettierESLintOptions = {logLevel, eslintPath, prettierPath}
   const cliOptions = {write}
   if (stdin) {
@@ -56,7 +61,7 @@ async function formatStdin(prettierESLintOptions) {
     console.log(formatted)
     return Promise.resolve(formatted)
   } catch (error) {
-    logError(
+    logger.error(
       'There was a problem trying to format the stdin text',
       error.stack,
     )
@@ -105,7 +110,7 @@ async function formatFilesFromGlobs(
     }
 
     function onError(error) {
-      logError(
+      logger.error(
         'There was an unhandled error while formatting the files',
         error.stack,
       )
@@ -187,6 +192,10 @@ function formatFile(filePath, prettierESLintOptions, cliOptions) {
   }
 
   return format$.catch(error => {
+    logger.error(
+      `There was an error formatting "${fileInfo.filePath}":`,
+      indentString(error.stack, 4),
+    )
     return Rx.Observable.of(Object.assign(fileInfo, {error}))
   })
 }
@@ -209,10 +218,6 @@ function isFilePathMatchedByEslintignore(filePath) {
   )
   const isIgnored = getIsIgnoredMemoized(eslintignorePath)
   return isIgnored(filePathRelativeToEslintignoreDir)
-}
-
-function logError(...args) {
-  console.error('prettier-eslint-cli error:', ...args)
 }
 
 function findUpSync(filename, cwd) {
