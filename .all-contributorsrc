@@ -33,34 +33,7 @@
       "profile": "https://github.com/aharris88",
       "contributions": [
         "code",
-        "doc",
-        "review"
       ]
-    },
-    {
-      "login": "edm00se",
-      "name": "Eric McCormick",
-      "avatar_url": "https://avatars.githubusercontent.com/u/622118?v=3",
-      "profile": "https://ericmccormick.io",
-      "contributions": [
-        "review"
-      ]
-    },
-    {
-      "login": "joelseq",
-      "name": "Joel Sequeira",
-      "avatar_url": "https://avatars.githubusercontent.com/u/12389411?v=3",
-      "profile": "https://github.com/joelseq",
-      "contributions": [
-        "doc"
-      ]
-    },
-    {
-      "login": "DirtyF",
-      "name": "Frank Taillandier",
-      "avatar_url": "https://avatars.githubusercontent.com/u/103008?v=3",
-      "profile": "https://frank.taillandier.me",
-      "contributions": []
     }
   ]
 }
