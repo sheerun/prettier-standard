@@ -1,3 +1,7 @@
+# 1.0.4
+
+- Freeze the API and make CLI prettier
+
 # 1.0.3
 
 - No changes, just fixed release so binaries are included
