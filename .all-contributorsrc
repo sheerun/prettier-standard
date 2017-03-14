@@ -1,0 +1,66 @@
+{
+  "projectName": "prettier-eslint-cli",
+  "projectOwner": "prettier",
+  "files": [
+    "README.md"
+  ],
+  "imageSize": 100,
+  "commit": false,
+  "contributors": [
+    {
+      "login": "sheerun",
+      "name": "Adam Stankiewicz",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/292365?v=3",
+      "profile": "http://sheerun.net",
+      "contributions": [
+        "code",
+        "infra"
+      ]
+    },
+    {
+      "login": "kentcdodds",
+      "name": "Kent C. Dodds",
+      "avatar_url": "https://avatars.githubusercontent.com/u/1500684?v=3",
+      "profile": "https://kentcdodds.com",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "aharris88",
+      "name": "Adam Harris",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/3266363?v=3",
+      "profile": "https://github.com/aharris88",
+      "contributions": [
+        "code",
+        "doc",
+        "review"
+      ]
+    },
+    {
+      "login": "edm00se",
+      "name": "Eric McCormick",
+      "avatar_url": "https://avatars.githubusercontent.com/u/622118?v=3",
+      "profile": "https://ericmccormick.io",
+      "contributions": [
+        "review"
+      ]
+    },
+    {
+      "login": "joelseq",
+      "name": "Joel Sequeira",
+      "avatar_url": "https://avatars.githubusercontent.com/u/12389411?v=3",
+      "profile": "https://github.com/joelseq",
+      "contributions": [
+        "doc"
+      ]
+    },
+    {
+      "login": "DirtyF",
+      "name": "Frank Taillandier",
+      "avatar_url": "https://avatars.githubusercontent.com/u/103008?v=3",
+      "profile": "https://frank.taillandier.me",
+      "contributions": []
+    }
+  ]
+}
