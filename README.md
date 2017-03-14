@@ -49,15 +49,8 @@ Options:
   -h, --help       Show help                                           [boolean]
   --version        Show version number                                 [boolean]
   --stdin          Read input via stdin               [boolean] [default: false]
-  --eslint-ignore  Only format matching files even if they are not ignored by
-                   .eslintignore. (can use --no-eslint-ignore to disable this)
-                                                       [boolean] [default: true]
-  [default: "<path-to-root>/node_modules/prettier"]
-  --ignore         pattern(s) you wish to ignore (can be used multiple times and
-                   includes **/node_modules/** automatically)
   --log-level, -l  The log level to use
-        [choices: "silent", "error", "warn", "info", "debug", "trace"] [default:
-                                                                         "warn"]
+        [choices: "silent", "error", "warn", "info", "debug", "trace"]
 ```
 
 #### <globs>
