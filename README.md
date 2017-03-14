@@ -1,4 +1,4 @@
-# (✿◠‿◠) prettier-standard 
+# (✿◠‿◠) prettier-standard [![Build Status][build-badge]][build] [![Dependencies][dependencyci-badge]][dependencyci] [![version][version-badge]][package]
 
 [prettier](https://github.com/prettier/prettier) and [standard](https://github.com/feross/standard) brought together
 
