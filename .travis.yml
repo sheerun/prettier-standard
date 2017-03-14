@@ -6,9 +6,10 @@ cache:
 notifications:
   email: false
 node_js:
+  - '4'
   - '6'
 script:
-  - yarn start validate
+  - npm test
 branches:
   only:
     - master
