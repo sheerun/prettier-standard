@@ -1,6 +1,6 @@
 # (✿◠‿◠) prettier-standard 
 
-[Prettier](https://github.com/prettier/prettier) without semicolons!
+[prettier](https://github.com/prettier/prettier) and [standard](https://github.com/feross/standard) brought together
 
 ## Installation
 
