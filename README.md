@@ -1,4 +1,4 @@
-# (✿◠‿◠) prettier-standard [![Build Status][build-badge]][build] [![version][version-badge]][package]
+# (✿◠‿◠) prettier-standard [![Build Status][build-badge]][build] [![version][version-badge]][package] [![Modern Node](https://img.shields.io/badge/modern-node-9BB48F.svg)](https://github.com/sheerun/modern-node)
 
 [prettier](https://github.com/prettier/prettier) and [standard](https://github.com/feross/standard) brought together
 
