@@ -36,10 +36,7 @@ Typically you'll use this in your [npm scripts][npm scripts] (or [package script
 }
 ```
 
-This will format all `.js` files in the `src` directory. The argument you pass to the CLI
-is a [glob][glob] and you can pass as many as you wish. You can also pass options.
-
-NOTE: Unlike [prettier](https://github.com/prettier/prettier) this package doesn't simplifies workflow by making `--write` flag a default, and allowing for passing code to stdin without additional `--stdin` flag. Now **that's** prettier!
+NOTE: Unlike [prettier](https://github.com/prettier/prettier) this package simplifies your workflow by making `--write` flag a default, and allowing for passing code to stdin without additional `--stdin` flag. Now **that's** prettier!
 
 ### Vim
 
@@ -81,26 +78,6 @@ MIT
 [dependencyci]: https://dependencyci.com/github/sheerun/prettier-standard
 [version-badge]: https://img.shields.io/npm/v/prettier-standard.svg?style=flat-square
 [package]: https://www.npmjs.com/package/prettier-standard
-[downloads-badge]: https://img.shields.io/npm/dm/prettier-standard.svg?style=flat-square
-[npm-stat]: http://npm-stat.com/charts.html?package=prettier-standard&from=2016-04-01
-[license-badge]: https://img.shields.io/npm/l/prettier-standard.svg?style=flat-square
-[license]: https://github.com/sheerun/prettier-standard/blob/master/other/LICENSE
-[prs-badge]: https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square
-[prs]: http://makeapullrequest.com
-[donate-badge]: https://img.shields.io/badge/$-support-green.svg?style=flat-square
-[donate]: http://kcd.im/donate
-[coc-badge]: https://img.shields.io/badge/code%20of-conduct-ff69b4.svg?style=flat-square
-[coc]: https://github.com/sheerun/prettier-standard/blob/master/other/CODE_OF_CONDUCT.md
-[roadmap-badge]: https://img.shields.io/badge/%F0%9F%93%94-roadmap-CD9523.svg?style=flat-square
-[roadmap]: https://github.com/sheerun/prettier-standard/blob/master/other/ROADMAP.md
-[examples-badge]: https://img.shields.io/badge/%F0%9F%92%A1-examples-8C8E93.svg?style=flat-square
-[examples]: https://github.com/sheerun/prettier-standard/blob/master/other/EXAMPLES.md
-[github-watch-badge]: https://img.shields.io/github/watchers/sheerun/prettier-standard.svg?style=social
-[github-watch]: https://github.com/sheerun/prettier-standard/watchers
-[github-star-badge]: https://img.shields.io/github/stars/sheerun/prettier-standard.svg?style=social
-[github-star]: https://github.com/sheerun/prettier-standard/stargazers
-[twitter]: https://twitter.com/intent/tweet?text=Check%20out%20prettier-standard!%20https://github.com/sheerun/prettier-standard%20%F0%9F%91%8D
-[twitter-badge]: https://img.shields.io/twitter/url/https/github.com/sheerun/prettier-standard.svg?style=social
 [emojis]: https://github.com/kentcdodds/all-contributors#emoji-key
 [all-contributors]: https://github.com/kentcdodds/all-contributors
 [npm scripts]: https://docs.npmjs.com/misc/scripts
