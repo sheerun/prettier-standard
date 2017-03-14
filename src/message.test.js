@@ -1,5 +1,5 @@
 /*eslint import/namespace: [2, { allowComputed: true }]*/
-import * as messages from './messages';
+import * as messages from './messages'
 
 const tests = {
   success: [
@@ -32,12 +32,12 @@ const tests = {
       output: '3String files were unchanged',
     },
   ],
-};
+}
 
 Object.keys(tests).forEach(messageKey => {
   tests[messageKey].forEach(({input, output}) => {
     test(`${messageKey} ${JSON.stringify(input)}`, () => {
-      expect(messages[messageKey](input)).toEqual(output);
-    });
-  });
-});
+      expect(messages[messageKey](input)).toEqual(output)
+    })
+  })
+})

@@ -1,30 +1,30 @@
 /* eslint no-console:0 */
-import path from 'path';
-import fs from 'fs';
-import glob from 'glob';
-import Rx from 'rxjs/Rx';
-import format from 'prettier-eslint';
-import chalk from 'chalk';
-import getStdin from 'get-stdin';
-import nodeIgnore from 'ignore';
-import findUp from 'find-up';
-import memoize from 'lodash.memoize';
-import indentString from 'indent-string';
-import getLogger from 'loglevel-colored-level-prefix';
-import * as messages from './messages';
+import path from 'path'
+import fs from 'fs'
+import glob from 'glob'
+import Rx from 'rxjs/Rx'
+import format from 'prettier-eslint'
+import chalk from 'chalk'
+import getStdin from 'get-stdin'
+import nodeIgnore from 'ignore'
+import findUp from 'find-up'
+import memoize from 'lodash.memoize'
+import indentString from 'indent-string'
+import getLogger from 'loglevel-colored-level-prefix'
+import * as messages from './messages'
 
-const LINE_SEPERATOR_REGEX = /(\r|\n|\r\n)/;
-const rxGlob = Rx.Observable.bindNodeCallback(glob);
-const rxReadFile = Rx.Observable.bindNodeCallback(fs.readFile);
-const rxWriteFile = Rx.Observable.bindNodeCallback(fs.writeFile);
+const LINE_SEPERATOR_REGEX = /(\r|\n|\r\n)/
+const rxGlob = Rx.Observable.bindNodeCallback(glob)
+const rxReadFile = Rx.Observable.bindNodeCallback(fs.readFile)
+const rxWriteFile = Rx.Observable.bindNodeCallback(fs.writeFile)
 const findUpSyncMemoized = memoize(findUpSync, function resolver(...args) {
-  return args.join('::');
-});
-const getIsIgnoredMemoized = memoize(getIsIgnored);
+  return args.join('::')
+})
+const getIsIgnoredMemoized = memoize(getIsIgnored)
 
-const logger = getLogger({prefix: 'prettier-standard'});
+const logger = getLogger({prefix: 'prettier-standard'})
 
-export default formatFilesFromArgv;
+export default formatFilesFromArgv
 
 async function formatFilesFromArgv(
   {
@@ -37,50 +37,57 @@ async function formatFilesFromArgv(
     eslintIgnore: applyEslintIgnore = true,
   },
 ) {
-  logger.setLevel(logLevel);
+  logger.setLevel(logLevel)
   const prettierESLintOptions = {
     logLevel,
     eslintPath,
     prettierPath,
-    prettierOptions: {
-      singleQuote: true,
-    },
     eslintConfig: {
       parserOptions: {
-        ecmaVersion: 7,
+        ecmaVersion: 8,
+        ecmaFeatures: {
+          experimentalObjectRestSpread: true,
+          jsx: true,
+        },
+        sourceType: 'module',
       },
       rules: {
         semi: ['error', 'never'],
+        quotes: [
+          'error',
+          'single',
+          {avoidEscape: true, allowTemplateLiterals: true},
+        ],
       },
     },
-  };
+  }
   if (stdin) {
-    return formatStdin(prettierESLintOptions);
+    return formatStdin(prettierESLintOptions)
   } else {
-    const cliOptions = {write: !stdin};
+    const cliOptions = {write: !stdin}
     return formatFilesFromGlobs(
       fileGlobs,
       [...ignoreGlobs], // make a copy to avoid manipulation
       cliOptions,
       prettierESLintOptions,
       applyEslintIgnore,
-    );
+    )
   }
 }
 
 async function formatStdin(prettierESLintOptions) {
-  const stdinValue = (await getStdin()).trim();
+  const stdinValue = (await getStdin()).trim()
   try {
-    const formatted = format({text: stdinValue, ...prettierESLintOptions});
-    console.log(formatted);
-    return Promise.resolve(formatted);
+    const formatted = format({text: stdinValue, ...prettierESLintOptions})
+    console.log(formatted)
+    return Promise.resolve(formatted)
   } catch (error) {
     logger.error(
       'There was a problem trying to format the stdin text',
       `\n${indentString(error.stack, 4)}`,
-    );
-    process.exitCode = 1;
-    return Promise.resolve(stdinValue);
+    )
+    process.exitCode = 1
+    return Promise.resolve(stdinValue)
   }
 }
 
@@ -91,12 +98,12 @@ async function formatFilesFromGlobs(
   prettierESLintOptions,
   applyEslintIgnore,
 ) {
-  const concurrentGlobs = 3;
-  const concurrentFormats = 10;
+  const concurrentGlobs = 3
+  const concurrentFormats = 10
   return new Promise(resolve => {
-    const successes = [];
-    const failures = [];
-    const unchanged = [];
+    const successes = []
+    const failures = []
+    const unchanged = []
     Rx.Observable
       .from(fileGlobs)
       .mergeMap(
@@ -107,19 +114,19 @@ async function formatFilesFromGlobs(
       .concatAll()
       .distinct()
       .mergeMap(filePathToFormatted, null, concurrentFormats)
-      .subscribe(onNext, onError, onComplete);
+      .subscribe(onNext, onError, onComplete)
 
     function filePathToFormatted(filePath) {
-      return formatFile(filePath, prettierESLintOptions, cliOptions);
+      return formatFile(filePath, prettierESLintOptions, cliOptions)
     }
 
     function onNext(info) {
       if (info.error) {
-        failures.push(info);
+        failures.push(info)
       } else if (info.unchanged) {
-        unchanged.push(info);
+        unchanged.push(info)
       } else {
-        successes.push(info);
+        successes.push(info)
       }
     }
 
@@ -127,9 +134,9 @@ async function formatFilesFromGlobs(
       logger.error(
         'There was an unhandled error while formatting the files',
         `\n${indentString(error.stack, 4)}`,
-      );
-      process.exitCode = 1;
-      resolve({error, successes, failures});
+      )
+      process.exitCode = 1
+      resolve({error, successes, failures})
     }
 
     function onComplete() {
@@ -140,17 +147,17 @@ async function formatFilesFromGlobs(
             count: successes.length,
             countString: chalk.bold(successes.length),
           }),
-        );
+        )
       }
       if (failures.length) {
-        process.exitCode = 1;
+        process.exitCode = 1
         console.log(
           messages.failure({
             failure: chalk.red('failure'),
             count: failures.length,
             countString: chalk.bold(failures.length),
           }),
-        );
+        )
       }
       if (unchanged.length) {
         console.log(
@@ -159,91 +166,91 @@ async function formatFilesFromGlobs(
             count: unchanged.length,
             countString: chalk.bold(unchanged.length),
           }),
-        );
+        )
       }
-      resolve({successes, failures});
+      resolve({successes, failures})
     }
-  });
+  })
 }
 
 function getFilesFromGlob(ignoreGlobs, applyEslintIgnore, fileGlob) {
-  const globOptions = {ignore: ignoreGlobs};
+  const globOptions = {ignore: ignoreGlobs}
   if (!fileGlob.includes('node_modules')) {
     // basically, we're going to protect you from doing something
     // not smart unless you explicitly include it in your glob
-    globOptions.ignore.push('**/node_modules/**');
+    globOptions.ignore.push('**/node_modules/**')
   }
   return rxGlob(fileGlob, globOptions).map(filePaths => {
     return filePaths.filter(filePath => {
       return applyEslintIgnore
         ? !isFilePathMatchedByEslintignore(filePath)
-        : true;
-    });
-  });
+        : true
+    })
+  })
 }
 
 function formatFile(filePath, prettierESLintOptions, cliOptions) {
-  const fileInfo = {filePath};
+  const fileInfo = {filePath}
   let format$ = rxReadFile(filePath, 'utf8').map(text => {
-    fileInfo.text = text;
-    fileInfo.formatted = format({text, filePath, ...prettierESLintOptions});
-    return fileInfo;
-  });
+    fileInfo.text = text
+    fileInfo.formatted = format({text, filePath, ...prettierESLintOptions})
+    return fileInfo
+  })
 
   if (cliOptions.write) {
     format$ = format$.mergeMap(info => {
       if (info.text === info.formatted) {
-        return Rx.Observable.of(Object.assign(fileInfo, {unchanged: true}));
+        return Rx.Observable.of(Object.assign(fileInfo, {unchanged: true}))
       } else {
-        return rxWriteFile(filePath, info.formatted).map(() => fileInfo);
+        return rxWriteFile(filePath, info.formatted).map(() => fileInfo)
       }
-    });
+    })
   } else {
     format$ = format$.map(info => {
-      console.log(info.formatted);
-      return info;
-    });
+      console.log(info.formatted)
+      return info
+    })
   }
 
   return format$.catch(error => {
     logger.error(
       `There was an error formatting "${fileInfo.filePath}":`,
       `\n${indentString(error.stack, 4)}`,
-    );
-    return Rx.Observable.of(Object.assign(fileInfo, {error}));
-  });
+    )
+    return Rx.Observable.of(Object.assign(fileInfo, {error}))
+  })
 }
 
 function getNearestEslintignorePath(filePath) {
-  const {dir} = path.parse(filePath);
-  return findUpSyncMemoized('.eslintignore', dir);
+  const {dir} = path.parse(filePath)
+  return findUpSyncMemoized('.eslintignore', dir)
 }
 
 function isFilePathMatchedByEslintignore(filePath) {
-  const eslintignorePath = getNearestEslintignorePath(filePath);
+  const eslintignorePath = getNearestEslintignorePath(filePath)
   if (!eslintignorePath) {
-    return false;
+    return false
   }
 
-  const eslintignoreDir = path.parse(eslintignorePath).dir;
+  const eslintignoreDir = path.parse(eslintignorePath).dir
   const filePathRelativeToEslintignoreDir = path.relative(
     eslintignoreDir,
     filePath,
-  );
-  const isIgnored = getIsIgnoredMemoized(eslintignorePath);
-  return isIgnored(filePathRelativeToEslintignoreDir);
+  )
+  const isIgnored = getIsIgnoredMemoized(eslintignorePath)
+  return isIgnored(filePathRelativeToEslintignoreDir)
 }
 
 function findUpSync(filename, cwd) {
-  return findUp.sync('.eslintignore', {cwd});
+  return findUp.sync('.eslintignore', {cwd})
 }
 
 function getIsIgnored(filename) {
   const ignoreLines = fs
     .readFileSync(filename, 'utf8')
     .split(LINE_SEPERATOR_REGEX)
-    .filter(line => Boolean(line.trim()));
-  const instance = nodeIgnore();
-  instance.add(ignoreLines);
-  return instance.ignores.bind(instance);
+    .filter(line => Boolean(line.trim()))
+  const instance = nodeIgnore()
+  instance.add(ignoreLines)
+  return instance.ignores.bind(instance)
 }
