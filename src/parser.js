@@ -1,8 +1,8 @@
-import path from 'path'
-import findUp from 'find-up'
-import yargs from 'yargs'
-import {oneLine} from 'common-tags'
-import arrify from 'arrify'
+import path from 'path';
+import findUp from 'find-up';
+import yargs from 'yargs';
+import {oneLine} from 'common-tags';
+import arrify from 'arrify';
 
 const parser = yargs
   .usage('Usage: $0 <globs>... [--option-1 option-1-value --option-2]')
@@ -64,19 +64,19 @@ const parser = yargs
     //   describe: 'Path to the prettier config to use',
     // },,
   })
-  .strict()
+  .strict();
 
-export default parser
+export default parser;
 
 function getPathInHostNodeModules(module) {
-  const modulePath = findUp.sync(`node_modules/${module}`)
+  const modulePath = findUp.sync(`node_modules/${module}`);
   if (modulePath) {
-    return modulePath
+    return modulePath;
   } else {
-    return path.relative(__dirname, `../node_modules/${module}`)
+    return path.relative(__dirname, `../node_modules/${module}`);
   }
 }
 
 function coercePath(input) {
-  return path.isAbsolute(input) ? input : path.join(process.cwd(), input)
+  return path.isAbsolute(input) ? input : path.join(process.cwd(), input);
 }
