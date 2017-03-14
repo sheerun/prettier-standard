@@ -8,9 +8,23 @@
 yarn add --dev prettier-standard
 ```
 
-> If you're using the [`npm`][npm] client: `npm install --save-dev prettier-standard`
+> If you're using the [`npm`][npm]: `npm install --save-dev prettier-standard`. You can also install globally with `npm i -g prettier-standard`
 
 ## Usage
+
+```
+Prettier and standard brought together!
+
+Usage
+  $ prettier-standard [<glob>...]
+
+Options
+  --log-level  Log level to use (default: warn)
+
+Examples
+  $ prettier-standard 'src/**/*.js'
+  $ echo "const {foo} = "bar";" | prettier-standard
+```
 
 Typically you'll use this in your [npm scripts][npm scripts] (or [package scripts][package scripts]):
 
@@ -25,12 +39,14 @@ Typically you'll use this in your [npm scripts][npm scripts] (or [package script
 This will format all `.js` files in the `src` directory. The argument you pass to the CLI
 is a [glob][glob] and you can pass as many as you wish. You can also pass options.
 
+NOTE: Unlike [prettier](https://github.com/prettier/prettier) this package doesn't simplifies workflow by making `--write` flag a default, and allowing for passing code to stdin without additional `--stdin` flag. Now **that's** prettier!
+
 ### Vim
 
 Vim users can add the following to their .vimrc:
 
 ```
-autocmd FileType javascript set formatprg=prettier-standard\ --stdin
+autocmd FileType javascript set formatprg=prettier-standard
 ```
 
 This makes prettier-standard power the gq command for automatic formatting without any plugins. You can also add the following to your .vimrc to run prettier-standard when .js files are saved:
@@ -39,51 +55,6 @@ This makes prettier-standard power the gq command for automatic formatting witho
 autocmd BufWritePre *.js :normal gggqG
 ```
 
-### CLI Options
-
-```
-prettier-standard --help
-Usage: prettier-standard <globs>... [--option-1 option-1-value --option-2]
-
-Options:
-  -h, --help       Show help                                           [boolean]
-  --version        Show version number                                 [boolean]
-  --stdin          Read input via stdin               [boolean] [default: false]
-  --log-level, -l  The log level to use
-        [choices: "silent", "error", "warn", "info", "debug", "trace"]
-```
-
-#### <globs>
-
-Any number of [globs][glob] you wish to use to match the files you wish to format. By default, `glob` will ignore
-`**/node_modules/**` unless the glob you provide
-includes the string `node_modules`.
-
-#### --stdin
-
-By default `prettier-standard` will overwrite the files. If you don't want that, you can use thi flag.
-
-Accept input via `stdin`. For example:
-
-```
-echo "var   foo =    'bar'" | prettier-standard --stdin
-# results in: "var foo = 'bar'" (depending on your eslint config)
-```
-
-#### --log-level
-
-Can be one of the following: 'trace', 'debug', 'info', 'warn', 'error', 'silent'.
-
-Default: `process.env.LOG_LEVEL || 'warn'`
-
-#### --no-eslint-ignore
-
-Disables application of `.eslintignore` to the files resolved from the glob. By
-default, `prettier-standard` will exclude files if they are matched by a
-`.eslintignore`. Add this flag to disable this behavior.
-
-> Note: You can also set the `LOG_LEVEL` environment variable to control logging in `prettier-standard`
-
 ## Related
 
 - [prettier-standard](https://github.com/prettier/prettier) - the core package
@@ -91,6 +62,8 @@ default, `prettier-standard` will exclude files if they are matched by a
 - [prettier-eslint-cli](https://github.com/prettier/prettier-eslint-cli) - this package is based on it
 
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
+| [<img src="https://avatars3.githubusercontent.com/u/292365?v=3" width="100px;"/><br /><sub>Adam Stankiewicz</sub>](http://sheerun.net)<br />[💻](https://github.com/prettier/prettier-eslint-cli/commits?author=sheerun) 🚇 | [<img src="https://avatars.githubusercontent.com/u/1500684?v=3" width="100px;"/><br /><sub>Kent C. Dodds</sub>](https://kentcdodds.com)<br />[💻](https://github.com/prettier/prettier-eslint-cli/commits?author=kentcdodds) | [<img src="https://avatars3.githubusercontent.com/u/3266363?v=3" width="100px;"/><br /><sub>Adam Harris</sub>](https://github.com/aharris88)<br />[💻](https://github.com/prettier/prettier-eslint-cli/commits?author=aharris88) |
+| :---: | :---: | :---: |
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
 ## LICENSE

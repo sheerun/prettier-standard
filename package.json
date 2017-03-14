@@ -1,7 +1,7 @@
 {
   "name": "prettier-standard",
   "version": "1.0.3",
-  "description": "CLI for prettier-eslint",
+  "description": "Prettier and standard brought together!",
   "main": "lib/no-main.js",
   "bin": {
     "prettier-standard": "lib/index.js"

@@ -1,7 +1,34 @@
 #!/usr/bin/env node
 
-import parser from './parser'
-import formatFiles from './format-files'
+import meow from 'meow'
+import formatFilesFromArgv from './format-files'
 
-const argv = parser.parse(process.argv.slice(2))
-formatFiles(argv)
+const cli = meow(
+  `
+  Usage
+    $ prettier-standard [<glob>...]
+
+  Options
+    --log-level  Log level to use (default: warn)
+
+  Examples
+    $ prettier-standard 'src/**/*.js'
+    $ echo "const {foo} = "bar";" | prettier-standard
+ 
+`,
+)
+
+function help() {
+  console.log(cli.help)
+  process.exit(1)
+}
+
+async function main() {
+  if (process.stdin.isTTY === true && cli.input.length < 1) {
+    help()
+  }
+
+  return formatFilesFromArgv(cli.input, cli.flags)
+}
+
+main()

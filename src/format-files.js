@@ -24,18 +24,28 @@ const getIsIgnoredMemoized = memoize(getIsIgnored)
 
 const logger = getLogger({prefix: 'prettier-standard'})
 
-export default formatFilesFromArgv
+function getPathInHostNodeModules(module) {
+  const modulePath = findUp.sync(`node_modules/${module}`)
+  if (modulePath) {
+    return modulePath
+  } else {
+    return path.resolve(__dirname, `../node_modules/${module}`)
+  }
+}
+
+function coercePath(input) {
+  return path.isAbsolute(input) ? input : path.join(process.cwd(), input)
+}
 
 async function formatFilesFromArgv(
+  fileGlobs,
   {
-    _: fileGlobs,
     logLevel = logger.getLevel(),
-    stdin,
-    eslintPath,
-    prettierPath,
+    eslintPath = getPathInHostNodeModules('eslint'),
+    prettierPath = getPathInHostNodeModules('prettier'),
     ignore: ignoreGlobs = [],
     eslintIgnore: applyEslintIgnore = true,
-  },
+  } = {},
 ) {
   logger.setLevel(logLevel)
   const prettierESLintOptions = {
@@ -61,25 +71,25 @@ async function formatFilesFromArgv(
       },
     },
   }
-  if (stdin) {
-    return formatStdin(prettierESLintOptions)
-  } else {
-    const cliOptions = {write: !stdin}
+
+  if (fileGlobs.length > 0) {
     return formatFilesFromGlobs(
       fileGlobs,
       [...ignoreGlobs], // make a copy to avoid manipulation
-      cliOptions,
+      {write: true},
       prettierESLintOptions,
       applyEslintIgnore,
     )
   }
+
+  return formatStdin(prettierESLintOptions)
 }
 
 async function formatStdin(prettierESLintOptions) {
   const stdinValue = (await getStdin()).trim()
   try {
     const formatted = format({text: stdinValue, ...prettierESLintOptions})
-    console.log(formatted)
+    process.stdout.write(formatted)
     return Promise.resolve(formatted)
   } catch (error) {
     logger.error(
@@ -141,7 +151,7 @@ async function formatFilesFromGlobs(
 
     function onComplete() {
       if (successes.length) {
-        console.log(
+        console.error(
           messages.success({
             success: chalk.green('success'),
             count: successes.length,
@@ -151,7 +161,7 @@ async function formatFilesFromGlobs(
       }
       if (failures.length) {
         process.exitCode = 1
-        console.log(
+        console.error(
           messages.failure({
             failure: chalk.red('failure'),
             count: failures.length,
@@ -160,7 +170,7 @@ async function formatFilesFromGlobs(
         )
       }
       if (unchanged.length) {
-        console.log(
+        console.error(
           messages.unchanged({
             unchanged: chalk.gray('unchanged'),
             count: unchanged.length,
@@ -207,7 +217,7 @@ function formatFile(filePath, prettierESLintOptions, cliOptions) {
     })
   } else {
     format$ = format$.map(info => {
-      console.log(info.formatted)
+      console.error(info.formatted)
       return info
     })
   }
@@ -254,3 +264,5 @@ function getIsIgnored(filename) {
   instance.add(ignoreLines)
   return instance.ignores.bind(instance)
 }
+
+export default formatFilesFromArgv
