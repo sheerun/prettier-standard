@@ -8,7 +8,9 @@
 yarn add --dev prettier-standard
 ```
 
-> If you're using the [`npm`][npm]: `npm install --save-dev prettier-standard`. You can also install globally with `npm i -g prettier-standard`
+> If you're using the [`npm`][npm]: `npm install --save-dev prettier-standard`.
+
+> You can also install globally with `npm i -g prettier-standard`
 
 ## Usage
 
