@@ -1,4 +1,4 @@
-# prettier-standard ![](http://i.imgur.com/7eqcYVQ.png)
+# (✿◠‿◠) prettier-standard 
 
 [Prettier](https://github.com/prettier/prettier) without semicolons!
 
