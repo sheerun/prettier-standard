@@ -22,7 +22,7 @@ const findUpSyncMemoized = memoize(findUpSync, function resolver(...args) {
 });
 const getIsIgnoredMemoized = memoize(getIsIgnored);
 
-const logger = getLogger({prefix: 'prettier-eslint-cli'});
+const logger = getLogger({prefix: 'prettier-standard'});
 
 export default formatFilesFromArgv;
 

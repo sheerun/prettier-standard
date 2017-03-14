@@ -94,7 +94,7 @@ test('does not print success if there were no successful files', async () => {
 test('fails gracefully if something odd happens', async () => {
   await formatFiles({_: ['throw-error/*.js']});
   expect(console.error).toHaveBeenCalledTimes(1);
-  const label = expect.stringMatching(/prettier-eslint-cli/);
+  const label = expect.stringMatching(/prettier-standard/);
   const notice = expect.stringMatching(/unhandled error/);
   const errorStack = expect.stringMatching(/something weird happened/);
   expect(console.error).toHaveBeenCalledWith(label, notice, errorStack);
@@ -109,7 +109,7 @@ test('logs errors to the console if something goes wrong', async () => {
   const failureOutput = expect.stringMatching(/failure.*2.*files/);
   expect(console.log).toHaveBeenCalledWith(successOutput);
   expect(console.log).toHaveBeenCalledWith(failureOutput);
-  const errorPrefix = expect.stringMatching(/prettier-eslint-cli.*ERROR/);
+  const errorPrefix = expect.stringMatching(/prettier-standard.*ERROR/);
   const cliError = expect.stringContaining('eslint-config-error');
   const errorOutput = expect.stringContaining('Some weird eslint config error');
   expect(console.error).toHaveBeenCalledTimes(2);
