@@ -1,22 +1,13 @@
 {
-  "name": "prettier-eslint-cli",
-  "version": "0.0.0-semantically-released",
+  "name": "prettier-standard",
+  "version": "1.0.0",
   "description": "CLI for prettier-eslint",
-  "main": "dist/no-main.js",
+  "main": "lib/no-main.js",
   "bin": {
-    "prettier-eslint": "dist/index.js"
+    "prettier-standard": "lib/index.js"
   },
-  "scripts": {
-    "start": "nps",
-    "test": "nps test",
-    "commitmsg": "opt --in commit-msg --exec \"validate-commit-msg\"",
-    "precommit": "opt --in pre-commit --exec \"npm start validate\""
-  },
-  "files": [
-    "dist"
-  ],
-  "keywords": [],
-  "author": "Kent C. Dodds <kent@doddsfamily.us> (http://kentcdodds.com/)",
+  "keywords": ["prettier", "eslint", "standard"],
+  "author": "Adam Stankiewicz <sheerun@sher.pl>",
   "license": "MIT",
   "dependencies": {
     "arrify": "^1.0.1",
@@ -31,69 +22,45 @@
     "lodash.memoize": "^4.1.2",
     "loglevel-colored-level-prefix": "^1.0.0",
     "messageformat": "^1.0.2",
-    "prettier-eslint": "^4.1.3",
+    "prettier-eslint": "^4.3.0",
     "rxjs": "^5.2.0",
     "yargs": "^6.6.0"
   },
   "devDependencies": {
-    "all-contributors-cli": "^4.0.1",
     "babel-cli": "^6.23.0",
     "babel-jest": "^19.0.0",
-    "babel-plugin-transform-runtime": "^6.23.0",
-    "babel-preset-env": "^1.1.10",
-    "babel-preset-stage-2": "^6.18.0",
+    "babel-preset-node-module": "^1.2.1",
     "babel-register": "^6.23.0",
-    "codecov": "^1.0.1",
-    "commitizen": "^2.9.6",
-    "cz-conventional-changelog": "^2.0.0",
-    "eslint": "^3.16.1",
-    "eslint-config-kentcdodds": "^11.1.0",
-    "husky": "^0.13.1",
-    "jest-cli": "^19.0.2",
-    "opt-cli": "^1.5.1",
-    "p-s": "^3.0.3",
-    "pify": "^2.3.0",
-    "rimraf": "^2.6.1",
-    "semantic-release": "^6.3.3",
-    "spawn-command": "^0.0.2-1",
-    "strip-indent": "^2.0.0",
-    "validate-commit-msg": "^2.8.2",
-    "yargs-parser": "^5.0.0"
+    "babel-watch": "^2.0.6",
+    "cross-run": "^1.0.1",
+    "husky": "^0.13.2",
+    "jest": "^19.0.2",
+    "lint-staged": "^3.3.1",
+    "np": "^2.12.0",
+    "prettier": "^0.22.0",
+    "rimraf": "^2.6.1"
   },
-  "eslintConfig": {
-    "extends": [
-      "kentcdodds",
-      "kentcdodds/jest"
-    ],
-    "rules": {
-      "max-len": [
-        2,
-        80
-      ]
-    }
+  "scripts": {
+    "cli": "babel-node src/cli.js",
+    "build": "babel src --out-dir lib",
+    "test": "run NODE_ENV=test jest",
+    "precommit": "lint-staged",
+    "prepublishOnly": "run NODE_ENV=production babel src --out-dir lib",
+    "postpublish": "rimraf lib",
+    "lint": "babel-node ./src/index.js"
+  },
+  "files": [
+    "lib",
+    "src"
+  ],
+  "lint-staged": {
+    "*.js": [
+      "babel-node ./src/index.js",
+      "git add",
+      "jest --bail --findRelatedTests"
+    ]
   },
   "jest": {
-    "testEnvironment": "node",
-    "coverageThreshold": {
-      "global": {
-        "branches": 100,
-        "functions": 100,
-        "lines": 100,
-        "statements": 100
-      }
-    }
-  },
-  "config": {
-    "commitizen": {
-      "path": "node_modules/cz-conventional-changelog"
-    }
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/prettier/prettier-eslint-cli.git"
-  },
-  "bugs": {
-    "url": "https://github.com/prettier/prettier-eslint-cli/issues"
-  },
-  "homepage": "https://github.com/prettier/prettier-eslint-cli#readme"
+    "testEnvironment": "node"
+  }
 }
