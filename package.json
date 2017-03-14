@@ -1,12 +1,16 @@
 {
   "name": "prettier-standard",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "CLI for prettier-eslint",
   "main": "lib/no-main.js",
   "bin": {
     "prettier-standard": "lib/index.js"
   },
-  "keywords": ["prettier", "eslint", "standard"],
+  "keywords": [
+    "prettier",
+    "eslint",
+    "standard"
+  ],
   "author": "Adam Stankiewicz <sheerun@sher.pl>",
   "license": "MIT",
   "dependencies": {
