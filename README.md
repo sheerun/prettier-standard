@@ -69,6 +69,20 @@ This makes prettier-standard power the gq command for automatic formatting witho
 autocmd BufWritePre *.js :normal gggqG
 ```
 
+## Customizing
+
+Becaue prettier-standard is built on top of [prettier-eslint](https://github.com/prettier/prettier-eslint), you can fully configure its behavior with custom `.eslintrc` file. For example you can opt-out of single quotes with following:
+
+
+```json
+{
+  "rules": {
+    "quotes": ["error", "double"]
+  }
+}
+```
+
+
 ## Related
 
 - [prettier-standard](https://github.com/prettier/prettier) - the core package
