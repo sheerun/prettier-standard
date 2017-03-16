@@ -33,7 +33,7 @@ Typically you'll use this in your [npm scripts][npm scripts] (or [package script
 ```json
 {
   "scripts": {
-    "format": "prettier-standard \"src/**/*.js\""
+    "format": "prettier-standard 'src/**/*.js'"
   }
 }
 ```
