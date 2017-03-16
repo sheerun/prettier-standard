@@ -1,3 +1,7 @@
+# 1.0.6
+
+- Add repository field to package.json
+
 # 1.0.5
 
 - Fix an issue with recognizing eslint location, closes #1
