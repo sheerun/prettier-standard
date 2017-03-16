@@ -26,11 +26,12 @@ const logger = getLogger({prefix: 'prettier-standard'})
 
 function getPathInHostNodeModules(module) {
   const modulePath = findUp.sync(`node_modules/${module}`)
+
   if (modulePath) {
     return modulePath
-  } else {
-    return path.resolve(__dirname, `../node_modules/${module}`)
   }
+
+  return findUp.sync(`node_modules/${module}`, {cwd: __dirname})
 }
 
 function coercePath(input) {

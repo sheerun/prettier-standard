@@ -1,3 +1,7 @@
+# 1.0.5
+
+- Fix an issue with recognizing eslint location, closes #1
+
 # 1.0.4
 
 - Freeze the API and make CLI prettier
