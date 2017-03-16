@@ -51,7 +51,7 @@
     "precommit": "lint-staged",
     "prepublishOnly": "run NODE_ENV=production babel src --out-dir lib",
     "postpublish": "rimraf lib",
-    "lint": "babel-node ./src/index.js"
+    "format": "babel-node ./src/index.js 'src/**/*.js'"
   },
   "files": [
     "lib",
