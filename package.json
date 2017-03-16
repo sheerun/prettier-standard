@@ -13,6 +13,7 @@
   ],
   "author": "Adam Stankiewicz <sheerun@sher.pl>",
   "license": "MIT",
+  "repository": "sheerun/prettier-standard",
   "dependencies": {
     "arrify": "^1.0.1",
     "babel-runtime": "^6.23.0",
