@@ -71,7 +71,7 @@ autocmd BufWritePre *.js :normal gggqG
 
 ## Customizing
 
-Becaue prettier-standard is built on top of [prettier-eslint](https://github.com/prettier/prettier-eslint), you can fully configure its behavior with custom `.eslintrc` file. For example you can opt-out of single quotes with following:
+Because this package is built on top of [prettier-eslint](https://github.com/prettier/prettier-eslint), you can fully configure its behavior with custom `.eslintrc` file. For example you might want to opt-out of single quotes with following. Any eslint rules are supported.
 
 
 ```json
@@ -81,6 +81,8 @@ Becaue prettier-standard is built on top of [prettier-eslint](https://github.com
   }
 }
 ```
+
+Additionaly you can use different version of eslint and prettier, just include them as a devDependency of your project. prettier-standard will properly recognize this, and use your versions of prettier and eslint instead.
 
 
 ## Related
