@@ -34,6 +34,15 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "BenoitAverty",
+      "name": "Benoit Averty",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/17006335?v=3",
+      "profile": "https://github.com/BenoitAverty",
+      "contributions": [
+        "bug"
+      ]
     }
   ]
 }
