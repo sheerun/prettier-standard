@@ -87,7 +87,7 @@ Additionaly you can use different version of eslint and prettier, just include t
 
 ## Related
 
-- [prettier-standard](https://github.com/prettier/prettier) - the core package
+- [prettier](https://github.com/prettier/prettier) - the core package
 - [prettier-eslint](https://github.com/prettier/prettier-eslint) - used for integrating with eslint
 - [prettier-eslint-cli](https://github.com/prettier/prettier-eslint-cli) - this package is based on it
 
