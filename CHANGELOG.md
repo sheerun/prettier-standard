@@ -1,3 +1,7 @@
+# 2.0.0
+
+- Enforce space before fn paren, closes #2
+
 # 1.0.6
 
 - Add repository field to package.json
