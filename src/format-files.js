@@ -17,14 +17,14 @@ const LINE_SEPERATOR_REGEX = /(\r|\n|\r\n)/
 const rxGlob = Rx.Observable.bindNodeCallback(glob)
 const rxReadFile = Rx.Observable.bindNodeCallback(fs.readFile)
 const rxWriteFile = Rx.Observable.bindNodeCallback(fs.writeFile)
-const findUpSyncMemoized = memoize(findUpSync, function resolver(...args) {
+const findUpSyncMemoized = memoize(findUpSync, function resolver (...args) {
   return args.join('::')
 })
 const getIsIgnoredMemoized = memoize(getIsIgnored)
 
 const logger = getLogger({prefix: 'prettier-standard'})
 
-function getPathInHostNodeModules(module) {
+function getPathInHostNodeModules (module) {
   const modulePath = findUp.sync(`node_modules/${module}`)
 
   if (modulePath) {
@@ -34,11 +34,11 @@ function getPathInHostNodeModules(module) {
   return findUp.sync(`node_modules/${module}`, {cwd: __dirname})
 }
 
-function coercePath(input) {
+function coercePath (input) {
   return path.isAbsolute(input) ? input : path.join(process.cwd(), input)
 }
 
-async function formatFilesFromArgv(
+async function formatFilesFromArgv (
   fileGlobs,
   {
     logLevel = logger.getLevel(),
@@ -69,6 +69,8 @@ async function formatFilesFromArgv(
           'single',
           {avoidEscape: true, allowTemplateLiterals: true},
         ],
+        'space-before-blocks': ['error', 'always'],
+        'space-before-function-paren': ['error', 'always'],
       },
     },
   }
@@ -86,7 +88,7 @@ async function formatFilesFromArgv(
   return formatStdin(prettierESLintOptions)
 }
 
-async function formatStdin(prettierESLintOptions) {
+async function formatStdin (prettierESLintOptions) {
   const stdinValue = (await getStdin()).trim()
   try {
     const formatted = format({text: stdinValue, ...prettierESLintOptions})
@@ -102,7 +104,7 @@ async function formatStdin(prettierESLintOptions) {
   }
 }
 
-async function formatFilesFromGlobs(
+async function formatFilesFromGlobs (
   fileGlobs,
   ignoreGlobs,
   cliOptions,
@@ -127,11 +129,11 @@ async function formatFilesFromGlobs(
       .mergeMap(filePathToFormatted, null, concurrentFormats)
       .subscribe(onNext, onError, onComplete)
 
-    function filePathToFormatted(filePath) {
+    function filePathToFormatted (filePath) {
       return formatFile(filePath, prettierESLintOptions, cliOptions)
     }
 
-    function onNext(info) {
+    function onNext (info) {
       if (info.error) {
         failures.push(info)
       } else if (info.unchanged) {
@@ -141,7 +143,7 @@ async function formatFilesFromGlobs(
       }
     }
 
-    function onError(error) {
+    function onError (error) {
       logger.error(
         'There was an unhandled error while formatting the files',
         `\n${indentString(error.stack, 4)}`,
@@ -150,7 +152,7 @@ async function formatFilesFromGlobs(
       resolve({error, successes, failures})
     }
 
-    function onComplete() {
+    function onComplete () {
       if (successes.length) {
         console.error(
           messages.success({
@@ -184,7 +186,7 @@ async function formatFilesFromGlobs(
   })
 }
 
-function getFilesFromGlob(ignoreGlobs, applyEslintIgnore, fileGlob) {
+function getFilesFromGlob (ignoreGlobs, applyEslintIgnore, fileGlob) {
   const globOptions = {ignore: ignoreGlobs}
   if (!fileGlob.includes('node_modules')) {
     // basically, we're going to protect you from doing something
@@ -200,7 +202,7 @@ function getFilesFromGlob(ignoreGlobs, applyEslintIgnore, fileGlob) {
   })
 }
 
-function formatFile(filePath, prettierESLintOptions, cliOptions) {
+function formatFile (filePath, prettierESLintOptions, cliOptions) {
   const fileInfo = {filePath}
   let format$ = rxReadFile(filePath, 'utf8').map(text => {
     fileInfo.text = text
@@ -232,12 +234,12 @@ function formatFile(filePath, prettierESLintOptions, cliOptions) {
   })
 }
 
-function getNearestEslintignorePath(filePath) {
+function getNearestEslintignorePath (filePath) {
   const {dir} = path.parse(filePath)
   return findUpSyncMemoized('.eslintignore', dir)
 }
 
-function isFilePathMatchedByEslintignore(filePath) {
+function isFilePathMatchedByEslintignore (filePath) {
   const eslintignorePath = getNearestEslintignorePath(filePath)
   if (!eslintignorePath) {
     return false
@@ -252,11 +254,11 @@ function isFilePathMatchedByEslintignore(filePath) {
   return isIgnored(filePathRelativeToEslintignoreDir)
 }
 
-function findUpSync(filename, cwd) {
+function findUpSync (filename, cwd) {
   return findUp.sync('.eslintignore', {cwd})
 }
 
-function getIsIgnored(filename) {
+function getIsIgnored (filename) {
   const ignoreLines = fs
     .readFileSync(filename, 'utf8')
     .split(LINE_SEPERATOR_REGEX)

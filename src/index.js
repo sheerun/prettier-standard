@@ -18,12 +18,12 @@ const cli = meow(
 `,
 )
 
-function help() {
+function help () {
   console.log(cli.help)
   process.exit(1)
 }
 
-async function main() {
+async function main () {
   if (process.stdin.isTTY === true && cli.input.length < 1) {
     help()
   }
