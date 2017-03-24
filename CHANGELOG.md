@@ -1,3 +1,7 @@
+# 2.0.1
+
+- Fix build for Node LTS
+
 # 2.0.0
 
 - Enforce space before fn paren, closes #2
