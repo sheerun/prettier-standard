@@ -33,8 +33,10 @@
   },
   "devDependencies": {
     "babel-cli": "^6.23.0",
+    "babel-core": "6.24.0",
     "babel-jest": "^19.0.0",
-    "babel-preset-node-module": "^1.2.1",
+    "babel-preset-latest": "6.24.0",
+    "babel-preset-stage-0": "6.22.0",
     "babel-register": "^6.23.0",
     "babel-watch": "^2.0.6",
     "cross-run": "^1.0.1",
@@ -70,7 +72,8 @@
   },
   "babel": {
     "presets": [
-      "node-module"
+      "latest",
+      "stage-0"
     ]
   }
 }
