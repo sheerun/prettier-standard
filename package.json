@@ -67,5 +67,10 @@
   },
   "jest": {
     "testEnvironment": "node"
+  },
+  "babel": {
+    "presets": [
+      "node-module"
+    ]
   }
 }
