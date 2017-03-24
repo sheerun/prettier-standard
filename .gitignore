@@ -3,3 +3,4 @@ coverage
 lib
 .opt-in
 .opt-out
+npm-debug.log
