@@ -40,8 +40,11 @@
     "jest": "^19.0.2",
     "lint-staged": "^3.3.1",
     "np": "^2.12.0",
+    "pify": "2.3.0",
     "prettier": "^0.22.0",
-    "rimraf": "^2.6.1"
+    "rimraf": "^2.6.1",
+    "spawn-command": "0.0.2-1",
+    "strip-indent": "2.0.0"
   },
   "scripts": {
     "cli": "babel-node src/cli.js",
