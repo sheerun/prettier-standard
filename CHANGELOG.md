@@ -1,3 +1,7 @@
+# 2.0.2
+
+- Add missing files
+
 # 2.0.1
 
 - Fix build for Node LTS
