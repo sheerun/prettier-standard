@@ -1,5 +1,6 @@
 /* global jasmine */
 /* eslint no-console:0 */
+import 'babel-polyfill';
 import path from 'path';
 import fs from 'fs';
 import spawn from 'spawn-command';
