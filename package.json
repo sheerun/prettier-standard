@@ -46,10 +46,10 @@
   },
   "scripts": {
     "cli": "babel-node src/cli.js",
-    "build": "babel src --out-dir lib",
+    "build": "run NODE_ENV=production babel src --out-dir lib",
     "test": "run NODE_ENV=test jest",
     "precommit": "lint-staged",
-    "prepublishOnly": "run NODE_ENV=production babel src --out-dir lib",
+    "prepublishOnly": "npm run build",
     "postpublish": "rimraf lib",
     "format": "babel-node ./src/index.js 'src/**/*.js'"
   },
