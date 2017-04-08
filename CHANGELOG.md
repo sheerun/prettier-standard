@@ -1,3 +1,7 @@
+# 3.0.0
+
+- No trailing commas by default
+
 # 2.0.2
 
 - Add missing files
