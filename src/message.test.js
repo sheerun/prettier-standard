@@ -5,33 +5,33 @@ const tests = {
   success: [
     {
       input: {success: 'success', count: 1, countString: '1String'},
-      output: 'success formatting 1String file with prettier-standard',
+      output: 'success formatting 1String file with prettier-standard'
     },
     {
       input: {success: 'success', count: 3, countString: '3String'},
-      output: 'success formatting 3String files with prettier-standard',
-    },
+      output: 'success formatting 3String files with prettier-standard'
+    }
   ],
   failure: [
     {
       input: {failure: 'failure', count: 1, countString: '1String'},
-      output: 'failure formatting 1String file with prettier-standard',
+      output: 'failure formatting 1String file with prettier-standard'
     },
     {
       input: {failure: 'failure', count: 3, countString: '3String'},
-      output: 'failure formatting 3String files with prettier-standard',
-    },
+      output: 'failure formatting 3String files with prettier-standard'
+    }
   ],
   unchanged: [
     {
       input: {unchanged: 'unchanged', count: 1, countString: '1String'},
-      output: '1String file was unchanged',
+      output: '1String file was unchanged'
     },
     {
       input: {unchanged: 'unchanged', count: 3, countString: '3String'},
-      output: '3String files were unchanged',
-    },
-  ],
+      output: '3String files were unchanged'
+    }
+  ]
 }
 
 Object.keys(tests).forEach(messageKey => {

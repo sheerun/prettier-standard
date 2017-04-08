@@ -27,6 +27,7 @@
     "meow": "3.7.0",
     "messageformat": "^1.0.2",
     "prettier-eslint": "^4.3.2",
+    "eslint": "*",
     "rxjs": "^5.2.0"
   },
   "devDependencies": {

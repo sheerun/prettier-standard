@@ -31,7 +31,10 @@ function getPathInHostNodeModules (module) {
     return modulePath
   }
 
-  return findUp.sync(`node_modules/${module}`, {cwd: __dirname})
+  const result = findUp.sync(`node_modules/${module}`, {cwd: __dirname})
+
+  console.log(result)
+  return result
 }
 
 function coercePath (input) {
@@ -45,8 +48,8 @@ async function formatFilesFromArgv (
     eslintPath = getPathInHostNodeModules('eslint'),
     prettierPath = getPathInHostNodeModules('prettier'),
     ignore: ignoreGlobs = [],
-    eslintIgnore: applyEslintIgnore = true,
-  } = {},
+    eslintIgnore: applyEslintIgnore = true
+  } = {}
 ) {
   logger.setLevel(logLevel)
   const prettierESLintOptions = {
@@ -58,21 +61,22 @@ async function formatFilesFromArgv (
         ecmaVersion: 8,
         ecmaFeatures: {
           experimentalObjectRestSpread: true,
-          jsx: true,
+          jsx: true
         },
-        sourceType: 'module',
+        sourceType: 'module'
       },
       rules: {
+        'comma-dangle': ['error', 'never'],
         semi: ['error', 'never'],
         quotes: [
           'error',
           'single',
-          {avoidEscape: true, allowTemplateLiterals: true},
+          {avoidEscape: true, allowTemplateLiterals: true}
         ],
         'space-before-blocks': ['error', 'always'],
-        'space-before-function-paren': ['error', 'always'],
-      },
-    },
+        'space-before-function-paren': ['error', 'always']
+      }
+    }
   }
 
   if (fileGlobs.length > 0) {
@@ -81,7 +85,7 @@ async function formatFilesFromArgv (
       [...ignoreGlobs], // make a copy to avoid manipulation
       {write: true},
       prettierESLintOptions,
-      applyEslintIgnore,
+      applyEslintIgnore
     )
   }
 
@@ -97,7 +101,7 @@ async function formatStdin (prettierESLintOptions) {
   } catch (error) {
     logger.error(
       'There was a problem trying to format the stdin text',
-      `\n${indentString(error.stack, 4)}`,
+      `\n${indentString(error.stack, 4)}`
     )
     process.exitCode = 1
     return Promise.resolve(stdinValue)
@@ -109,7 +113,7 @@ async function formatFilesFromGlobs (
   ignoreGlobs,
   cliOptions,
   prettierESLintOptions,
-  applyEslintIgnore,
+  applyEslintIgnore
 ) {
   const concurrentGlobs = 3
   const concurrentFormats = 10
@@ -122,7 +126,7 @@ async function formatFilesFromGlobs (
       .mergeMap(
         getFilesFromGlob.bind(null, ignoreGlobs, applyEslintIgnore),
         null,
-        concurrentGlobs,
+        concurrentGlobs
       )
       .concatAll()
       .distinct()
@@ -146,7 +150,7 @@ async function formatFilesFromGlobs (
     function onError (error) {
       logger.error(
         'There was an unhandled error while formatting the files',
-        `\n${indentString(error.stack, 4)}`,
+        `\n${indentString(error.stack, 4)}`
       )
       process.exitCode = 1
       resolve({error, successes, failures})
@@ -158,8 +162,8 @@ async function formatFilesFromGlobs (
           messages.success({
             success: chalk.green('success'),
             count: successes.length,
-            countString: chalk.bold(successes.length),
-          }),
+            countString: chalk.bold(successes.length)
+          })
         )
       }
       if (failures.length) {
@@ -168,8 +172,8 @@ async function formatFilesFromGlobs (
           messages.failure({
             failure: chalk.red('failure'),
             count: failures.length,
-            countString: chalk.bold(failures.length),
-          }),
+            countString: chalk.bold(failures.length)
+          })
         )
       }
       if (unchanged.length) {
@@ -177,8 +181,8 @@ async function formatFilesFromGlobs (
           messages.unchanged({
             unchanged: chalk.gray('unchanged'),
             count: unchanged.length,
-            countString: chalk.bold(unchanged.length),
-          }),
+            countString: chalk.bold(unchanged.length)
+          })
         )
       }
       resolve({successes, failures})
@@ -228,7 +232,7 @@ function formatFile (filePath, prettierESLintOptions, cliOptions) {
   return format$.catch(error => {
     logger.error(
       `There was an error formatting "${fileInfo.filePath}":`,
-      `\n${indentString(error.stack, 4)}`,
+      `\n${indentString(error.stack, 4)}`
     )
     return Rx.Observable.of(Object.assign(fileInfo, {error}))
   })
@@ -248,7 +252,7 @@ function isFilePathMatchedByEslintignore (filePath) {
   const eslintignoreDir = path.parse(eslintignorePath).dir
   const filePathRelativeToEslintignoreDir = path.relative(
     eslintignoreDir,
-    filePath,
+    filePath
   )
   const isIgnored = getIsIgnoredMemoized(eslintignorePath)
   return isIgnored(filePathRelativeToEslintignoreDir)

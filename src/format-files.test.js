@@ -32,7 +32,7 @@ test('glob call inclues an ignore of node_modules', async () => {
   const fileGlob = 'src/**/1*.js'
   await formatFiles([fileGlob])
   const globOptions = expect.objectContaining({
-    ignore: expect.arrayContaining(['**/node_modules/**']),
+    ignore: expect.arrayContaining(['**/node_modules/**'])
   })
   const callback = expect.any(Function)
   expect(globMock).toHaveBeenCalledWith(fileGlob, globOptions, callback)
@@ -45,9 +45,9 @@ test('glob call excludes an ignore of node_modules', async () => {
     expect.any,
     expect.objectContaining({
       // should not have an ignore with **/node_modules/**
-      ignore: expect.arrayContaining(['**/node_modules/**']),
+      ignore: expect.arrayContaining(['**/node_modules/**'])
     }),
-    expect.any,
+    expect.any
   )
 })
 
@@ -116,7 +116,7 @@ test('logs errors to the console if something goes wrong', async () => {
   expect(console.error).toHaveBeenCalledWith(
     errorPrefix,
     cliError,
-    errorOutput,
+    errorOutput
   )
 })
 
@@ -141,7 +141,7 @@ test('allows you to specify an ignore glob', async () => {
   await formatFiles([fileGlob], {ignore})
 
   const globOptions = expect.objectContaining({
-    ignore: [...ignore, '**/node_modules/**'],
+    ignore: [...ignore, '**/node_modules/**']
   })
   const callback = expect.any(Function)
   expect(globMock).toHaveBeenCalledWith(fileGlob, globOptions, callback)
@@ -154,12 +154,12 @@ test('wont modify a file if it is eslint ignored', async () => {
   expect(fsMock.readFile).toHaveBeenCalledWith(
     expect.stringMatching(/applied/),
     'utf8',
-    expect.any(Function),
+    expect.any(Function)
   )
   expect(fsMock.writeFile).toHaveBeenCalledWith(
     expect.stringMatching(/applied/),
     expect.stringMatching(/MOCK_OUTPUT.*?applied/),
-    expect.any(Function),
+    expect.any(Function)
   )
   const ignoredOutput = expect.stringMatching(/success.*1.*file/)
   expect(console.error).toHaveBeenCalledWith(ignoredOutput)
@@ -168,7 +168,7 @@ test('wont modify a file if it is eslint ignored', async () => {
 test('will modify a file if it is eslint ignored with noIgnore', async () => {
   await formatFiles(['src/**/ignored*.js'], {
     write: true,
-    eslintIgnore: false,
+    eslintIgnore: false
   })
   expect(fsMock.readFile).toHaveBeenCalledTimes(4)
   expect(fsMock.writeFile).toHaveBeenCalledTimes(4)
@@ -181,7 +181,7 @@ test('will not blow up if an .eslintignore cannot be found', async () => {
   findUpMock.sync = () => null
   try {
     await formatFiles(['src/**/no-eslint-ignore/*.js'], {
-      write: true,
+      write: true
     })
   } catch (error) {
     throw error

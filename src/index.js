@@ -15,7 +15,7 @@ const cli = meow(
     $ prettier-standard 'src/**/*.js'
     $ echo "const {foo} = "bar";" | prettier-standard
  
-`,
+`
 )
 
 function help () {

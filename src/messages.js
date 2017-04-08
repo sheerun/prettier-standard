@@ -7,14 +7,14 @@ export {success, failure, unchanged}
 function success (data) {
   const files = `{count, plural, one{file} other{files}}`
   return mf.compile(
-    `{success} formatting {countString} ${files} with prettier-standard`,
+    `{success} formatting {countString} ${files} with prettier-standard`
   )(data)
 }
 
 function failure (data) {
   const files = `{count, plural, one{file} other{files}}`
   return mf.compile(
-    `{failure} formatting {countString} ${files} with prettier-standard`,
+    `{failure} formatting {countString} ${files} with prettier-standard`
   )(data)
 }
 
