@@ -1,10 +1,14 @@
+# 3.0.1
+
+- fix: Remove dangling console.log from code
+
 # 3.0.0
 
 - No trailing commas by default
 
 # 2.0.2
 
-- Add missing files
+- fix: Add missing files
 
 # 2.0.1
 

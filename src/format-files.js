@@ -33,7 +33,6 @@ function getPathInHostNodeModules (module) {
 
   const result = findUp.sync(`node_modules/${module}`, {cwd: __dirname})
 
-  console.log(result)
   return result
 }
 
