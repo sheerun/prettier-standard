@@ -16,7 +16,10 @@
       "targets": {
         "node": 4.8
       },
-      "exclude": ["transform-async-to-generator"]
+      "exclude": [
+        "transform-async-to-generator",
+        "transform-regenerator"
+      ]
     }]
   ]
 }
