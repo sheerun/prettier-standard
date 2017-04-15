@@ -56,7 +56,7 @@ async function formatFilesFromArgv (
     eslintPath,
     prettierPath,
     prettierConfig: {
-      singleQuote: false,
+      singleQuote: true,
       semi: true
     },
     eslintConfig: {
