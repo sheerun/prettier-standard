@@ -55,6 +55,10 @@ async function formatFilesFromArgv (
     logLevel,
     eslintPath,
     prettierPath,
+    prettierConfig: {
+      singleQuote: false,
+      semi: true
+    },
     eslintConfig: {
       parserOptions: {
         ecmaVersion: 8,

@@ -1,5 +1,12 @@
 {
+  "plugins": [
+    ["transform-object-rest-spread", { "useBuiltIns": true }]
+  ],
   "presets": [
-    ["node-module"]
+    ["env", {
+      "targets": {
+        "node": true
+      }
+    }]
   ]
 }
