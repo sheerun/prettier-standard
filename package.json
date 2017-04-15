@@ -37,6 +37,7 @@
     "babel-preset-env": "^1.4.0",
     "babel-register": "^6.23.0",
     "cross-run": "^1.0.1",
+    "fast-async": "^6.2.2",
     "husky": "^0.13.2",
     "jest": "^19.0.2",
     "lint-staged": "^3.3.1",

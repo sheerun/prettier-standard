@@ -1,6 +1,16 @@
 {
   "plugins": [
-    ["transform-object-rest-spread", { "useBuiltIns": true }]
+    ["transform-object-rest-spread", { "useBuiltIns": true }],
+    ["fast-async", {
+      "runtimePatten": null,
+      "compiler": {
+        "promises": true,
+        "es7": true,
+        "noRuntime": true,
+        "wrapAwait": true,
+        "generators": false
+      }
+    }]
   ],
   "presets": [
     ["env", {
