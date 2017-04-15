@@ -6,7 +6,6 @@
       "compiler": {
         "promises": true,
         "es7": true,
-        "noRuntime": true,
         "wrapAwait": true,
         "generators": false
       }
@@ -16,7 +15,8 @@
     ["env", {
       "targets": {
         "node": 4.8
-      }
+      },
+      "exclude": ["transform-async-to-generator"]
     }]
   ]
 }
