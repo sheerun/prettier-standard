@@ -17,6 +17,7 @@
   "dependencies": {
     "babel-runtime": "^6.23.0",
     "chalk": "^1.1.3",
+    "eslint": "*",
     "find-up": "^2.1.0",
     "get-stdin": "^5.0.1",
     "glob": "^7.1.1",
@@ -26,20 +27,21 @@
     "loglevel-colored-level-prefix": "^1.0.0",
     "meow": "3.7.0",
     "messageformat": "^1.0.2",
-    "prettier-eslint": "^4.3.2",
-    "eslint": "*",
+    "prettier-eslint": "^5.1.0",
     "rxjs": "^5.2.0"
   },
   "devDependencies": {
     "babel-cli": "^6.23.0",
     "babel-jest": "^19.0.0",
-    "babel-preset-node-module": "^1.2.1",
+    "babel-plugin-transform-object-rest-spread": "^6.23.0",
+    "babel-preset-env": "^1.4.0",
     "babel-register": "^6.23.0",
     "cross-run": "^1.0.1",
+    "fast-async": "^6.2.2",
     "husky": "^0.13.2",
     "jest": "^19.0.2",
     "lint-staged": "^3.3.1",
-    "prettier": "^0.22.0",
+    "prettier": "^1.0.2",
     "rimraf": "^2.6.1"
   },
   "scripts": {

@@ -1,5 +1,24 @@
 {
+  "plugins": [
+    ["transform-object-rest-spread", { "useBuiltIns": true }],
+    ["fast-async", {
+      "compiler": {
+        "promises": true,
+        "es7": true,
+        "wrapAwait": true,
+        "generators": false
+      }
+    }]
+  ],
   "presets": [
-    ["node-module"]
+    ["env", {
+      "targets": {
+        "node": 4.8
+      },
+      "exclude": [
+        "transform-async-to-generator",
+        "transform-regenerator"
+      ]
+    }]
   ]
 }
