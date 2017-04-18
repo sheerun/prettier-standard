@@ -1,3 +1,8 @@
+# 4.0.0
+
+- Update prettier to 1.x and prettier-eslint to 5.x
+- Use single quotes for JSX
+
 # 3.0.1
 
 - fix: Remove dangling console.log from code
