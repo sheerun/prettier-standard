@@ -72,6 +72,7 @@ async function formatFilesFromArgv (
           'single',
           {avoidEscape: true, allowTemplateLiterals: true}
         ],
+        'jsx-quotes': ['error', 'prefer-single'],
         'space-before-blocks': ['error', 'always'],
         'space-before-function-paren': ['error', 'always']
       }

@@ -77,7 +77,8 @@ Because this package is built on top of [prettier-eslint](https://github.com/pre
 ```json
 {
   "rules": {
-    "quotes": ["error", "double"]
+    "quotes": ["error", "double"],
+    "jsx-quotes": ["error", "prefer-double"]
   }
 }
 ```
