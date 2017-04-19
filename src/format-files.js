@@ -40,7 +40,7 @@ function coercePath (input) {
   return path.isAbsolute(input) ? input : path.join(process.cwd(), input)
 }
 
-async function formatFilesFromArgv (
+function formatFilesFromArgv (
   fileGlobs,
   {
     logLevel = logger.getLevel(),
@@ -56,6 +56,7 @@ async function formatFilesFromArgv (
     eslintPath,
     prettierPath,
     eslintConfig: {
+      parser: getPathInHostNodeModules('babel-eslint'),
       parserOptions: {
         ecmaVersion: 8,
         ecmaFeatures: {
@@ -108,7 +109,7 @@ async function formatStdin (prettierESLintOptions) {
   }
 }
 
-async function formatFilesFromGlobs (
+function formatFilesFromGlobs (
   fileGlobs,
   ignoreGlobs,
   cliOptions,
