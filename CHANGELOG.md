@@ -1,3 +1,7 @@
+# 4.1.0
+
+- Use the same parser as prettier for better syntax support
+
 # 4.0.0
 
 - Update prettier to 1.x and prettier-eslint to 5.x
