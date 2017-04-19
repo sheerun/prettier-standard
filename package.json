@@ -34,6 +34,7 @@
   "devDependencies": {
     "babel-cli": "^6.24.1",
     "babel-jest": "^19.0.0",
+    "babel-plugin-syntax-dynamic-import": "6.18.0",
     "babel-preset-node-module": "^1.2.1",
     "babel-register": "^6.24.1",
     "cross-run": "^1.0.1",
