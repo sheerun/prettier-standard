@@ -47,7 +47,7 @@
   "scripts": {
     "cli": "babel-node src/cli.js",
     "build": "run NODE_ENV=production babel src --out-dir lib",
-    "test": "run NODE_ENV=test jest && cat test/input.js | run babel-node ./src/index.js > ./test/output.js && export DIFF=\"$(diff ./test/expected.js ./test/output.js)\" && [ -z \"$DIFF\" ] || (echo \"$DIFF\" && exit 1)",
+    "test": "run NODE_ENV=test jest && cat test/input.js | run NODE_ENV=test babel-node ./src/index.js > ./test/output.js && export DIFF=\"$(diff ./test/expected.js ./test/output.js)\" && [ -z \"$DIFF\" ] || (echo \"$DIFF\" && exit 1)",
     "precommit": "lint-staged",
     "prepublishOnly": "npm run build",
     "postpublish": "rimraf lib",
