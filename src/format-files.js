@@ -22,7 +22,7 @@ const findUpSyncMemoized = memoize(findUpSync, function resolver (...args) {
 })
 const getIsIgnoredMemoized = memoize(getIsIgnored)
 
-const logger = getLogger({prefix: 'prettier-standard'})
+const logger = getLogger({ prefix: 'prettier-standard' })
 
 function getPathInHostNodeModules (module) {
   const modulePath = findUp.sync(`node_modules/${module}`)
@@ -31,7 +31,7 @@ function getPathInHostNodeModules (module) {
     return modulePath
   }
 
-  const result = findUp.sync(`node_modules/${module}`, {cwd: __dirname})
+  const result = findUp.sync(`node_modules/${module}`, { cwd: __dirname })
 
   return result
 }
@@ -71,7 +71,7 @@ function formatFilesFromArgv (
         quotes: [
           'error',
           'single',
-          {avoidEscape: true, allowTemplateLiterals: true}
+          { avoidEscape: true, allowTemplateLiterals: true }
         ],
         'jsx-quotes': ['error', 'prefer-single'],
         'space-before-blocks': ['error', 'always'],
@@ -84,7 +84,7 @@ function formatFilesFromArgv (
     return formatFilesFromGlobs(
       fileGlobs,
       [...ignoreGlobs], // make a copy to avoid manipulation
-      {write: true},
+      { write: true },
       prettierESLintOptions,
       applyEslintIgnore
     )
@@ -96,7 +96,7 @@ function formatFilesFromArgv (
 async function formatStdin (prettierESLintOptions) {
   const stdinValue = (await getStdin()).trim()
   try {
-    const formatted = format({text: stdinValue, ...prettierESLintOptions})
+    const formatted = format({ text: stdinValue, ...prettierESLintOptions })
     process.stdout.write(formatted)
     return Promise.resolve(formatted)
   } catch (error) {
@@ -154,7 +154,7 @@ function formatFilesFromGlobs (
         `\n${indentString(error.stack, 4)}`
       )
       process.exitCode = 1
-      resolve({error, successes, failures})
+      resolve({ error, successes, failures })
     }
 
     function onComplete () {
@@ -186,13 +186,13 @@ function formatFilesFromGlobs (
           })
         )
       }
-      resolve({successes, failures})
+      resolve({ successes, failures })
     }
   })
 }
 
 function getFilesFromGlob (ignoreGlobs, applyEslintIgnore, fileGlob) {
-  const globOptions = {ignore: ignoreGlobs}
+  const globOptions = { ignore: ignoreGlobs }
   if (!fileGlob.includes('node_modules')) {
     // basically, we're going to protect you from doing something
     // not smart unless you explicitly include it in your glob
@@ -208,17 +208,17 @@ function getFilesFromGlob (ignoreGlobs, applyEslintIgnore, fileGlob) {
 }
 
 function formatFile (filePath, prettierESLintOptions, cliOptions) {
-  const fileInfo = {filePath}
+  const fileInfo = { filePath }
   let format$ = rxReadFile(filePath, 'utf8').map(text => {
     fileInfo.text = text
-    fileInfo.formatted = format({text, filePath, ...prettierESLintOptions})
+    fileInfo.formatted = format({ text, filePath, ...prettierESLintOptions })
     return fileInfo
   })
 
   if (cliOptions.write) {
     format$ = format$.mergeMap(info => {
       if (info.text === info.formatted) {
-        return Rx.Observable.of(Object.assign(fileInfo, {unchanged: true}))
+        return Rx.Observable.of(Object.assign(fileInfo, { unchanged: true }))
       } else {
         return rxWriteFile(filePath, info.formatted).map(() => fileInfo)
       }
@@ -235,12 +235,12 @@ function formatFile (filePath, prettierESLintOptions, cliOptions) {
       `There was an error formatting "${fileInfo.filePath}":`,
       `\n${indentString(error.stack, 4)}`
     )
-    return Rx.Observable.of(Object.assign(fileInfo, {error}))
+    return Rx.Observable.of(Object.assign(fileInfo, { error }))
   })
 }
 
 function getNearestEslintignorePath (filePath) {
-  const {dir} = path.parse(filePath)
+  const { dir } = path.parse(filePath)
   return findUpSyncMemoized('.eslintignore', dir)
 }
 
@@ -260,7 +260,7 @@ function isFilePathMatchedByEslintignore (filePath) {
 }
 
 function findUpSync (filename, cwd) {
-  return findUp.sync('.eslintignore', {cwd})
+  return findUp.sync('.eslintignore', { cwd })
 }
 
 function getIsIgnored (filename) {

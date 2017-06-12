@@ -2,7 +2,7 @@ import MessageFormat from 'messageformat'
 
 const mf = new MessageFormat('en')
 
-export {success, failure, unchanged}
+export { success, failure, unchanged }
 
 function success (data) {
   const files = `{count, plural, one{file} other{files}}`

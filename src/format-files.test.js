@@ -53,30 +53,30 @@ test('glob call excludes an ignore of node_modules', async () => {
 
 test('should accept stdin', async () => {
   mockGetStdin.stdin = '  var [ foo, {  bar } ] = window.APP ;'
-  await formatFiles([], {stdin: true})
+  await formatFiles([], { stdin: true })
   expect(formatMock).toHaveBeenCalledTimes(1)
   // the trim is part of the test
   const text = mockGetStdin.stdin.trim()
-  expect(formatMock).toHaveBeenCalledWith(expect.objectContaining({text}))
+  expect(formatMock).toHaveBeenCalledWith(expect.objectContaining({ text }))
   expect(process.stdout.write).toHaveBeenCalledTimes(1)
   expect(process.stdout.write).toHaveBeenCalledWith('MOCK_OUTPUT for stdin')
 })
 
 test('will write to files if that is specified', async () => {
   const fileGlob = 'src/**/1*.js'
-  await formatFiles([fileGlob], {write: true})
+  await formatFiles([fileGlob], { write: true })
   expect(fsMock.writeFile).toHaveBeenCalledTimes(4)
 })
 
 test('handles stdin errors gracefully', async () => {
   mockGetStdin.stdin = 'MOCK_SYNTAX_ERROR'
-  await formatFiles([], {stdin: true})
+  await formatFiles([], { stdin: true })
   expect(console.error).toHaveBeenCalledTimes(1)
 })
 
 test('handles file errors gracefully', async () => {
   const globs = ['files-with-syntax-errors/*.js', 'src/**/1*.js']
-  await formatFiles(globs, {write: true})
+  await formatFiles(globs, { write: true })
   expect(fsMock.writeFile).toHaveBeenCalledTimes(4)
   expect(console.error).toHaveBeenCalledTimes(4)
   const successOutput = expect.stringMatching(/success.*4.*files/)
@@ -102,7 +102,7 @@ test('fails gracefully if something odd happens', async () => {
 
 test('logs errors to the console if something goes wrong', async () => {
   const globs = ['eslint-config-error/*.js', 'src/**/2*.js']
-  await formatFiles(globs, {write: true})
+  await formatFiles(globs, { write: true })
   expect(fsMock.writeFile).toHaveBeenCalledTimes(4)
   expect(console.error).toHaveBeenCalledTimes(4)
   const successOutput = expect.stringMatching(/success.*4.*files/)
@@ -117,14 +117,14 @@ test('logs errors to the console if something goes wrong', async () => {
 })
 
 test('forwards logLevel onto prettier-eslint', async () => {
-  await formatFiles(['src/**/1*.js'], {logLevel: 'debug'})
-  const options = expect.objectContaining({logLevel: 'debug'})
+  await formatFiles(['src/**/1*.js'], { logLevel: 'debug' })
+  const options = expect.objectContaining({ logLevel: 'debug' })
   expect(formatMock).toHaveBeenCalledWith(options)
 })
 
 test('wont save file if contents did not change', async () => {
   const fileGlob = 'no-change/*.js'
-  await formatFiles([fileGlob], {write: true})
+  await formatFiles([fileGlob], { write: true })
   expect(fsMock.readFile).toHaveBeenCalledTimes(3)
   expect(fsMock.writeFile).toHaveBeenCalledTimes(0)
   const unchangedOutput = expect.stringMatching(/3.*?files.*?unchanged/)
@@ -134,7 +134,7 @@ test('wont save file if contents did not change', async () => {
 test('allows you to specify an ignore glob', async () => {
   const ignore = ['src/ignore/thing', 'src/ignore/otherthing']
   const fileGlob = 'src/**/1*.js'
-  await formatFiles([fileGlob], {ignore})
+  await formatFiles([fileGlob], { ignore })
 
   const globOptions = expect.objectContaining({
     ignore: [...ignore, '**/node_modules/**']
@@ -144,7 +144,7 @@ test('allows you to specify an ignore glob', async () => {
 })
 
 test('wont modify a file if it is eslint ignored', async () => {
-  await formatFiles(['src/**/ignored*.js'], {write: true})
+  await formatFiles(['src/**/ignored*.js'], { write: true })
   expect(fsMock.readFile).toHaveBeenCalledTimes(1)
   expect(fsMock.writeFile).toHaveBeenCalledTimes(1)
   expect(fsMock.readFile).toHaveBeenCalledWith(
