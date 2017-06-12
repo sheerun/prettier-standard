@@ -1,3 +1,7 @@
+# 5.1.0
+
+- Update dependencies
+
 # 5.0.0
 
 - Update prettier and prettier-eslint
