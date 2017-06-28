@@ -1,3 +1,7 @@
+# 6.0.0
+
+- Add all fixable rules of standard
+
 # 5.1.0
 
 - Update dependencies
