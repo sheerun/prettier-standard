@@ -40,7 +40,7 @@ Typically you'll use this in your [npm scripts][npm scripts] (or [package script
 
 We also encourage to use [husky](https://github.com/typicode/husky) and [lint-staged](https://github.com/okonet/lint-staged). You can configure it as follows:
 
-```
+```json
 {
   "lint-staged": {
     "linters": {
@@ -57,16 +57,13 @@ NOTE: Unlike [prettier](https://github.com/prettier/prettier) this package simpl
 
 ### Vim
 
-Vim users can add the following to their .vimrc:
+It's probably best to use [ale](https://github.com/w0rp/ale) plugin. It supports multiple fixers, including prettier-standard:
 
 ```
-autocmd FileType javascript set formatprg=prettier-standard
-```
-
-This makes prettier-standard power the gq command for automatic formatting without any plugins. You can also add the following to your .vimrc to run prettier-standard when .js files are saved:
-
-```
-autocmd BufWritePre *.js :normal gggqG
+Plug 'w0rp/ale'
+let g:ale_fixers = {'javascript': ['prettier_standard']}
+let g:ale_linters = {'javascript': ['']}
+let g:ale_fix_on_save = 1
 ```
 
 ## Customizing
