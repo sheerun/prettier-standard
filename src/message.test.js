@@ -1,4 +1,4 @@
-/*eslint import/namespace: [2, { allowComputed: true }]*/
+/* eslint import/namespace: [2, { allowComputed: true }] */
 import * as messages from './messages'
 
 const tests = {
