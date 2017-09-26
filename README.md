@@ -2,7 +2,7 @@
 
 [prettier](https://github.com/prettier/prettier) and [standard](https://github.com/feross/standard) brought together
 
-While `standard` is a **linter**, `prettier-standard` is a **formatter**. You dont' have to fix any warnings anymore :relieved:
+While `standard` is a **linter**, `prettier-standard` is a **formatter**. You don't have to fix any warnings anymore :relieved:
 
 ## Installation
 
