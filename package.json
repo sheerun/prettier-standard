@@ -28,8 +28,8 @@
     "loglevel-colored-level-prefix": "^1.0.0",
     "meow": "3.7.0",
     "messageformat": "^1.0.2",
-    "prettier": "^1.4.4",
-    "prettier-eslint": "^6.3.0",
+    "prettier": "1.7.0",
+    "prettier-eslint": "^8.1.1",
     "rxjs": "^5.4.0"
   },
   "devDependencies": {
