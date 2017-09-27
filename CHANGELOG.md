@@ -1,3 +1,9 @@
+# 7.0.0
+
+- Update eslint to 4
+- Update prettier and other dependencies
+- Automatically fetch config from eslint-config-standard
+
 # 6.0.0
 
 - Add all fixable rules of standard
