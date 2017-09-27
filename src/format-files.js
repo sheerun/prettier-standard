@@ -45,6 +45,7 @@ function formatFilesFromArgv (
   fileGlobs,
   {
     logLevel = logger.getLevel(),
+    failOnChanged = false,
     eslintPath = getPathInHostNodeModules('eslint'),
     prettierPath = getPathInHostNodeModules('prettier'),
     ignore: ignoreGlobs = [],
@@ -89,17 +90,21 @@ function formatFilesFromArgv (
       [...ignoreGlobs], // make a copy to avoid manipulation
       { write: true },
       prettierESLintOptions,
-      applyEslintIgnore
+      applyEslintIgnore,
+      failOnChanged
     )
   }
 
-  return formatStdin(prettierESLintOptions)
+  return formatStdin(prettierESLintOptions, failOnChanged)
 }
 
-async function formatStdin (prettierESLintOptions) {
+async function formatStdin (prettierESLintOptions, failOnChanged) {
   const stdinValue = (await getStdin()).trim()
   try {
     const formatted = format({ text: stdinValue, ...prettierESLintOptions })
+    if (failOnChanged && stdinValue != formatted) {
+      process.exitCode = 2
+    }
     process.stdout.write(formatted)
     return Promise.resolve(formatted)
   } catch (error) {
@@ -117,7 +122,8 @@ function formatFilesFromGlobs (
   ignoreGlobs,
   cliOptions,
   prettierESLintOptions,
-  applyEslintIgnore
+  applyEslintIgnore,
+  failOnChanged
 ) {
   const concurrentGlobs = 3
   const concurrentFormats = 10
@@ -161,6 +167,11 @@ function formatFilesFromGlobs (
     }
 
     function onComplete () {
+      if (failOnChanged) {
+        if (successes.length || failures.length) {
+          process.exitCode = 2
+        }
+      }
       if (successes.length) {
         console.error(
           messages.success({

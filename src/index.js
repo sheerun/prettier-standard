@@ -10,6 +10,7 @@ const cli = meow(
 
   Options
     --log-level  Log level to use (default: warn)
+    --failOnChanged Exit with value 2 if input was not already prettier-standard formatted
 
   Examples
     $ prettier-standard 'src/**/*.js'
