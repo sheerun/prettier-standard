@@ -8,6 +8,18 @@ import formatFiles from './format-files'
 
 jest.mock('fs')
 
+jest.mock(
+  '/node_modules/eslint',
+  () => ({
+    linter: {
+      getRules () {
+        return []
+      }
+    }
+  }),
+  { virtual: true }
+)
+
 beforeEach(() => {
   process.stdout.write = jest.fn()
   console.error = jest.fn()
@@ -174,7 +186,7 @@ test('will modify a file if it is eslint ignored with noIgnore', async () => {
 
 test('will not blow up if an .eslintignore cannot be found', async () => {
   const originalSync = findUpMock.sync
-  findUpMock.sync = () => null
+  findUpMock.sync = () => ''
   try {
     await formatFiles(['src/**/no-eslint-ignore/*.js'], {
       write: true

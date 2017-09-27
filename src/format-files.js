@@ -11,6 +11,7 @@ import findUp from 'find-up'
 import memoize from 'lodash.memoize'
 import indentString from 'indent-string'
 import getLogger from 'loglevel-colored-level-prefix'
+import eslintConfig from 'eslint-config-standard'
 import * as messages from './messages'
 
 const LINE_SEPERATOR_REGEX = /(\r|\n|\r\n)/
@@ -51,201 +52,34 @@ function formatFilesFromArgv (
   } = {}
 ) {
   logger.setLevel(logLevel)
+
+  const eslint = require(eslintPath)
+  const fixable = []
+  const rules = {}
+
+  if (eslint && eslint.linter) {
+    eslint.linter.getRules().forEach((v, k) => {
+      if (v.meta.fixable) {
+        fixable.push(k)
+      }
+    })
+  }
+
+  Object.keys(eslintConfig.rules).forEach(k => {
+    if (fixable.indexOf(k) !== -1) {
+      rules[k] = eslintConfig.rules[k]
+    }
+  })
+  rules['jsx-quotes'] = ['error', 'prefer-single']
+
   const prettierESLintOptions = {
     logLevel,
     eslintPath,
     prettierPath,
     eslintConfig: {
       parser: getPathInHostNodeModules('babel-eslint'),
-      parserOptions: {
-        ecmaVersion: 8,
-        ecmaFeatures: {
-          experimentalObjectRestSpread: true,
-          jsx: true
-        },
-        sourceType: 'module'
-      },
-      rules: {
-        'arrow-spacing': [
-          'error',
-          {
-            before: true,
-            after: true
-          }
-        ],
-        'block-spacing': ['error', 'always'],
-        'brace-style': [
-          'error',
-          '1tbs',
-          {
-            allowSingleLine: true
-          }
-        ],
-        'comma-dangle': [
-          'error',
-          {
-            arrays: 'never',
-            objects: 'never',
-            imports: 'never',
-            exports: 'never',
-            functions: 'never'
-          }
-        ],
-        'comma-spacing': [
-          'error',
-          {
-            before: false,
-            after: true
-          }
-        ],
-        'comma-style': ['error', 'last'],
-        curly: ['error', 'multi-line'],
-        'dot-location': ['error', 'property'],
-        'eol-last': 'error',
-        eqeqeq: [
-          'error',
-          'always',
-          {
-            null: 'ignore'
-          }
-        ],
-        'func-call-spacing': ['error', 'never'],
-        'generator-star-spacing': [
-          'error',
-          {
-            before: true,
-            after: true
-          }
-        ],
-        indent: [
-          'error',
-          2,
-          {
-            SwitchCase: 1
-          }
-        ],
-        'key-spacing': [
-          'error',
-          {
-            beforeColon: false,
-            afterColon: true
-          }
-        ],
-        'keyword-spacing': [
-          'error',
-          {
-            before: true,
-            after: true
-          }
-        ],
-        'new-parens': 'error',
-        'no-debugger': 'error',
-        'no-extra-bind': 'error',
-        'no-extra-boolean-cast': 'error',
-        'no-extra-parens': ['error', 'functions'],
-        'no-floating-decimal': 'error',
-        'no-multi-spaces': 'error',
-        'no-multiple-empty-lines': [
-          'error',
-          {
-            max: 1,
-            maxEOF: 0
-          }
-        ],
-        'no-regex-spaces': 'error',
-        'no-trailing-spaces': 'error',
-        'no-undef-init': 'error',
-        'no-unneeded-ternary': [
-          'error',
-          {
-            defaultAssignment: false
-          }
-        ],
-        'no-unsafe-negation': 'error',
-        'no-useless-computed-key': 'error',
-        'no-useless-rename': 'error',
-        'no-useless-return': 'error',
-        'no-whitespace-before-property': 'error',
-        'object-property-newline': [
-          'error',
-          {
-            allowMultiplePropertiesPerLine: true
-          }
-        ],
-        'operator-linebreak': [
-          'error',
-          'after',
-          {
-            overrides: {
-              '?': 'before',
-              ':': 'before'
-            }
-          }
-        ],
-        'padded-blocks': [
-          'error',
-          {
-            blocks: 'never',
-            switches: 'never',
-            classes: 'never'
-          }
-        ],
-        quotes: [
-          'error',
-          'single',
-          {
-            avoidEscape: true,
-            allowTemplateLiterals: true
-          }
-        ],
-        'rest-spread-spacing': ['error', 'never'],
-        semi: ['error', 'never'],
-        'semi-spacing': [
-          'error',
-          {
-            before: false,
-            after: true
-          }
-        ],
-        'space-before-blocks': ['error', 'always'],
-        'space-before-function-paren': ['error', 'always'],
-        'space-in-parens': ['error', 'never'],
-        'space-infix-ops': 'error',
-        'space-unary-ops': [
-          'error',
-          {
-            words: true,
-            nonwords: false
-          }
-        ],
-        'spaced-comment': [
-          'error',
-          'always',
-          {
-            line: {
-              markers: ['*package', '!', '/', ',']
-            },
-            block: {
-              balanced: true,
-              markers: ['*package', '!', ',', ':', '::', 'flow-include'],
-              exceptions: ['*']
-            }
-          }
-        ],
-        'template-curly-spacing': ['error', 'never'],
-        'template-tag-spacing': ['error', 'never'],
-        'unicode-bom': ['error', 'never'],
-        'wrap-iife': [
-          'error',
-          'any',
-          {
-            functionPrototypeMethods: true
-          }
-        ],
-        'yield-star-spacing': ['error', 'both'],
-        yoda: ['error', 'never'],
-        'jsx-quotes': ['error', 'prefer-single']
-      }
+      parserOptions: eslintConfig.parserOptions,
+      rules
     }
   }
 
