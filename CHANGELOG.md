@@ -1,3 +1,7 @@
+# 7.0.1
+
+- Embed peer dependencies of eslint-config-standard
+
 # 7.0.0
 
 - Update eslint to 4
