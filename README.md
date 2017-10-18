@@ -1,5 +1,7 @@
 # (✿◠‿◠) prettier-standard [![Build Status][build-badge]][build] [![version][version-badge]][package] [![Modern Node](https://img.shields.io/badge/modern-node-9BB48F.svg)](https://github.com/sheerun/modern-node)
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/sheerun/prettier-standard.svg)](https://greenkeeper.io/)
+
 [prettier](https://github.com/prettier/prettier) and [standard](https://github.com/feross/standard) brought together
 
 While `standard` is a **linter**, `prettier-standard` is a **formatter**. You don't have to fix any warnings anymore :relieved:
