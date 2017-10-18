@@ -11,7 +11,7 @@ import findUp from 'find-up'
 import memoize from 'lodash.memoize'
 import indentString from 'indent-string'
 import getLogger from 'loglevel-colored-level-prefix'
-import eslintConfig from 'eslint-config-standard'
+import eslintConfig from '@sheerun/eslint-config-standard'
 import * as messages from './messages'
 
 const LINE_SEPERATOR_REGEX = /(\r|\n|\r\n)/
