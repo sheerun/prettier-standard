@@ -1,3 +1,7 @@
+# 8.0.0
+
+- Update default prettier to 1.9.x
+
 # 7.0.1
 
 - Embed peer dependencies of eslint-config-standard
