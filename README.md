@@ -104,7 +104,7 @@ Because this package is built on top of [prettier-eslint](https://github.com/pre
 }
 ```
 
-Additionaly, you can use different versions of eslint and prettier. Just include them as a devDependency of your project. prettier-standard will properly recognize this, and use your versions of prettier and eslint instead.
+Additionally, you can use different versions of eslint and prettier. Just include them as a devDependency of your project. prettier-standard will properly recognize this, and use your versions of prettier and eslint instead.
 
 
 ## Related
