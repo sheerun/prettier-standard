@@ -68,6 +68,28 @@ let g:ale_linters = {'javascript': ['']}
 let g:ale_fix_on_save = 1
 ```
 
+### Sublime Text 3
+
+It's possible to use 'prettier-standard' with Sublime Text 3.
+
+1. Install 'prettier-standard' globally according to the installation instructions above.
+2. Find the location of your installed executable file.
+On a unix based system (like MacOS):
+```curl
+$ which prettier-standard
+```
+3. Copy the location. (e.g. `/usr/local/bin/prettier-standard`)
+4. Install [SublimeJsPrettier](https://github.com/jonlabelle/SublimeJsPrettier) according to their installation instructions.
+5. Open SublimeJsPrettier's default settings in Sublime and copy the line: `"prettier_cli_path": ""`
+6. Open SublimeJsPrettier's user settings in Sublime and add the line with the correct location of the 'prettier-standard' executable.
+```json
+{
+  "prettier_cli_path": "/usr/local/bin/prettier-standard",
+}
+```
+
+You can now use 'prettier-standard' in Sublime Text 3 by opening the **Command Palette** (super + shift + p) and typing `JsPrettier: Format Code`.
+
 ## Customizing
 
 Because this package is built on top of [prettier-eslint](https://github.com/prettier/prettier-eslint), you can fully configure its behavior with custom `.eslintrc` file. For example you might want to opt-out of single quotes with following. Any eslint rules are supported.
@@ -82,7 +104,7 @@ Because this package is built on top of [prettier-eslint](https://github.com/pre
 }
 ```
 
-Additionaly you can use different version of eslint and prettier, just include them as a devDependency of your project. prettier-standard will properly recognize this, and use your versions of prettier and eslint instead.
+Additionaly, you can use different versions of eslint and prettier. Just include them as a devDependency of your project. prettier-standard will properly recognize this, and use your versions of prettier and eslint instead.
 
 
 ## Related
