@@ -43,7 +43,10 @@ Typically you'll use this in your [npm scripts][npm scripts] (or [package script
 We also encourage to use [husky](https://github.com/typicode/husky) and [lint-staged](https://github.com/okonet/lint-staged). You can configure it as follows:
 
 ```json
-{
+{ 
+  "scripts":{
+    "precommit": "lint-staged"
+  },
   "lint-staged": {
     "linters": {
       "src/**/*.js": [
