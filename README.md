@@ -43,7 +43,7 @@ Typically you'll use this in your [npm scripts][npm scripts] (or [package script
 We also encourage to use [husky](https://github.com/typicode/husky) and [lint-staged](https://github.com/okonet/lint-staged). You can configure it as follows:
 
 ```json
-{ 
+{
   "scripts":{
     "precommit": "lint-staged"
   },
@@ -57,6 +57,8 @@ We also encourage to use [husky](https://github.com/typicode/husky) and [lint-st
   }
 }
 ```
+
+To auto-configure a fresh npm/git project with `prettier-standard` and `githook`s as discussed above, try running `npx standard-damn-it` to bootstrap your project in one command!
 
 NOTE: Unlike [prettier](https://github.com/prettier/prettier) this package simplifies your workflow by making `--write` flag a default, and allowing for passing code to stdin without additional `--stdin` flag. Now **that's** prettier!
 
