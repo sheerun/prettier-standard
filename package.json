@@ -2,9 +2,9 @@
   "name": "prettier-standard",
   "version": "8.0.1",
   "description": "Prettier and standard brought together!",
-  "main": "lib/no-main.js",
+  "main": "src/no-main.js",
   "bin": {
-    "prettier-standard": "lib/index.js"
+    "prettier-standard": "src/index.js"
   },
   "keywords": [
     "prettier",
