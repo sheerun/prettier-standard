@@ -42,8 +42,5 @@
     "test": "modern test && cat test/input.js | NODE_ENV=test node ./src/index.js > ./test/output.js && export DIFF=\"$(diff ./test/expected.js ./test/output.js)\" && [ -z \"$DIFF\" ] || (echo \"$DIFF\" && exit 1)",
     "build": "modern build"
   },
-  "files": [
-    "lib",
-    "src"
-  ]
+  "files": ["src"]
 }
