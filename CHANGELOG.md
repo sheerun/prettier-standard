@@ -1,3 +1,8 @@
+# 8.0.1 and newer
+
+Please read GitHub releases page:
+https://github.com/sheerun/prettier-standard/releases
+
 # 8.0.0
 
 - Update default prettier to 1.9.x
