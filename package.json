@@ -15,11 +15,11 @@
   "license": "MIT",
   "repository": "sheerun/prettier-standard",
   "dependencies": {
+    "@sheerun/eslint-config-standard": "^10.2.1",
     "babel-eslint": ">=7.2.3",
     "babel-runtime": "^6.23.0",
     "chalk": "^2.3.0",
     "eslint": "^4.7.2",
-    "@sheerun/eslint-config-standard": "^10.2.1",
     "find-up": "^2.1.0",
     "get-stdin": "^5.0.1",
     "glob": "^7.1.2",
@@ -27,8 +27,8 @@
     "indent-string": "^3.1.0",
     "lodash.memoize": "^4.1.2",
     "loglevel-colored-level-prefix": "^1.0.0",
-    "meow": "4.0.0",
     "messageformat": "^1.0.2",
+    "minimist": "1.2.0",
     "prettier": "1.9.x",
     "prettier-eslint": "^8.1.1",
     "rxjs": "^5.4.0"

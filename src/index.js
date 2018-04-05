@@ -1,34 +1,36 @@
 #!/usr/bin/env node
 
-const meow = require('meow')
+const minimist = require('minimist')
 const formatFilesFromArgv = require('./format-files')
 
-const cli = meow(
-  `
-  Usage
-    $ prettier-standard [<glob>...]
+const cliHelp = `
+Usage
+  $ prettier-standard [<glob>...]
 
-  Options
-    --log-level  Log level to use (default: warn)
+Options
+  --log-level  Log level to use (default: warn)
 
-  Examples
-    $ prettier-standard 'src/**/*.js'
-    $ echo "const {foo} = "bar";" | prettier-standard
- 
+Examples
+  $ prettier-standard 'src/**/*.js'
+  $ echo "const {foo} = "bar";" | prettier-standard
 `
-)
+
+const options = {}
 
 function help () {
-  console.log(cli.help)
+  console.log(cliHelp)
   process.exit(1)
 }
 
 async function main () {
-  if (process.stdin.isTTY === true && cli.input.length < 1) {
+  const flags = require('minimist')(process.argv.slice(2), options)
+  const input = flags._
+
+  if (process.stdin.isTTY === true && input.length < 1) {
     help()
   }
 
-  return formatFilesFromArgv(cli.input, cli.flags)
+  return formatFilesFromArgv(input, flags)
 }
 
 main()
