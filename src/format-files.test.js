@@ -1,10 +1,10 @@
 /* eslint no-console:0 */
-import fsMock from 'fs'
-import findUpMock from 'find-up'
-import formatMock from 'prettier-eslint'
-import globMock from 'glob'
-import mockGetStdin from 'get-stdin'
-import formatFiles from './format-files'
+const fsMock = require('fs')
+const findUpMock = require('find-up')
+const formatMock = require('prettier-eslint')
+const globMock = require('glob')
+const mockGetStdin = require('get-stdin')
+const formatFiles = require('./format-files')
 
 jest.mock('fs')
 
@@ -148,8 +148,9 @@ test('allows you to specify an ignore glob', async () => {
   const fileGlob = 'src/**/1*.js'
   await formatFiles([fileGlob], { ignore })
 
+  ignore.push('**/node_modules/**')
   const globOptions = expect.objectContaining({
-    ignore: [...ignore, '**/node_modules/**']
+    ignore
   })
   const callback = expect.any(Function)
   expect(globMock).toHaveBeenCalledWith(fileGlob, globOptions, callback)

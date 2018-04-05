@@ -13,4 +13,4 @@ const readFileSync = jest.fn(filePath => {
   }
 })
 
-module.exports = {readFile, writeFile, readFileSync}
+module.exports = { readFile, writeFile, readFileSync }

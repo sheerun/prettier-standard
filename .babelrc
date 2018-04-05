@@ -1,6 +1,0 @@
-{
-  "presets": [
-    ["node-module"]
-  ],
-  "plugins": ["syntax-dynamic-import"]
-}

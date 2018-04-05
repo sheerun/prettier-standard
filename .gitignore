@@ -3,3 +3,6 @@ coverage
 lib
 .opt-in
 .opt-out
+package
+yarn-error.log
+npm-error.log

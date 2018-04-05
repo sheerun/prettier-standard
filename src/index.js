@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
-import meow from 'meow'
-import formatFilesFromArgv from './format-files'
+const meow = require('meow')
+const formatFilesFromArgv = require('./format-files')
 
 const cli = meow(
   `

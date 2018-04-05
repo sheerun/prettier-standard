@@ -1,24 +1,25 @@
 /* eslint no-console:0 */
-import path from 'path'
-import fs from 'fs'
-import glob from 'glob'
-import Rx from 'rxjs/Rx'
-import format from 'prettier-eslint'
-import chalk from 'chalk'
-import getStdin from 'get-stdin'
-import nodeIgnore from 'ignore'
-import findUp from 'find-up'
-import memoize from 'lodash.memoize'
-import indentString from 'indent-string'
-import getLogger from 'loglevel-colored-level-prefix'
-import eslintConfig from '@sheerun/eslint-config-standard'
-import * as messages from './messages'
+const path = require('path')
+const fs = require('fs')
+const glob = require('glob')
+const Rx = require('rxjs/Rx')
+const format = require('prettier-eslint')
+const chalk = require('chalk')
+const getStdin = require('get-stdin')
+const nodeIgnore = require('ignore')
+const findUp = require('find-up')
+const memoize = require('lodash.memoize')
+const indentString = require('indent-string')
+const getLogger = require('loglevel-colored-level-prefix')
+const eslintConfig = require('@sheerun/eslint-config-standard')
+const messages = require('./messages')
 
 const LINE_SEPERATOR_REGEX = /(\r|\n|\r\n)/
 const rxGlob = Rx.Observable.bindNodeCallback(glob)
 const rxReadFile = Rx.Observable.bindNodeCallback(fs.readFile)
 const rxWriteFile = Rx.Observable.bindNodeCallback(fs.writeFile)
-const findUpSyncMemoized = memoize(findUpSync, function resolver (...args) {
+const findUpSyncMemoized = memoize(findUpSync, function resolver () {
+  var args = Array.prototype.slice.call(arguments)
   return args.join('::')
 })
 const getIsIgnoredMemoized = memoize(getIsIgnored)
@@ -86,7 +87,7 @@ function formatFilesFromArgv (
   if (fileGlobs.length > 0) {
     return formatFilesFromGlobs(
       fileGlobs,
-      [...ignoreGlobs], // make a copy to avoid manipulation
+      ignoreGlobs.slice(), // make a copy to avoid manipulation
       { write: true },
       prettierESLintOptions,
       applyEslintIgnore
@@ -99,7 +100,7 @@ function formatFilesFromArgv (
 async function formatStdin (prettierESLintOptions) {
   const stdinValue = (await getStdin()).trim()
   try {
-    const formatted = format({ text: stdinValue, ...prettierESLintOptions })
+    const formatted = format(Object.assign({}, { text: stdinValue }, prettierESLintOptions))
     process.stdout.write(formatted)
     return Promise.resolve(formatted)
   } catch (error) {
@@ -125,8 +126,7 @@ function formatFilesFromGlobs (
     const successes = []
     const failures = []
     const unchanged = []
-    Rx.Observable
-      .from(fileGlobs)
+    Rx.Observable.from(fileGlobs)
       .mergeMap(
         getFilesFromGlob.bind(null, ignoreGlobs, applyEslintIgnore),
         null,
@@ -214,7 +214,7 @@ function formatFile (filePath, prettierESLintOptions, cliOptions) {
   const fileInfo = { filePath }
   let format$ = rxReadFile(filePath, 'utf8').map(text => {
     fileInfo.text = text
-    fileInfo.formatted = format({ text, filePath, ...prettierESLintOptions })
+    fileInfo.formatted = format(Object.assign({}, { text, filePath }, prettierESLintOptions))
     return fileInfo
   })
 
@@ -276,4 +276,4 @@ function getIsIgnored (filename) {
   return instance.ignores.bind(instance)
 }
 
-export default formatFilesFromArgv
+module.exports = formatFilesFromArgv
