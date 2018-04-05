@@ -1,6 +1,6 @@
 {
   "name": "prettier-standard",
-  "version": "8.0.0",
+  "version": "8.0.1",
   "description": "Prettier and standard brought together!",
   "main": "lib/no-main.js",
   "bin": {
