@@ -40,7 +40,9 @@ Typically you'll use this in your [npm scripts][npm scripts] (or [package script
 }
 ```
 
-We also encourage to use [husky](https://github.com/typicode/husky) and [lint-staged](https://github.com/okonet/lint-staged). You can configure it as follows:
+We also encourage to use [husky](https://github.com/typicode/husky) and [lint-staged](https://github.com/okonet/lint-staged). You should also still use [standard](https://github.com/feross/standard) if you want to check for other not fixable rules like `no-unused-vars`, etc. 
+
+You can configure it as follows:
 
 ```json
 { 
@@ -51,6 +53,7 @@ We also encourage to use [husky](https://github.com/typicode/husky) and [lint-st
     "linters": {
       "src/**/*.js": [
         "prettier-standard",
+        "standard --fix"
         "git add"
       ]
     }
