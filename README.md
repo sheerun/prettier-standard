@@ -58,6 +58,17 @@ We also encourage to use [husky](https://github.com/typicode/husky) and [lint-st
 }
 ```
 
+### Ignoring Files
+
+You can ignore files by creating a `.eslintignore` in your directory, and using standard glob patterns. `prettier-standard` will not run on these files.
+
+#### .eslintignore
+```
+myScript.js
+myFolder/**/*
+...etc
+```
+
 NOTE: Unlike [prettier](https://github.com/prettier/prettier) this package simplifies your workflow by making `--write` flag a default, and allowing for passing code to stdin without additional `--stdin` flag. Now **that's** prettier!
 
 ### Vim
