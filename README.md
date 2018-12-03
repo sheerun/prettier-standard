@@ -62,11 +62,26 @@ We also encourage to use [husky](https://github.com/typicode/husky) and [lint-st
 
 As [Standard uses ESLint](https://standardjs.com/#how-do-i-hide-a-certain-warning) under the hood, you can ignore files by following the steps outlined in the [ESLint documentation](https://eslint.org/docs/user-guide/configuring#ignoring-files-and-directories). `prettier-standard` will not run on these files.
 
-#### .eslintignore
+#### Example (.eslintignore)
 ```
 myScript.js
 myFolder/**/*
 ...etc
+```
+
+#### Example (package.json)
+```
+{
+  "name": "mypackage",
+  "version": "0.0.1",
+  "eslintConfig": {
+      "env": {
+          "browser": true,
+          "node": true
+      }
+  },
+  "eslintIgnore": ["hello.js", "world.js"]
+}
 ```
 
 NOTE: Unlike [prettier](https://github.com/prettier/prettier) this package simplifies your workflow by making `--write` flag a default, and allowing for passing code to stdin without additional `--stdin` flag. Now **that's** prettier!
