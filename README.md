@@ -60,7 +60,7 @@ We also encourage to use [husky](https://github.com/typicode/husky) and [lint-st
 
 ### Ignoring Files
 
-You can ignore files by creating a `.eslintignore` in your directory, and using standard glob patterns. `prettier-standard` will not run on these files.
+As [Standard uses ESLint](https://standardjs.com/#how-do-i-hide-a-certain-warning) under the hood, you can ignore files by following the steps outlined in the [ESLint documentation](https://eslint.org/docs/user-guide/configuring#ignoring-files-and-directories). `prettier-standard` will not run on these files.
 
 #### .eslintignore
 ```
