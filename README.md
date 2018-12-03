@@ -74,12 +74,6 @@ myFolder/**/*
 {
   "name": "mypackage",
   "version": "0.0.1",
-  "eslintConfig": {
-      "env": {
-          "browser": true,
-          "node": true
-      }
-  },
   "eslintIgnore": ["hello.js", "world.js"]
 }
 ```
