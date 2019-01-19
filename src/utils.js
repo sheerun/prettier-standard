@@ -1,6 +1,6 @@
 const findUp = require('find-up')
 
-function getPathInHostNodeModules(module) {
+function getPathInHostNodeModules (module) {
   const modulePath = findUp.sync(`node_modules/${module}`)
 
   if (modulePath) {

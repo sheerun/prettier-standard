@@ -11,21 +11,17 @@ const cliHelp = `
 Usage
   $ prettier-standard [<glob>...]
 
-Options
-  --lint  Output linting errors
-
 Examples
   $ prettier-standard 'src/**/*.js'
-  $ prettier-standard 'src/**/*.js' --lint
   $ echo 'const {foo} = "bar";' | prettier-standard
 `
 
-function help() {
+function help () {
   console.log(cliHelp)
   process.exit(1)
 }
 
-async function format(input, flags) {
+async function format (input, flags) {
   const prettierPath = getPathInHostNodeModules('prettierx')
 
   return new Promise((resolve, reject) => {
@@ -34,7 +30,7 @@ async function format(input, flags) {
     const oldArgv = process.argv
     const oldWrite = process.stdout.write
 
-    process.on('beforeExit', function() {
+    process.on('beforeExit', function () {
       process.argv = oldArgv
       process.stdout.write = oldWrite
       resolve(output)
@@ -67,41 +63,41 @@ async function format(input, flags) {
   })
 }
 
-let CLIEngine
-let cliEngine
+// let CLIEngine
+// let cliEngine
+//
+// async function lint(text, input, flags) {
+//   if (!CLIEngine) {
+//     const eslintPath = getPathInHostNodeModules('eslint')
+//     CLIEngine = require(eslintPath).CLIEngine
+//     cliEngine = new CLIEngine(require('./'))
+//   }
+//
+//   let report
+//
+//   if (input.length > 0) {
+//     report = cliEngine.executeOnFiles(input)
+//   } else {
+//     report = cliEngine.executeOnText(text)
+//   }
+//
+//   let formatter
+//   try {
+//     formatter = cliEngine.getFormatter(flags.formatter)
+//   } catch (e) {
+//     console.error(e.message)
+//     return false
+//   }
+//
+//   const output = formatter(report.results)
+//   process.stderr.write(output)
+//
+//   if (report.errorCount > 0) {
+//     process.exit(1)
+//   }
+// }
 
-async function lint(text, input, flags) {
-  if (!CLIEngine) {
-    const eslintPath = getPathInHostNodeModules('eslint')
-    CLIEngine = require(eslintPath).CLIEngine
-    cliEngine = new CLIEngine(require('./'))
-  }
-
-  let report
-
-  if (input.length > 0) {
-    report = cliEngine.executeOnFiles(input)
-  } else {
-    report = cliEngine.executeOnText(text)
-  }
-
-  let formatter
-  try {
-    formatter = cliEngine.getFormatter(flags.formatter)
-  } catch (e) {
-    console.error(e.message)
-    return false
-  }
-
-  const output = formatter(report.results)
-  process.stderr.write(output)
-
-  if (report.errorCount > 0) {
-    process.exit(1)
-  }
-}
-
-async function main() {
+async function main () {
   const flags = require('minimist')(process.argv.slice(2))
   const input = flags._
 
@@ -130,9 +126,9 @@ async function main() {
     process.stdout.write(output)
   }
 
-  if (flags.lint) {
-    await lint(text, input, flags)
-  }
+  // if (flags.lint) {
+  //   await lint(text, input, flags)
+  // }
 }
 
 main()
