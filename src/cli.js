@@ -47,7 +47,6 @@ async function format (input, flags) {
     const binPath = path.join(prettierPath, 'bin-prettierx.js')
     process.argv = process.argv.slice(0, 1)
     process.argv.push(binPath)
-    process.argv.push('--parser', 'babel')
     process.argv.push('--config-precedence', 'file-override')
     process.argv.push('--generator-star-spacing')
     process.argv.push('--space-before-function-paren')
