@@ -17,21 +17,25 @@ yarn add --dev prettier-standard
 
 > You can also install globally with `npm install -g prettier-standard`
 
-## Examples
+## Usage
 
 ```ash
-# Format all files in src directory
-prettier-standard 'src/**/*.js'
+Prettier and standard brought together!
 
-# Format standard input
-echo 'const {foo} = "bar";' | prettier-standard
+Usage
+  $ prettier-standard [<glob>...]
+
+Options
+  --parser  Parser to use (default: babel)
+            https://prettier.io/docs/en/options.html#parser
+
+Examples
+  $ prettier-standard 'src/**/*.js'
+  $ echo 'const {foo} = "bar";' | prettier-standard
+  $ echo '.foo { color: "red"; }' | prettier-standard --parser css
 ```
 
 ## Usage
-
-```bash
-prettier-standard [<glob>...]
-```
 
 Typically you'll use this in your [npm scripts][npm scripts] (or [package scripts][package scripts]):
 

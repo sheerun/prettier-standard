@@ -13,9 +13,14 @@ Prettier and standard brought together!
 Usage
   $ prettier-standard [<glob>...]
 
+Options
+  --parser  Parser to use (default: babel)
+            https://prettier.io/docs/en/options.html#parser
+
 Examples
   $ prettier-standard 'src/**/*.js'
   $ echo 'const {foo} = "bar";' | prettier-standard
+  $ echo '.foo { color: "red"; }' | prettier-standard --parser css
 `
 
 function help () {
@@ -47,6 +52,7 @@ async function format (input, flags) {
     const binPath = path.join(prettierPath, 'bin-prettierx.js')
     process.argv = process.argv.slice(0, 1)
     process.argv.push(binPath)
+    process.argv.push('--parser', flags.parser || 'babel')
     process.argv.push('--config-precedence', 'file-override')
     process.argv.push('--generator-star-spacing')
     process.argv.push('--space-before-function-paren')
