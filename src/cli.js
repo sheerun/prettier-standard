@@ -28,7 +28,7 @@ function help () {
   process.exit(1)
 }
 
-async function format (input, flags) {
+async function format (input, flags, parser) {
   const prettierPath = getPathInHostNodeModules('prettierx')
 
   return new Promise((resolve, reject) => {
@@ -52,7 +52,9 @@ async function format (input, flags) {
     const binPath = path.join(prettierPath, 'bin-prettierx.js')
     process.argv = process.argv.slice(0, 1)
     process.argv.push(binPath)
-    process.argv.push('--parser', flags.parser || 'babel')
+    if (parser) {
+      process.argv.push('--parser', parser)
+    }
     process.argv.push('--config-precedence', 'file-override')
     process.argv.push('--generator-star-spacing')
     process.argv.push('--space-before-function-paren')
@@ -112,9 +114,13 @@ async function main () {
     help()
   }
 
+  let parser = flags.parser
+
   let text = ''
 
   if (input.length === 0) {
+    parser = parser || 'babel'
+    formatFile = false
     text = await getStdin()
     const stdin = new ReadableMock([text])
     stdin.isTTY = process.stdin.isTTY
@@ -125,7 +131,7 @@ async function main () {
     })
   }
 
-  const output = await format(input, flags)
+  const output = await format(input, flags, parser)
 
   if (process.exitCode && process.exitCode !== 0) {
     process.exit(process.exitCode)
