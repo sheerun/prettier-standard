@@ -8,6 +8,8 @@ const { getPathInHostNodeModules } = require('./utils')
 const path = require('path')
 
 const cliHelp = `
+Prettier and standard brought together!
+
 Usage
   $ prettier-standard [<glob>...]
 
