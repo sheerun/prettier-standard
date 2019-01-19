@@ -2,45 +2,39 @@
   "name": "prettier-standard",
   "version": "8.0.1",
   "description": "Prettier and standard brought together!",
-  "main": "src/no-main.js",
+  "main": "src/index.js",
   "bin": {
-    "prettier-standard": "src/index.js"
+    "prettier-standard": "src/cli.js"
   },
   "keywords": [
     "prettier",
     "eslint",
     "standard"
   ],
+  "engines": {
+    "node": ">=8"
+  },
   "author": "Adam Stankiewicz <sheerun@sher.pl>",
   "license": "MIT",
   "repository": "sheerun/prettier-standard",
   "dependencies": {
-    "@sheerun/eslint-config-standard": "^10.2.1",
-    "babel-eslint": ">=7.2.3",
-    "babel-runtime": "^6.23.0",
-    "chalk": "^2.3.0",
-    "eslint": "^4.7.2",
-    "find-up": "^2.1.0",
-    "get-stdin": "^5.0.1",
-    "glob": "^7.1.2",
-    "ignore": "^3.3.3",
-    "indent-string": "^3.1.0",
-    "lodash.memoize": "^4.1.2",
-    "loglevel-colored-level-prefix": "^1.0.0",
-    "messageformat": "^1.0.2",
-    "minimist": "1.2.0",
-    "prettier": "1.9.x",
-    "prettier-eslint": "^8.1.1",
-    "rxjs": "^5.4.0"
-  },
-  "devDependencies": {
-    "cross-run": "^1.0.1",
-    "modern-node": "1.0.0-alpha.2"
+    "babel-eslint": ">=10.0.1",
+    "babylon": "6.18.0",
+    "eslint": "^5.6.1",
+    "eslint-config-prettier": "3.1.0",
+    "find-up": "^3.0.0",
+    "get-stdin": "^6.0.0",
+    "minimist": "^1.2.0",
+    "prettierx": "0.3.0",
+    "standard-engine": "10.0.0",
+    "stream-mock": "1.2.0"
   },
   "scripts": {
-    "format": "modern format",
-    "test": "modern test && cat test/input.js | NODE_ENV=test node ./src/index.js > ./test/output.js && export DIFF=\"$(diff ./test/expected.js ./test/output.js)\" && [ -z \"$DIFF\" ] || (echo \"$DIFF\" && exit 1)",
-    "build": "modern build"
+    "format": "node src/cli.js '**/*.js'",
+    "lint": "node src/cli.js '**/*.js' --lint",
+    "test": "cat test/input.js | NODE_ENV=test node ./src/cli.js > ./test/output.js && export DIFF=\"$(diff ./test/expected.js ./test/output.js)\" && [ -z \"$DIFF\" ] || (echo \"$DIFF\" && exit 1)"
   },
-  "files": ["src"]
+  "files": [
+    "src"
+  ]
 }
