@@ -111,6 +111,23 @@ You can use .prettierc for overriding some options, e.g to use [semistandard](ht
 }
 ```
 
+### Ignoring Files
+
+You can use `.prettierignore` file for ignoring any files to format, e.g:
+
+```
+dist
+.next
+**/*.ts
+```
+
+#### Example (.eslintignore)
+```
+myScript.js
+myFolder/**/*
+...etc
+```
+
 ## Contributors
 
 This package follows [all-contributors](https://github.com/kentcdodds/all-contributors) specification.
