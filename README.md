@@ -121,13 +121,6 @@ dist
 **/*.ts
 ```
 
-#### Example (.eslintignore)
-```
-myScript.js
-myFolder/**/*
-...etc
-```
-
 ## Contributors
 
 This package follows [all-contributors](https://github.com/kentcdodds/all-contributors) specification.
