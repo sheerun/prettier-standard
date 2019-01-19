@@ -1,36 +1,26 @@
-#!/usr/bin/env node
+// const { getPathInHostNodeModules } = require('./utils')
+// const babelEslintPath = getPathInHostNodeModules('babel-eslint')
+// const eslintConfigPrettierPath = getPathInHostNodeModules('eslint-config-prettier')
+// const path = require('path')
+//
+// module.exports = {
+//   parser: babelEslintPath,
+//   baseConfig: {
+//     extends: [
+//       path.join(eslintConfigPrettierPath, 'index.js'),
+//       path.join(eslintConfigPrettierPath, 'standard.js'),
+//       path.join(eslintConfigPrettierPath, 'react.js')
+//     ]
+//   }
+// }
 
-const minimist = require('minimist')
-const formatFilesFromArgv = require('./format-files')
+/* eslint no-console:0 */
+const message = `
+Looks like you're trying to require/import \`prettier-standard\`.
+This module doesn't actually expose a NodeJS interface.
+This module's just the CLI for \`prettier-standard\`.
+`.trim()
 
-const cliHelp = `
-Usage
-  $ prettier-standard [<glob>...]
+console.info(message)
 
-Options
-  --log-level  Log level to use (default: warn)
-
-Examples
-  $ prettier-standard 'src/**/*.js'
-  $ echo "const {foo} = "bar";" | prettier-standard
-`
-
-const options = {}
-
-function help () {
-  console.log(cliHelp)
-  process.exit(1)
-}
-
-async function main () {
-  const flags = require('minimist')(process.argv.slice(2), options)
-  const input = flags._
-
-  if (process.stdin.isTTY === true && input.length < 1) {
-    help()
-  }
-
-  return formatFilesFromArgv(input, flags)
-}
-
-main()
+module.exports = message

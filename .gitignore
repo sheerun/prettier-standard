@@ -6,3 +6,4 @@ lib
 package
 yarn-error.log
 npm-error.log
+package-lock.json

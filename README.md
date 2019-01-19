@@ -4,6 +4,9 @@
 
 While `standard` is a **linter**, `prettier-standard` is a **formatter**. You don't have to fix any warnings anymore :relieved:
 
+
+**Warning:** Most recent version of prettier-standard is compatible with eslint >= 5 and node >= 8. If you're looking for support for older versions of eslint or node please `npm install --save prettier-standard@8`
+
 ## Installation
 
 ```
@@ -14,20 +17,20 @@ yarn add --dev prettier-standard
 
 > You can also install globally with `npm install -g prettier-standard`
 
+## Examples
+
+```ash
+# Format all files in src directory
+prettier-standard 'src/**/*.js'
+
+# Format standard input
+echo 'const {foo} = "bar";' | prettier-standard
+```
+
 ## Usage
 
-```
-Prettier and standard brought together!
-
-Usage
-  $ prettier-standard [<glob>...]
-
-Options
-  --log-level  Log level to use (default: warn)
-
-Examples
-  $ prettier-standard 'src/**/*.js'
-  $ echo "const {foo} = "bar";" | prettier-standard
+```bash
+prettier-standard [<glob>...]
 ```
 
 Typically you'll use this in your [npm scripts][npm scripts] (or [package scripts][package scripts]):
@@ -58,7 +61,7 @@ We also encourage to use [husky](https://github.com/typicode/husky) and [lint-st
 }
 ```
 
-NOTE: Unlike [prettier](https://github.com/prettier/prettier) this package simplifies your workflow by making `--write` flag a default, and allowing for passing code to stdin without additional `--stdin` flag. Now **that's** prettier!
+NOTE: Unlike [prettier](https://github.com/prettier/prettier) this package simplifies your workflow by making `--write` flag a default, and allowing for passing code to stdin without additional `--stdin` flag.
 
 ### Vim
 
@@ -95,26 +98,14 @@ You can now use 'prettier-standard' in Sublime Text 3 by opening the **Command P
 
 ## Customizing
 
-Because this package is built on top of [prettier-eslint](https://github.com/prettier/prettier-eslint), you can fully configure its behavior with custom `.eslintrc` file. For example you might want to opt-out of single quotes with following. Any eslint rules are supported.
+You can use .prettierc for overriding some options, e.g to use [semistandard](https://www.npmjs.com/package/semistandard):
 
 
 ```json
 {
-  "rules": {
-    "quotes": ["error", "double"],
-    "jsx-quotes": ["error", "prefer-double"]
-  }
+  "semi": true
 }
 ```
-
-Additionally, you can use different versions of eslint and prettier. Just include them as a devDependency of your project. prettier-standard will properly recognize this, and use your versions of prettier and eslint instead.
-
-
-## Related
-
-- [prettier](https://github.com/prettier/prettier) - the core package
-- [prettier-eslint](https://github.com/prettier/prettier-eslint) - used for integrating with eslint
-- [prettier-eslint-cli](https://github.com/prettier/prettier-eslint-cli) - this package is based on it
 
 ## Contributors
 
