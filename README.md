@@ -19,7 +19,7 @@ yarn add --dev prettier-standard
 
 ## Usage
 
-```ash
+```
 Prettier and standard brought together!
 
 Usage
