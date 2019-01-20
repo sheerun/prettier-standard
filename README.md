@@ -102,7 +102,7 @@ You can now use 'prettier-standard' in Sublime Text 3 by opening the **Command P
 
 ## Customizing
 
-You can use .prettierc for overriding some options, e.g to use [semistandard](https://www.npmjs.com/package/semistandard):
+You can use .prettierrc for overriding some options, e.g to use [semistandard](https://www.npmjs.com/package/semistandard):
 
 
 ```json
