@@ -15,7 +15,9 @@ yarn add --dev prettier-standard
 
 > If you're using the [`npm`][npm]: `npm install --save-dev prettier-standard`.
 
-> You can also install globally with `npm install -g prettier-standard`
+> You can also install globally with `npm install -g prettier-standard`.
+
+> For existing projects, if you have NPM >= 6.1.0, use `npm init prettier-standard` to easily add prettier-standard with [create-prettier-standard](https://github.com/JustinDFuller/create-prettier-standard).
 
 ## Usage
 
