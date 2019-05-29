@@ -1,6 +1,6 @@
 # (✿◠‿◠) prettier-standard [![Build Status][build-badge]][build] [![version][version-badge]][package] [![Modern Node](https://img.shields.io/badge/modern-node-9BB48F.svg)](https://github.com/sheerun/modern-node)
 
-[prettier](https://github.com/prettier/prettier) and [standard](https://github.com/feross/standard) brought together
+[prettier](https://github.com/prettier/prettier) and [standard](https://github.com/standard/standard) brought together
 
 While `standard` is a **linter**, `prettier-standard` is a **formatter**. You don't have to fix any warnings anymore :relieved:
 
@@ -13,8 +13,8 @@ While `standard` is a **linter**, `prettier-standard` is a **formatter**. You do
 yarn add --dev prettier-standard
 ```
 
-> If you're using the [`npm`][npm]: `npm install --save-dev prettier-standard`.
-
+> If you're using the [`npm`][npm]: `npm install --save-dev prettier-standard`.  
+  
 > You can also install globally with `npm install -g prettier-standard`
 
 ## Usage
