@@ -62,6 +62,7 @@ async function format (input, flags, parser) {
     process.argv.push('--jsx-single-quote')
     process.argv.push('--no-semi')
     process.argv.push('--yield-star-spacing')
+    process.argv.push('--no-align-ternary-lines')
 
     if (input.length > 0) {
       process.argv.push('--write')
