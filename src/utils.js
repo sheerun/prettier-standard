@@ -1,14 +1,19 @@
 const findUp = require('find-up')
 
 function getPathInHostNodeModules (module) {
-  const modulePath = findUp.sync(`node_modules/${module}`, { type: 'directory' })
+  const modulePath = findUp.sync(`node_modules/${module}`, {
+    type: 'directory'
+  })
 
   if (modulePath) {
     return modulePath
   }
   console.log('nope')
 
-  const result = findUp.sync(`node_modules/${module}`, { cwd: __dirname, type: 'directory' })
+  const result = findUp.sync(`node_modules/${module}`, {
+    cwd: __dirname,
+    type: 'directory'
+  })
 
   return result
 }
