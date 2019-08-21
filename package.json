@@ -21,21 +21,21 @@
     "find-up": "^4.1.0",
     "get-stdin": "^7.0.0",
     "minimist": "^1.2.0",
-    "prettierx": "0.7.0",
-    "stream-mock": "2.0.2"
+    "prettierx": "0.7.1",
+    "stream-mock": "2.0.5"
   },
   "devDependencies": {
     "babel-eslint": ">=10.0.2",
-    "eslint": "^6.0.1",
-    "eslint-config-prettier": "5.1.0",
-    "eslint-config-standard": "12.0.0",
-    "eslint-config-standard-jsx": "6.0.2",
-    "eslint-config-standard-react": "7.0.2",
-    "eslint-plugin-import": "^2.18.0",
+    "eslint": "^6.2.1",
+    "eslint-config-prettier": "6.1.0",
+    "eslint-config-standard": "14.0.0",
+    "eslint-config-standard-jsx": "8.0.0",
+    "eslint-config-standard-react": "9.0.0",
+    "eslint-plugin-import": "^2.18.2",
     "eslint-plugin-node": "^9.1.0",
-    "eslint-plugin-promise": "^4.1.1",
-    "eslint-plugin-react": "^7.14.2",
-    "eslint-plugin-standard": "^4.0.0"
+    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-react": "^7.14.3",
+    "eslint-plugin-standard": "^4.0.1"
   },
   "scripts": {
     "format": "node src/cli.js '**/*.js'",
