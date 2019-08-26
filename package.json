@@ -25,11 +25,11 @@
     "stream-mock": "2.0.5"
   },
   "devDependencies": {
-    "babel-eslint": ">=10.0.2",
-    "eslint": "^6.2.1",
+    "babel-eslint": "^10.0.3",
+    "eslint": "^6.2.2",
     "eslint-config-prettier": "6.1.0",
-    "eslint-config-standard": "14.0.0",
-    "eslint-config-standard-jsx": "8.0.0",
+    "eslint-config-standard": "14.0.1",
+    "eslint-config-standard-jsx": "8.0.1",
     "eslint-config-standard-react": "9.0.0",
     "eslint-plugin-import": "^2.18.2",
     "eslint-plugin-node": "^9.1.0",
