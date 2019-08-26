@@ -21,6 +21,7 @@
     "find-up": "^4.1.0",
     "get-stdin": "^7.0.0",
     "minimist": "^1.2.0",
+    "pre-commit": "1.2.2",
     "prettierx": "0.7.1",
     "stream-mock": "2.0.5"
   },
