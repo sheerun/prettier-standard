@@ -135,8 +135,8 @@ It also exposes one additional method that works similarly to its CLI:
 - **config** - object configuring execution
   - **pattern** - pattern to use for formatting files (string)
   - **check** - whether to check instead of format files (boolean, default: false)
-  - **onProcess** - callback that is called for each processed file matching pattern
-                    (({ file, formatted, check, runtime }) => {})
+  - **onProcess** - callback that is called for each processed file matching pattern:
+                    { file, formatted, check, runtime }
 
 ## LICENSE
 
