@@ -8,7 +8,6 @@ function getPathInHostNodeModules (module) {
   if (modulePath) {
     return modulePath
   }
-  console.log('nope')
 
   const result = findUp.sync(`node_modules/${module}`, {
     cwd: __dirname,
