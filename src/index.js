@@ -23,13 +23,12 @@ function formatWithCursor (source, options) {
 function run (cwd, config) {
   const onProcessed = config.onProcessed || function () {}
 
-  const patterns = [
-    config.pattern,
+  const patterns = config.patterns.concat([
     '!**/node_modules/**',
     '!./node_modules/**',
     '!**/.{git,svn,hg}/**',
     '!./.{git,svn,hg}/**'
-  ]
+  ])
 
   let filePaths
   try {

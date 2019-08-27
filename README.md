@@ -133,10 +133,9 @@ It also exposes one additional method that works similarly to its CLI:
 
 - **cwd** - path where to execute prettier-standard
 - **config** - object configuring execution
-  - **pattern** - pattern to use for formatting files (string)
+  - **patterns** - patterns to use for formatting files (array of strings)
   - **check** - whether to check instead of format files (boolean, default: false)
-  - **onProcess** - callback that is called for each processed file matching pattern:
-                    { file, formatted, check, runtime }
+  - **onProcess** - callback that is called for each processed file matching pattern: { file, formatted, check, runtime }
 
 ## LICENSE
 

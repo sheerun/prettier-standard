@@ -40,8 +40,8 @@ async function main () {
     }
   })
 
-  if (flags._ && flags._.length > 0 && !flags.pattern) {
-    flags.pattern = flags._[0]
+  if (flags._ && flags._.length > 0) {
+    flags.patterns = flags._
   }
 
   const stdin = await getStdin()
@@ -81,7 +81,7 @@ async function main () {
     }
 
     const result = run(process.cwd(), {
-      pattern: flags.pattern,
+      patterns: flags.patterns,
       check: flags.check || false,
       options,
       onProcessed: ({ file, formatted, check, runtime }) => {
