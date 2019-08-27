@@ -7,7 +7,9 @@ class Example extends React.Component {
 
   async render () {
     const foo = await import('sdaf')
-    const { whatever } = loooooooooooooooooooooooong[something].some.thiiiiiiiiiiiiing[0]
+    const { whatever } = loooooooooooooooooooooooong[
+      something
+    ].some.thiiiiiiiiiiiiing[0]
     return <div foo='bar' />
   }
 }

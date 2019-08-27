@@ -1,24 +1,25 @@
 #!/usr/bin/env node
 
-const minimist = require('minimist')
-const getStdin = require('get-stdin')
-const { ReadableMock } = require('stream-mock')
-const { getPathInHostNodeModules } = require('./utils')
-
 const path = require('path')
+const mri = require('mri')
+const getStdin = require('get-stdin')
+const { run, format, check } = require('./')
+const chalk = require('chalk')
 
 const cliHelp = `
 Prettier and standard brought together!
 
 Usage
-  $ prettier-standard [<glob>...]
+  $ prettier-standard
 
 Options
-  --parser  Parser to use (default: babel)
+  --check   Do not format, just check formatting
+  --parser  Force parser to use (default: babel)
             https://prettier.io/docs/en/options.html#parser
 
 Examples
-  $ prettier-standard 'src/**/*.js'
+  $ prettier-standard
+  $ prettier-standard '**/*.{js,css}'
   $ echo 'const {foo} = "bar";' | prettier-standard
   $ echo '.foo { color: "red"; }' | prettier-standard --parser css
 `
@@ -28,121 +29,86 @@ function help () {
   process.exit(1)
 }
 
-async function format (input, flags, parser) {
-  const prettierPath = getPathInHostNodeModules('prettierx')
-
-  return new Promise((resolve, reject) => {
-    let output = ''
-
-    const oldArgv = process.argv
-    const oldWrite = process.stdout.write
-
-    process.on('beforeExit', function () {
-      process.argv = oldArgv
-      process.stdout.write = oldWrite
-      resolve(output)
-    })
-
-    if (input.length === 0) {
-      process.stdout.write = e => {
-        output += e
-      }
+async function main() {
+  const flags = mri(process.argv.slice(2), {
+    string: ['parser', 'branch', 'pattern'],
+    default: {
+      check: false,
+      staged: false,
+      help: false,
+      branch: null
     }
-
-    const binPath = path.join(prettierPath, 'bin-prettierx.js')
-    process.argv = process.argv.slice(0, 1)
-    process.argv.push(binPath)
-    if (parser) {
-      process.argv.push('--parser', parser)
-    }
-    process.argv.push('--config-precedence', 'file-override')
-    process.argv.push('--generator-star-spacing')
-    process.argv.push('--space-before-function-paren')
-    process.argv.push('--single-quote')
-    process.argv.push('--jsx-single-quote')
-    process.argv.push('--no-semi')
-    process.argv.push('--yield-star-spacing')
-    process.argv.push('--no-align-ternary-lines')
-
-    if (input.length > 0) {
-      process.argv.push('--write')
-      process.argv.push(...input)
-    }
-
-    require(binPath)
   })
-}
 
-// let CLIEngine
-// let cliEngine
-//
-// async function lint(text, input, flags) {
-//   if (!CLIEngine) {
-//     const eslintPath = getPathInHostNodeModules('eslint')
-//     CLIEngine = require(eslintPath).CLIEngine
-//     cliEngine = new CLIEngine(require('./'))
-//   }
-//
-//   let report
-//
-//   if (input.length > 0) {
-//     report = cliEngine.executeOnFiles(input)
-//   } else {
-//     report = cliEngine.executeOnText(text)
-//   }
-//
-//   let formatter
-//   try {
-//     formatter = cliEngine.getFormatter(flags.formatter)
-//   } catch (e) {
-//     console.error(e.message)
-//     return false
-//   }
-//
-//   const output = formatter(report.results)
-//   process.stderr.write(output)
-//
-//   if (report.errorCount > 0) {
-//     process.exit(1)
-//   }
-// }
+  if (flags._ && flags._.length > 0 && !flags.pattern) {
+    flags.pattern = flags._[0]
+  }
 
-async function main () {
-  const flags = require('minimist')(process.argv.slice(2))
-  const input = flags._
+  const stdin = await getStdin()
 
-  if ((process.stdin.isTTY === true && input.length < 1) || flags.help) {
+  if (flags.parser) {
+    config.parser = flags.parser
+  }
+
+  if (flags.help || (!stdin && flags._.length == 0)) {
     help()
   }
 
-  let parser = flags.parser
+  let allFormatted = true
 
-  let text = ''
+  const options = {}
 
-  if (input.length === 0) {
-    parser = parser || 'babel'
-    formatFile = false
-    text = await getStdin()
-    const stdin = new ReadableMock([text])
-    stdin.isTTY = process.stdin.isTTY
-    Object.defineProperty(process, 'stdin', {
-      value: stdin,
-      configurable: true,
-      writable: false
-    })
+  if (flags.parser) {
+    options.parser = flags.parser
   }
 
-  const output = await format(input, flags, parser)
+  if (stdin) {
+    options.filepath = '(stdin)'
 
-  if (process.exitCode && process.exitCode !== 0) {
-    process.exit(process.exitCode)
+    if (flags.check) {
+      const valid = check(stdin, options)
+      if (!valid) {
+        console.log('(stdin)')
+        process.exit(1)
+      }
+    } else {
+      const output = format(stdin, options)
+      process.stdout.write(output)
+    }
   } else {
-    process.stdout.write(output)
-  }
+    if (flags.check) {
+      console.log('Checking formatting...')
+    }
 
-  // if (flags.lint) {
-  //   await lint(text, input, flags)
-  // }
+    const result = run(process.cwd(), {
+      pattern: flags.pattern,
+      check: flags.check || false,
+      options,
+      onProcessed: ({ file, formatted, check, runtime }) => {
+        if (check) {
+          if (!formatted) {
+            console.log(file)
+            allFormatted = false
+          }
+        } else {
+          console.log(`${formatted ? chalk.grey(file) : file} ${runtime}ms`)
+        }
+      }
+    })
+
+    if (flags.check) {
+      if (!allFormatted) {
+        console.log('Code style issues found in the above file(s).')
+
+        process.exit(1)
+      } else {
+        console.log('All matched files use Standard code style!')
+      }
+    }
+  }
 }
 
-main()
+main().then(function () {}, function (e) {
+  console.error(e.message)
+  process.exit(2)
+})

@@ -18,29 +18,23 @@
   "license": "MIT",
   "repository": "sheerun/prettier-standard",
   "dependencies": {
+    "chalk": "2.4.2",
+    "execa": "^2.0.4",
     "find-up": "^4.1.0",
     "get-stdin": "^7.0.0",
-    "minimist": "^1.2.0",
-    "prettierx": "0.7.1",
-    "stream-mock": "2.0.5"
+    "globby": "6.1.0",
+    "ignore": "^3.3.7",
+    "mri": "^1.1.4",
+    "prettierx": "0.7.1"
   },
   "devDependencies": {
-    "babel-eslint": "^10.0.3",
-    "eslint": "^6.2.2",
-    "eslint-config-prettier": "6.1.0",
-    "eslint-config-standard": "14.0.1",
-    "eslint-config-standard-jsx": "8.0.1",
-    "eslint-config-standard-react": "9.0.0",
-    "eslint-plugin-import": "^2.18.2",
-    "eslint-plugin-node": "^9.1.0",
-    "eslint-plugin-promise": "^4.2.1",
-    "eslint-plugin-react": "^7.14.3",
-    "eslint-plugin-standard": "^4.0.1"
+    "jest": "24.9.0",
+    "mock-fs": "4.10.1"
   },
   "scripts": {
     "format": "node src/cli.js '**/*.js'",
-    "lint": "node src/cli.js '**/*.js' --lint",
-    "test": "cat test/input.js | NODE_ENV=test node ./src/cli.js > ./test/output.js && export DIFF=\"$(diff ./test/expected.js ./test/output.js)\" && [ -z \"$DIFF\" ] || (echo \"$DIFF\" && exit 1)"
+    "test": "jest",
+    "test2": "cat test/input.js | NODE_ENV=test node ./src/cli.js > ./test/output.js && export DIFF=\"$(diff ./test/expected.js ./test/output.js)\" && [ -z \"$DIFF\" ] || (echo \"$DIFF\" && exit 1)"
   },
   "files": [
     "src"
