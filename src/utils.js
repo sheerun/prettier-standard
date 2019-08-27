@@ -35,8 +35,7 @@ const defaultOptions = {
   yieldStarSpacing: true,
   singleQuote: true,
   semi: false,
-  jsxSingleQuote: true,
-  alignTernaryLines: false
+  jsxSingleQuote: true
 }
 
 function getOptions (options) {
