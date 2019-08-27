@@ -13,7 +13,7 @@ function check (source, options) {
 }
 
 function getFileInfo (filePath, options) {
-  return prettierx.getFileInfo(filePath, getOptions(options))
+  return prettierx.getFileInfo(filePath, options)
 }
 
 function formatWithCursor (source, options) {
@@ -54,8 +54,15 @@ function run (cwd, config) {
       prettierx.resolveConfig.sync(file, {
         editorconfig: true
       }),
-      config.options
+      config.options,
+      { filepath: file }
     )
+
+    const fileInfo = prettierx.getFileInfo.sync(file, {})
+
+    if (!fileOptions.parser) {
+      fileOptions.parser = fileInfo.inferredParser
+    }
 
     if (config.check) {
       const formatted = check(input, fileOptions)

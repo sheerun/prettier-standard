@@ -46,10 +46,6 @@ async function main () {
 
   const stdin = await getStdin()
 
-  if (flags.parser) {
-    config.parser = flags.parser
-  }
-
   if (flags.help || (!stdin && flags._.length == 0)) {
     help()
   }
