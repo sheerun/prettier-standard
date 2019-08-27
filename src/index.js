@@ -50,7 +50,8 @@ function run (cwd, config) {
     const file = path.join(cwd, relative)
     const input = fs.readFileSync(file, 'utf8')
 
-    const fileOptions = Object.assign({},
+    const fileOptions = Object.assign(
+      {},
       prettierx.resolveConfig.sync(file, {
         editorconfig: true
       }),

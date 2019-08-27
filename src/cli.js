@@ -29,7 +29,7 @@ function help () {
   process.exit(1)
 }
 
-async function main() {
+async function main () {
   const flags = mri(process.argv.slice(2), {
     string: ['parser', 'branch', 'pattern'],
     default: {
@@ -108,7 +108,10 @@ async function main() {
   }
 }
 
-main().then(function () {}, function (e) {
-  console.error(e.message)
-  process.exit(2)
-})
+main().then(
+  function () {},
+  function (e) {
+    console.error(e.message)
+    process.exit(2)
+  }
+)
