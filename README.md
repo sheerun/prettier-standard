@@ -22,19 +22,27 @@ yarn add --dev prettier-standard
 Prettier and standard brought together!
 
 Usage
-  $ prettier-standard
+  $ prettier-standard [<glob>]
 
 Options
+  --since   Format files changed singe given revision
+  --changed Format only changed or added lines
   --check   Do not format, just check formatting
   --parser  Force parser to use (default: babel)
-            https://prettier.io/docs/en/options.html#parser
 
 Examples
-  $ prettier-standard
   $ prettier-standard '**/*.{js,css}'
+  $ prettier-standard --since HEAD
+  $ prettier-standard --changed
   $ echo 'const {foo} = "bar";' | prettier-standard
   $ echo '.foo { color: "red"; }' | prettier-standard --parser css
 ```
+
+Warning: `--changed` flag should be considered experimental as prettier has issues with range formatting:
+
+- https://github.com/prettier/prettier/issues/4926
+- https://github.com/prettier/prettier/issues/6428
+
 
 ## Usage
 
