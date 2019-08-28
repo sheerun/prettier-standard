@@ -47,12 +47,12 @@ async function main () {
 
   const stdin = await getStdin()
 
-  if ('changed' in flags && stdin) {
+  if (flags.changed && stdin) {
     console.error('--changed flag does not support stdin')
     process.exit(1)
   }
 
-  if ('since' in flags && stdin) {
+  if (flags.since && stdin) {
     console.error('--since flag does not support stdin')
     process.exit(1)
   }
