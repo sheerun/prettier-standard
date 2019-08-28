@@ -10,17 +10,18 @@ const cliHelp = `
 Prettier and standard brought together!
 
 Usage
-  $ prettier-standard
+  $ prettier-standard [<glob>]
 
 Options
-  --check   Do not format, just check formatting
+  --since   Format files changed singe given revision
   --changed Format only changed or added lines
+  --check   Do not format, just check formatting
   --parser  Force parser to use (default: babel)
-            https://prettier.io/docs/en/options.html#parser
 
 Examples
-  $ prettier-standard
   $ prettier-standard '**/*.{js,css}'
+  $ prettier-standard --since HEAD
+  $ prettier-standard --changed
   $ echo 'const {foo} = "bar";' | prettier-standard
   $ echo '.foo { color: "red"; }' | prettier-standard --parser css
 `
@@ -32,12 +33,11 @@ function help () {
 
 async function main () {
   const flags = mri(process.argv.slice(2), {
-    string: ['parser', 'branch', 'pattern', 'changed'],
+    string: ['parser', 'since'],
     default: {
+      changed: false,
       check: false,
-      staged: false,
-      help: false,
-      branch: null
+      help: false
     }
   })
 
@@ -47,23 +47,20 @@ async function main () {
 
   const stdin = await getStdin()
 
-  if ('changed' in flags && !flags.changed) {
-    console.error('--changed flag requires revision. Here are some examples:')
-    console.error(
-      '  $ prettier-standard --changed HEAD # all uncommited changes'
-    )
-    console.error(
-      '  $ prettier-standard --changed master # all changes since master'
-    )
-    process.exit(1)
-  }
-
   if ('changed' in flags && stdin) {
     console.error('--changed flag does not support stdin')
     process.exit(1)
   }
 
-  if (flags.help || (!stdin && !flags.changed && flags._.length == 0)) {
+  if ('since' in flags && stdin) {
+    console.error('--since flag does not support stdin')
+    process.exit(1)
+  }
+
+  if (
+    flags.help ||
+    (!stdin && !flags.changed && !flags.since && flags._.length == 0)
+  ) {
     help()
   }
 
@@ -95,8 +92,9 @@ async function main () {
 
     const result = run(process.cwd(), {
       patterns: flags.patterns,
-      check: flags.check || false,
-      changed: flags.changed || false,
+      check: flags.check,
+      changed: flags.changed,
+      since: flags.since,
       options,
       onProcessed: ({ file, formatted, check, runtime }) => {
         if (check) {
@@ -125,7 +123,11 @@ async function main () {
 main().then(
   function () {},
   function (e) {
-    console.error(e)
+    if (process.env.DEBUG) {
+      console.error(e)
+    } else {
+      console.error(e.message)
+    }
     process.exit(2)
   }
 )

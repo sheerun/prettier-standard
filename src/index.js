@@ -1,9 +1,11 @@
 const globby = require('globby')
 const path = require('path')
 const fs = require('fs')
-const prettierx = require( 'prettierx' )
+const prettierx = require('prettierx')
+const minimatch = require('minimatch')
 const {
-  createFilter,
+  createIgnorer,
+  createMatcher,
   isSupportedExtension,
   getOptions,
   getScm,
@@ -58,14 +60,30 @@ function checkWithRanges (source, ranges, options) {
 }
 
 function run (cwd, config) {
+  // Filepaths will be relative to this directory
+  let root = cwd
+
+  const patterns = config.patterns || []
+
+  if (!Array.isArray(patterns)) {
+    throw new Error('patterns should be an array')
+  }
+
   const onProcessed = config.onProcessed || function () {}
 
-  const filter = createFilter(cwd)
-  const allFilters = path => isSupportedExtension(path) && filter(path)
+  // They ignore files relative to current directory
+  const filters = [
+    // Ignore .prettierignore entries
+    createIgnorer(cwd),
+    // Ignore unsupported extensions
+    isSupportedExtension
+  ]
+
+  const runFilters = path => filters.reduce((a, b) => a && b(path), true)
 
   let files
 
-  if (config.changed) {
+  if (config.changed || config.since) {
     const scm = getScm(cwd)
 
     if (!scm) {
@@ -73,16 +91,18 @@ function run (cwd, config) {
       process.exit(1)
     }
 
-    cwd = scm.dir
+    root = scm.dir
 
-    const revision = scm.getRevision(config.changed)
+    const revision = scm.getRevision(config.since || 'HEAD')
 
     if (!revision) {
       console.error(`Cannot find ${scm.name()} revision ${config.changed}`)
       process.exit(1)
     }
 
-    files = scm.getChanges(revision)
+    files = scm
+      .getChanges(revision, config.patterns)
+      .filter(p => runFilters(p.filepath))
   } else {
     const patterns = config.patterns.concat([
       '!**/node_modules/**',
@@ -93,27 +113,25 @@ function run (cwd, config) {
 
     try {
       filePaths = globby
-        .sync(patterns, { dot: true, nodir: true })
+        .sync(patterns, { dot: true, nodir: true, cwd })
         .map(filePath => path.relative(process.cwd(), filePath))
     } catch (error) {
       console.error(`Unable to expand glob pattern: ${error.message}`)
+      process.exit(1)
     }
 
-    files = filePaths
-      .filter(isSupportedExtension)
-      .filter(filter)
-      .map(filepath => ({ filepath }))
+    files = filePaths.filter(runFilters).map(filepath => ({ filepath }))
   }
 
   for (const file of files) {
     const start = Date.now()
     const { filepath, changes } = file
 
-    const fullpath = path.join(cwd, filepath)
+    const fullpath = path.join(root, filepath)
     const input = fs.readFileSync(fullpath, 'utf8')
 
     let ranges
-    if (changes) {
+    if (config.changed && changes) {
       ranges = getRanges(input, changes)
     }
 

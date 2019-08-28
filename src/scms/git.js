@@ -32,7 +32,8 @@ function extractLineChangeData (output) {
 }
 
 class Git {
-  constructor (dir) {
+  constructor (dir, cwd) {
+    this.cwd = cwd
     this.dir = dir
   }
 
@@ -41,7 +42,7 @@ class Git {
   }
 
   runGit (args) {
-    return execa.sync('git', args, { cwd: this.dir }).stdout.trim()
+    return execa.sync('git', args, { cwd: this.cwd }).stdout.trim()
   }
 
   getRevision (branch) {
@@ -61,20 +62,19 @@ class Git {
       return undefined
     }
   }
-  getChanges (revision) {
-    const output = this.runGit(['diff-index', '--unified=0', '-p', revision])
+  getChanges (revision, patterns) {
+    const output = this.runGit(
+      ['diff-index', '--unified=0', '-p', revision].concat(patterns || [])
+    )
 
     return extractLineChangeData(output)
   }
 }
 
-module.exports = directory => {
-  const gitDirectory = findUp.sync('.git', {
-    cwd: directory,
-    type: 'directory'
-  })
+module.exports = cwd => {
+  const gitDirectory = findUp.sync('.git', { cwd, type: 'directory' })
 
   if (gitDirectory) {
-    return new Git(path.dirname(gitDirectory))
+    return new Git(path.dirname(gitDirectory), cwd)
   }
 }

@@ -126,13 +126,15 @@ module.exports = function (input) {
   eof = function (line) {
     var recentChange, ref
     ;(ref = current.changes), ([recentChange] = slice.call(ref, -1))
-    return current.changes.push({
-      type: recentChange.type,
-      [`${recentChange.type}`]: true,
-      ln1: recentChange.ln1,
-      ln2: recentChange.ln2,
-      ln: recentChange.ln
-    })
+    if (recentChange) {
+      current.changes.push({
+        type: recentChange.type,
+        [`${recentChange.type}`]: true,
+        ln1: recentChange.ln1,
+        ln2: recentChange.ln2,
+        ln: recentChange.ln
+      })
+    }
   }
   // todo beter regexp to avoid detect normal line starting with diff
   schema = [

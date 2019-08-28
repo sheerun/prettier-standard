@@ -18,20 +18,22 @@
   "license": "MIT",
   "repository": "sheerun/prettier-standard",
   "dependencies": {
-    "chalk": "2.4.2",
-    "diff": "4.0.1",
+    "chalk": "^2.4.2",
+    "diff": "^4.0.1",
     "execa": "^2.0.4",
     "find-up": "^4.1.0",
     "get-stdin": "^7.0.0",
-    "globby": "6.1.0",
+    "globby": "^6.1.0",
     "ignore": "^3.3.7",
     "mri": "^1.1.4",
-    "parse-diff": "0.5.1",
-    "prettierx": "0.7.1"
+    "multimatch": "^4.0.0",
+    "parse-diff": "^0.5.1",
+    "prettierx": "^0.7.1"
   },
   "devDependencies": {
+    "isomorphic-git": "0.64.6",
     "jest": "24.9.0",
-    "mock-fs": "4.10.1"
+    "tmp": "0.1.0"
   },
   "scripts": {
     "format": "node src/cli.js '**/*.js'",

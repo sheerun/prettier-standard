@@ -4,6 +4,7 @@ const prettierx = require('prettierx')
 const { getSupportInfo } = prettierx
 const ignore = require('ignore')
 const execa = require('execa')
+const multimatch = require('multimatch')
 
 const git = require('./scms/git')
 
@@ -20,7 +21,7 @@ function isSupportedExtension (file) {
   return extensions[path.extname(file)] || false
 }
 
-function createFilter (directory, filename = '.prettierignore') {
+function createIgnorer (directory, filename = '.prettierignore') {
   const file = path.join(directory, filename)
   if (fs.existsSync(file)) {
     const text = fs.readFileSync(file, 'utf8')
@@ -30,6 +31,16 @@ function createFilter (directory, filename = '.prettierignore') {
   }
 
   return () => true
+}
+
+function createMatcher (relative, patterns) {
+  if (!Array.isArray(patterns) || patterns.length === 0) {
+    return () => true
+  }
+
+  return file =>
+    multimatch(path.relative(relative, file), patterns, { dot: true }).length >
+    0
 }
 
 const defaultOptions = {
@@ -84,7 +95,8 @@ function getScm (cwd) {
 
 module.exports = {
   isSupportedExtension,
-  createFilter,
+  createIgnorer,
+  createMatcher,
   getOptions,
   getScm,
   getRanges
