@@ -28,7 +28,7 @@
     "mri": "^1.1.4",
     "multimatch": "^3.0.0",
     "parse-diff": "^0.5.1",
-    "prettierx": "^0.7.1"
+    "prettierx": "0.7.1"
   },
   "devDependencies": {
     "isomorphic-git": "0.64.6",
