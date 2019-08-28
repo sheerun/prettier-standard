@@ -25,7 +25,7 @@ Usage
   $ prettier-standard [<glob>]
 
 Options
-  --since   Format files changed singe given revision
+  --since   Format files changed since given revision
   --changed Format only changed or added lines
   --check   Do not format, just check formatting
   --parser  Force parser to use (default: babel)
