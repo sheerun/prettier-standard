@@ -19,12 +19,14 @@
   "repository": "sheerun/prettier-standard",
   "dependencies": {
     "chalk": "2.4.2",
+    "diff": "4.0.1",
     "execa": "^2.0.4",
     "find-up": "^4.1.0",
     "get-stdin": "^7.0.0",
     "globby": "6.1.0",
     "ignore": "^3.3.7",
     "mri": "^1.1.4",
+    "parse-diff": "0.5.1",
     "prettierx": "0.7.1"
   },
   "devDependencies": {

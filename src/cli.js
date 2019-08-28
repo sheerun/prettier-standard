@@ -14,6 +14,7 @@ Usage
 
 Options
   --check   Do not format, just check formatting
+  --changed Format only changed or added lines
   --parser  Force parser to use (default: babel)
             https://prettier.io/docs/en/options.html#parser
 
@@ -31,7 +32,7 @@ function help () {
 
 async function main () {
   const flags = mri(process.argv.slice(2), {
-    string: ['parser', 'branch', 'pattern'],
+    string: ['parser', 'branch', 'pattern', 'changed'],
     default: {
       check: false,
       staged: false,
@@ -46,7 +47,23 @@ async function main () {
 
   const stdin = await getStdin()
 
-  if (flags.help || (!stdin && flags._.length == 0)) {
+  if ('changed' in flags && !flags.changed) {
+    console.error('--changed flag requires revision. Here are some examples:')
+    console.error(
+      '  $ prettier-standard --changed HEAD # all uncommited changes'
+    )
+    console.error(
+      '  $ prettier-standard --changed master # all changes since master'
+    )
+    process.exit(1)
+  }
+
+  if ('changed' in flags && stdin) {
+    console.error('--changed flag does not support stdin')
+    process.exit(1)
+  }
+
+  if (flags.help || (!stdin && !flags.changed && flags._.length == 0)) {
     help()
   }
 
@@ -79,6 +96,7 @@ async function main () {
     const result = run(process.cwd(), {
       patterns: flags.patterns,
       check: flags.check || false,
+      changed: flags.changed || false,
       options,
       onProcessed: ({ file, formatted, check, runtime }) => {
         if (check) {
@@ -107,7 +125,7 @@ async function main () {
 main().then(
   function () {},
   function (e) {
-    console.error(e.message)
+    console.error(e)
     process.exit(2)
   }
 )
