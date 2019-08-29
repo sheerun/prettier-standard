@@ -107,7 +107,11 @@ function getPathInHostNodeModules (module) {
     type: 'directory'
   })
 
-  return result
+  if (result) {
+    return result
+  }
+
+  throw new Error(`Module not found: ${module}`)
 }
 
 module.exports = {
