@@ -45,7 +45,8 @@ async function main () {
     flags.patterns = flags._
   }
 
-  const hasStdin = process.stdin.isTTY === false
+
+  const hasStdin = process.stdin.isTTY !== true
 
   if (flags.changed && hasStdin) {
     console.error('--changed flag does not support stdin')
