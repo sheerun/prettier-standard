@@ -20,6 +20,7 @@
   "dependencies": {
     "chalk": "^2.4.2",
     "diff": "^4.0.1",
+    "eslint": "6.2.2",
     "execa": "^2.0.4",
     "find-up": "^4.1.0",
     "get-stdin": "^7.0.0",
@@ -39,7 +40,6 @@
   "scripts": {
     "format": "node src/cli.js '**/*.js'",
     "test": "jest",
-    "test2": "cat test/input.js | NODE_ENV=test node ./src/cli.js > ./test/output.js && export DIFF=\"$(diff ./test/expected.js ./test/output.js)\" && [ -z \"$DIFF\" ] || (echo \"$DIFF\" && exit 1)",
     "lint-staged": "lint-staged"
   },
   "files": [

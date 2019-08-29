@@ -3,8 +3,8 @@ const path = require('path')
 const prettierx = require('prettierx')
 const { getSupportInfo } = prettierx
 const ignore = require('ignore')
-const execa = require('execa')
 const multimatch = require('multimatch')
+const findUp = require('find-up')
 
 const git = require('./scms/git')
 
@@ -93,11 +93,29 @@ function getScm (cwd) {
   return git(cwd)
 }
 
+function getPathInHostNodeModules (module) {
+  const modulePath = findUp.sync(`node_modules/${module}`, {
+    type: 'directory'
+  })
+
+  if (modulePath) {
+    return modulePath
+  }
+
+  const result = findUp.sync(`node_modules/${module}`, {
+    cwd: path.join(__dirname, 'vendor'),
+    type: 'directory'
+  })
+
+  return result
+}
+
 module.exports = {
   isSupportedExtension,
   createIgnorer,
   createMatcher,
   getOptions,
   getScm,
-  getRanges
+  getRanges,
+  getPathInHostNodeModules
 }
