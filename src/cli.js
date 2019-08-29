@@ -13,9 +13,8 @@ Usage
   $ prettier-standard [<glob>]
 
 Options
-  --changed Format only changed or added lines
   --since   Format files changed since given revision
-  --staged  Format only staged changes
+  --changed Format only changed or added lines
   --check   Do not format, just check formatting
   --parser  Force parser to use (default: babel)
 
