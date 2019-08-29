@@ -33,14 +33,23 @@
   "devDependencies": {
     "isomorphic-git": "0.64.6",
     "jest": "24.9.0",
+    "lint-staged": "9.2.5",
     "tmp": "0.1.0"
   },
   "scripts": {
     "format": "node src/cli.js '**/*.js'",
     "test": "jest",
-    "test2": "cat test/input.js | NODE_ENV=test node ./src/cli.js > ./test/output.js && export DIFF=\"$(diff ./test/expected.js ./test/output.js)\" && [ -z \"$DIFF\" ] || (echo \"$DIFF\" && exit 1)"
+    "test2": "cat test/input.js | NODE_ENV=test node ./src/cli.js > ./test/output.js && export DIFF=\"$(diff ./test/expected.js ./test/output.js)\" && [ -z \"$DIFF\" ] || (echo \"$DIFF\" && exit 1)",
+    "lint-staged": "lint-staged"
   },
   "files": [
     "src"
-  ]
+  ],
+  "lint-staged": {
+    "**/*.js": [
+      "echo",
+      "node src/cli.js",
+      "git add"
+    ]
+  }
 }

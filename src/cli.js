@@ -13,15 +13,16 @@ Usage
   $ prettier-standard [<glob>]
 
 Options
-  --since   Format files changed since given revision
   --changed Format only changed or added lines
+  --since   Format files changed since given revision
+  --staged  Format only staged changes
   --check   Do not format, just check formatting
   --parser  Force parser to use (default: babel)
 
 Examples
   $ prettier-standard '**/*.{js,css}'
   $ prettier-standard --since HEAD
-  $ prettier-standard --changed
+  $ prettier-standard --staged --changed
   $ echo 'const {foo} = "bar";' | prettier-standard
   $ echo '.foo { color: "red"; }' | prettier-standard --parser css
 `
@@ -45,21 +46,21 @@ async function main () {
     flags.patterns = flags._
   }
 
-  const stdin = await getStdin()
+  const hasStdin = process.stdin.isTTY === false
 
-  if (flags.changed && stdin) {
+  if (flags.changed && hasStdin) {
     console.error('--changed flag does not support stdin')
     process.exit(1)
   }
 
-  if (flags.since && stdin) {
+  if (flags.since && hasStdin) {
     console.error('--since flag does not support stdin')
     process.exit(1)
   }
 
   if (
     flags.help ||
-    (!stdin && !flags.changed && !flags.since && flags._.length == 0)
+    (!hasStdin && !flags.changed && !flags.since && flags._.length == 0)
   ) {
     help()
   }
@@ -72,7 +73,9 @@ async function main () {
     options.parser = flags.parser
   }
 
-  if (stdin) {
+  if (hasStdin) {
+    const stdin = await getStdin()
+
     options.filepath = '(stdin)'
 
     if (flags.check) {
