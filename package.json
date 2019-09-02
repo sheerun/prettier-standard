@@ -38,7 +38,7 @@
     "tmp": "0.1.0"
   },
   "scripts": {
-    "format": "node src/cli.js '**/*.js'",
+    "format": "node src/cli.js",
     "test": "jest",
     "lint-staged": "lint-staged"
   },

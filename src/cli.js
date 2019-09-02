@@ -64,6 +64,7 @@ async function main () {
     flags.help ||
     (!hasStdin &&
       !flags.changed &&
+      !flags.check &&
       !flags.since &&
       !flags.lint &&
       !flags.format &&
@@ -149,10 +150,15 @@ async function main () {
       if (output) {
         console.error(output)
       }
+      allStandard = false
     } else {
       if ((flags.check || flags.lint) && allStandard) {
         console.log('All matched files use Standard code style!')
       }
+    }
+
+    if (allStandard === false) {
+      process.exit(1)
     }
   }
 }

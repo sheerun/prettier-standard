@@ -74,7 +74,7 @@ function run (cwd, config) {
 
   let patterns = config.patterns || []
 
-  if ((config.format || config.lint) && patterns.length === 0) {
+  if ((config.format || config.lint || config.check) && patterns.length === 0) {
     patterns.push('*/**')
   }
 
