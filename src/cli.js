@@ -144,7 +144,9 @@ async function main () {
       return error
     }
 
-    if (engine && results.length > 0) {
+    const errorCount = results.map(r => r.errorCount).reduce((a, b) => a + b, 0)
+
+    if (engine && errorCount > 0) {
       const formatter = engine.getFormatter()
       const output = formatter(results)
       if (output) {
