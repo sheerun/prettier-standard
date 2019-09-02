@@ -25,15 +25,18 @@ Usage
   $ prettier-standard [<glob>]
 
 Options
-  --since   Format files changed since given revision
-  --changed Format only changed or added lines
+  --format  Format all files
+  --changed Format only changed files
+  --lint    Lint code with eslint after formatting it
+  --since   Format only changed files since given revision
   --check   Do not format, just check formatting
-  --parser  Force parser to use (default: babel)
+  --parser  Force parser to use for stdin (default: babel)
+  --lines   Format only changed lines (warning: experimental!)
 
 Examples
-  $ prettier-standard '**/*.{js,css}'
-  $ prettier-standard --since HEAD
-  $ prettier-standard --changed
+  $ prettier-standard --lint '**/*.{js,css}'
+  $ prettier-standard --changed --lint
+  $ prettier-standard --since master
   $ echo 'const {foo} = "bar";' | prettier-standard
   $ echo '.foo { color: "red"; }' | prettier-standard --parser css
 ```
@@ -120,6 +123,18 @@ You can use .prettierrc for overriding some options, e.g to use [semistandard](h
 }
 ```
 
+You can also configure linting by creating appropriate [.eslintrc]() file that will override defaults:
+
+
+```json
+{
+  "rules": {
+    "eqeqeq": "off"
+  }
+}
+```
+
+
 ### Ignoring Files
 
 You can use `.prettierignore` file for ignoring any files to format, e.g:
@@ -129,6 +144,8 @@ dist
 .next
 **/*.ts
 ```
+
+This package currently doesn't recognize `.eslintignore` file for linting and just uses `.prettierignore`.
 
 ### API
 
@@ -142,6 +159,9 @@ It also exposes one additional method that works similarly to its CLI:
 - **config** - object configuring execution
   - **patterns** - patterns to use for formatting files (array of strings)
   - **check** - whether to check instead of format files (boolean, default: false)
+  - **lint** - whether to perform linting (boolean, default: false)
+  - **changed** - whether to format only changed lines (boolean, experimental, default: false)
+  - **since** - format changes that happened since given branch (string, optional, example: "master")
   - **onProcess** - callback that is called for each processed file matching pattern: { file, formatted, check, runtime }
 
 ## LICENSE
