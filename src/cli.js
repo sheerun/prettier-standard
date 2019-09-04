@@ -48,6 +48,8 @@ async function main () {
 
   if (flags._ && flags._.length > 0) {
     flags.patterns = flags._
+  } else {
+    flags.patterns = []
   }
 
   const hasStdin = process.stdin.isTTY !== true && flags.patterns.length === 0
