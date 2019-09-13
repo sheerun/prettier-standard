@@ -4,7 +4,7 @@
 
 Formats with [prettier](https://github.com/prettier/prettier) and lints with [eslint](https://eslint.org/) preconfigured with [standard](https://github.com/standard/standard) rules (✿◠‿◠) 
 
-You don't have to fix any whitespace warnings and waste time configuring eslint presets :relieved:
+You don't have to fix any whitespace errors and waste time configuring eslint presets :relieved:
 
 ## Installation
 
