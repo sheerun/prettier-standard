@@ -1,10 +1,8 @@
-# (✿◠‿◠) prettier-standard [![Build Status][build-badge]][build] [![version][version-badge]][package] [![Modern Node](https://img.shields.io/badge/modern-node-9BB48F.svg)](https://github.com/sheerun/modern-node)
+# prettier-standard [![Build Status][build-badge]][build] [![version][version-badge]][package] [![Modern Node](https://img.shields.io/badge/modern-node-9BB48F.svg)](https://github.com/sheerun/modern-node)
 
-[prettier](https://github.com/prettier/prettier) and [standard](https://github.com/standard/standard) brought together
+Formats with [prettier](https://github.com/prettier/prettier) and lint with [eslint](https://eslint.org/) preconfigured with [standard](https://github.com/standard/standard) rules (✿◠‿◠) 
 
-While `standard` is a **linter**, `prettier-standard` is a **formatter**. You don't have to fix any warnings anymore :relieved:
-
-**Warning:** Most recent version of prettier-standard is compatible with eslint >= 5 and node >= 8. If you're looking for support for older versions of eslint or node please `npm install --save prettier-standard@8`
+You don't have to fix any whitespace warnings and waste time configuring eslint presets :relieved:
 
 ## Installation
 
