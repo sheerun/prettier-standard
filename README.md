@@ -53,23 +53,21 @@ Typically you'll use this in your [npm scripts][npm scripts] (or [package script
 ```json
 {
   "scripts": {
-    "format": "prettier-standard '**/*'"
+    "format": "prettier-standard --format"
   }
 }
 ```
 
-We also encourage to use [husky](https://github.com/typicode/husky) and [lint-staged](https://github.com/okonet/lint-staged). You can configure it as follows:
+We also encourage to use [modern-node](https://github.com/sheerun/modern-node) and [lint-staged](https://github.com/okonet/lint-staged). You can configure it as follows:
 
 ```json
 {
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
+  "scripts": {
+    "precommit": "lint-staged"
   },
   "lint-staged": {
     "linters": {
-      "**/*": ["prettier-standard", "git add"]
+      "**/*": ["prettier-standard --lint", "git add"]
     }
   }
 }
