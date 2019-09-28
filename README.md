@@ -43,7 +43,7 @@ Examples
   $ echo '.foo { color: "red"; }' | prettier-standard --parser css
 ```
 
-Warning: `--changed` flag should be considered experimental as prettier has issues with range formatting:
+Warning: `--lines` flag should be considered experimental as prettier has issues with range formatting:
 
 - https://github.com/prettier/prettier/issues/4926
 - https://github.com/prettier/prettier/issues/6428
