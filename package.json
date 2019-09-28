@@ -9,7 +9,9 @@
   "keywords": [
     "prettier",
     "eslint",
-    "standard"
+    "standard",
+    "linting",
+    "formatting"
   ],
   "engines": {
     "node": ">=8"
