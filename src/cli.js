@@ -42,7 +42,7 @@ async function main () {
       format: false,
       lint: false,
       changed: false,
-      lines: true,
+      lines: false,
       check: false,
       staged: false,
       help: false
