@@ -16,7 +16,7 @@ function run (args, options) {
 }
 describe('prettier-standard', () => {
   it('can format stdin', () => {
-    const result = run([], { input: 'function foo(){};' })
+    const result = run(['--stdin'], { input: 'function foo(){};' })
     expect(result).toEqual({ stdout: 'function foo () {}' })
   })
 })
