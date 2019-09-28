@@ -19,8 +19,6 @@ yarn add --dev prettier-standard
 ## Usage
 
 ```
-Prettier and standard brought together!
-
 Usage
   $ prettier-standard [<glob>]
 
@@ -28,18 +26,20 @@ Options
   --format  Format all files
   --lint    Additionally lint code after formatting
   --check   Do not format, just check formatting
-  --changed Run only on changed files
   --staged  Run only on staged files
-  --since   Run only on files changed since given revision
+  --changed Run only on changed files
+  --since   Run only on changed files since given revision
+  --lines   Run only on changed lines (warning: experimental!)
+  --stdin   Force reading input from stdin
   --parser  Force parser to use for stdin (default: babel)
-  --lines   Format only changed lines (warning: experimental!)
+  --help    Tells how to use prettier-standard
 
 Examples
   $ prettier-standard --changed --lint
   $ prettier-standard --lint '**/*.{js,css}'
   $ prettier-standard --since master
   $ "precommit": "prettier-standard --lint --staged" # in package.json
-  $ echo 'const {foo} = "bar";' | prettier-standard
+  $ echo 'const {foo} = "bar";' | prettier-standard --stdin
   $ echo '.foo { color: "red"; }' | prettier-standard --parser css
 ```
 

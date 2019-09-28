@@ -15,18 +15,20 @@ Options
   --format  Format all files
   --lint    Additionally lint code after formatting
   --check   Do not format, just check formatting
-  --changed Run only on changed files
   --staged  Run only on staged files
-  --since   Run only on files changed since given revision
+  --changed Run only on changed files
+  --since   Run only on changed files since given revision
+  --lines   Run only on changed lines (warning: experimental!)
+  --stdin   Force reading input from stdin
   --parser  Force parser to use for stdin (default: babel)
-  --lines   Format only changed lines (warning: experimental!)
+  --help    Tells how to use prettier-standard
 
 Examples
   $ prettier-standard --changed --lint
   $ prettier-standard --lint '**/*.{js,css}'
   $ prettier-standard --since master
   $ "precommit": "prettier-standard --lint --staged" # in package.json 
-  $ echo 'const {foo} = "bar";' | prettier-standard
+  $ echo 'const {foo} = "bar";' | prettier-standard --stdin
   $ echo '.foo { color: "red"; }' | prettier-standard --parser css
 `
 
@@ -36,17 +38,19 @@ function help () {
 }
 
 async function main () {
+  const defaultFlags = {
+    lint: false,
+    changed: false,
+    lines: false,
+    check: false,
+    staged: false,
+    stdin: false,
+    help: false
+  }
+
   const flags = mri(process.argv.slice(2), {
     string: ['parser', 'since'],
-    default: {
-      format: false,
-      lint: false,
-      changed: false,
-      lines: false,
-      check: false,
-      staged: false,
-      help: false
-    }
+    default: defaultFlags
   })
 
   if (flags._ && flags._.length > 0) {
@@ -55,27 +59,21 @@ async function main () {
     flags.patterns = []
   }
 
-  const hasStdin = process.stdin.isTTY !== true && flags.patterns.length === 0
+  const hasStdin = flags.stdin || !!flags.parser
 
-  if (flags.changed && hasStdin) {
-    return new Error('--changed flag does not support stdin')
+  if (hasStdin) {
+    for (const key in defaultFlags) {
+      if (key !== 'stdin' && key !== 'check' && flags[key]) {
+        return new Error(`--${key} is not supported when --stdin is used`)
+      }
+    }
+
+    if (flags._.length > 0) {
+      return new Error(`Cannot provide patterns when --stdin is used`)
+    }
   }
 
-  if (flags.since && hasStdin) {
-    return new Error('--since flag does not support stdin')
-  }
-
-  if (
-    flags.help ||
-    (!hasStdin &&
-      !flags.changed &&
-      !flags.check &&
-      !flags.since &&
-      !flags.staged &&
-      !flags.lint &&
-      !flags.format &&
-      flags._.length === 0)
-  ) {
+  if (flags.help) {
     help()
   }
 
@@ -90,22 +88,22 @@ async function main () {
 
     options.filepath = '(stdin)'
 
-    if (flags.check) {
-      try {
+    try {
+      if (flags.check) {
         const valid = check(stdin, options)
         if (!valid) {
           console.log('(stdin)')
           return 1
         }
-      } catch (e) {
-        if (e.message.match(/SyntaxError/)) {
-          return e
-        }
-        throw e
+      } else {
+        const output = format(stdin, options)
+        process.stdout.write(output)
       }
-    } else {
-      const output = format(stdin, options)
-      process.stdout.write(output)
+    } catch (e) {
+      if (e.message.match(/SyntaxError/)) {
+        return e
+      }
+      throw e
     }
   } else {
     let allStandard = true
@@ -114,14 +112,13 @@ async function main () {
     let engine
 
     const error = await run(process.cwd(), {
-      format: flags.format,
       patterns: flags.patterns,
       check: flags.check,
       changed: flags.changed,
       since: flags.since,
       staged: flags.staged,
       lint: flags.lint,
-      precise: flags.precise,
+      lines: flags.lines,
       options,
       onStart: params => {
         if (params.engine) {
