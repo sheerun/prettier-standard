@@ -9,7 +9,8 @@ const {
   getOptions,
   getScm,
   getRanges,
-  getPathInHostNodeModules
+  getPathInHostNodeModules,
+  createMatcher
 } = require('./utils')
 
 const DEFAULT_IGNORE = [
@@ -96,10 +97,10 @@ async function run (cwd, config) {
 
   // They ignore files relative to current directory
   const filters = [
-    // Ignore .prettierignore entries
-    createIgnorer(cwd),
     // Ignore unsupported extensions
-    isSupportedExtension
+    isSupportedExtension,
+    // Ignore .prettierignore entries
+    createIgnorer(cwd)
   ]
 
   const runFilters = path => filters.reduce((a, b) => a && b(path), true)
@@ -154,15 +155,16 @@ async function run (cwd, config) {
 
     root = scm.dir
 
+    // Ignore non-matched patterns
+    filters.push(createMatcher(path.relative(root, cwd), config.patterns))
+
     const revision = scm.getRevision(config.since || 'HEAD')
 
     if (!revision) {
       return new Error(`Cannot find ${scm.name()} revision ${config.since}`)
     }
 
-    files = scm
-      .getChanges(revision, config.patterns)
-      .filter(p => runFilters(p.filepath))
+    files = scm.getChanges(revision).filter(p => runFilters(p.filepath))
   } else {
     patterns = patterns.concat(DEFAULT_IGNORE)
 

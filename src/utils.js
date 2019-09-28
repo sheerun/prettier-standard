@@ -38,9 +38,10 @@ function createMatcher (relative, patterns) {
     return () => true
   }
 
-  return file =>
-    multimatch(path.relative(relative, file), patterns, { dot: true }).length >
-    0
+  return file => {
+    const relativepath = path.relative(relative, file)
+    return multimatch(relativepath, patterns, { dot: true }).length > 0
+  }
 }
 
 const defaultOptions = {
