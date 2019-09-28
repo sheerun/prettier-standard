@@ -26,6 +26,7 @@
     "get-stdin": "^7.0.0",
     "globby": "^6.1.0",
     "ignore": "^3.3.7",
+    "lint-staged": "9.3.0",
     "mri": "^1.1.4",
     "multimatch": "^3.0.0",
     "parse-diff": "^0.5.1",
@@ -34,22 +35,14 @@
   "devDependencies": {
     "isomorphic-git": "0.64.6",
     "jest": "24.9.0",
-    "lint-staged": "9.2.5",
     "tmp": "0.1.0"
   },
   "scripts": {
-    "format": "node src/cli.js",
-    "test": "jest",
-    "lint-staged": "lint-staged"
+    "format": "node src/cli.js --format",
+    "lint": "node src/cli.js --lint",
+    "test": "jest"
   },
   "files": [
     "src"
-  ],
-  "lint-staged": {
-    "**/*.js": [
-      "echo",
-      "node src/cli.js",
-      "git add"
-    ]
-  }
+  ]
 }

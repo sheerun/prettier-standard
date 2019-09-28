@@ -2,7 +2,7 @@
 
 [![Build Status][build-badge]][build] [![version][version-badge]][package] [![Modern Node](https://img.shields.io/badge/modern-node-9BB48F.svg)](https://github.com/sheerun/modern-node)
 
-Formats with [prettier](https://github.com/prettier/prettier) and lints with [eslint](https://eslint.org/) preconfigured with [standard](https://github.com/standard/standard) rules (✿◠‿◠) 
+Formats with [prettier](https://github.com/prettier/prettier) and lints with [eslint](https://eslint.org/) preconfigured with [standard](https://github.com/standard/standard) rules (✿◠‿◠)
 
 You don't have to fix any whitespace errors and waste time configuring eslint presets :relieved:
 
@@ -26,17 +26,19 @@ Usage
 
 Options
   --format  Format all files
-  --changed Format only changed files
-  --lint    Lint code with eslint after formatting it
-  --since   Format only changed files since given revision
+  --lint    Additionally lint code after formatting
   --check   Do not format, just check formatting
+  --changed Run only on changed files
+  --staged  Run only on staged files
+  --since   Run only on files changed since given revision
   --parser  Force parser to use for stdin (default: babel)
   --lines   Format only changed lines (warning: experimental!)
 
 Examples
-  $ prettier-standard --lint '**/*.{js,css}'
   $ prettier-standard --changed --lint
+  $ prettier-standard --lint '**/*.{js,css}'
   $ prettier-standard --since master
+  $ "precommit": "prettier-standard --lint --staged" # in package.json
   $ echo 'const {foo} = "bar";' | prettier-standard
   $ echo '.foo { color: "red"; }' | prettier-standard --parser css
 ```
@@ -123,7 +125,6 @@ You can use .prettierrc for overriding some options, e.g to use [semistandard](h
 
 You can also configure linting by creating appropriate [.eslintrc]() file that will override defaults:
 
-
 ```json
 {
   "rules": {
@@ -131,7 +132,6 @@ You can also configure linting by creating appropriate [.eslintrc]() file that w
   }
 }
 ```
-
 
 ### Ignoring Files
 

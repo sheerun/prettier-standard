@@ -10,7 +10,6 @@ function extractLineChangeData (output) {
   const result = []
   const diff = parseDiff(output)
   diff.forEach(d => {
-    const removals = []
     const additions = []
     d.chunks.forEach(chunk => {
       if (chunk.newLines > 0) {
@@ -53,7 +52,7 @@ class Git {
       if (error.stderr) {
         if (
           error.stderr.includes(`Needed a single revision`) ||
-          error.stderr == 'fatal: Not a valid object name HEAD'
+          error.stderr === 'fatal: Not a valid object name HEAD'
         ) {
           return SPECIAL_EMPTY_TREE_COMMIT_HASH
         }
@@ -62,6 +61,7 @@ class Git {
       return undefined
     }
   }
+
   getChanges (revision, patterns) {
     const output = this.runGit(
       ['diff-index', '--unified=0', '-p', revision].concat(patterns || [])

@@ -2,6 +2,7 @@ const globby = require('globby')
 const path = require('path')
 const fs = require('fs')
 const prettierx = require('prettierx')
+const lintStaged = require('lint-staged')
 const {
   createIgnorer,
   isSupportedExtension,
@@ -68,7 +69,7 @@ function checkWithRanges (source, ranges, options) {
   return valid
 }
 
-function run (cwd, config) {
+async function run (cwd, config) {
   // Filepaths will be relative to this directory
   let root = cwd
 
@@ -138,7 +139,7 @@ function run (cwd, config) {
 
   let files
 
-  if (config.changed || config.since || config.lines) {
+  if (config.changed || config.since || config.lines || config.staged) {
     const scm = getScm(cwd)
 
     if (!scm) {
@@ -170,6 +171,57 @@ function run (cwd, config) {
     }
 
     files = filePaths.filter(runFilters).map(filepath => ({ filepath }))
+  }
+
+  if (config.staged) {
+    const lintConfig = {}
+
+    let command = 'node ' + path.join(__dirname, 'cli.js')
+
+    if (config.lint) {
+      command += ' --lint'
+    }
+    if (config.check) {
+      command += ' --check'
+    }
+    if (config.lines) {
+      command += ' --lines'
+    }
+
+    files.forEach(f => {
+      const mask = '*' + path.extname(f.filepath)
+      if (!lintConfig[mask]) {
+        lintConfig[mask] = [command, 'git add']
+      }
+    })
+
+    if (config.lint) {
+      console.log('Formatting and linting all staged files...')
+    } else {
+      console.log('Formatting all staged files...')
+    }
+
+    const success = await lintStaged(
+      {
+        config: lintConfig,
+        shell: false,
+        quiet: true,
+        debug: false
+      },
+      {
+        log: msg => console.log(msg),
+        error: msg =>
+          console.error(
+            msg.replace(new RegExp(command, 'g'), 'prettier-standard').trim()
+          )
+      }
+    )
+
+    if (!success) {
+      process.exit(1)
+    }
+
+    return
   }
 
   for (const file of files) {

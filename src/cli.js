@@ -13,17 +13,19 @@ Usage
 
 Options
   --format  Format all files
-  --changed Format only changed files
-  --lint    Lint code with eslint after formatting it
-  --since   Format only changed files since given revision
+  --lint    Additionally lint code after formatting
   --check   Do not format, just check formatting
+  --changed Run only on changed files
+  --staged  Run only on staged files
+  --since   Run only on files changed since given revision
   --parser  Force parser to use for stdin (default: babel)
   --lines   Format only changed lines (warning: experimental!)
 
 Examples
-  $ prettier-standard --lint '**/*.{js,css}'
   $ prettier-standard --changed --lint
+  $ prettier-standard --lint '**/*.{js,css}'
   $ prettier-standard --since master
+  $ "precommit": "prettier-standard --lint --staged" # in package.json 
   $ echo 'const {foo} = "bar";' | prettier-standard
   $ echo '.foo { color: "red"; }' | prettier-standard --parser css
 `
@@ -42,6 +44,7 @@ async function main () {
       changed: false,
       lines: true,
       check: false,
+      staged: false,
       help: false
     }
   })
@@ -68,6 +71,7 @@ async function main () {
       !flags.changed &&
       !flags.check &&
       !flags.since &&
+      !flags.staged &&
       !flags.lint &&
       !flags.format &&
       flags._.length === 0)
@@ -109,12 +113,13 @@ async function main () {
     let results = []
     let engine
 
-    const error = run(process.cwd(), {
+    const error = await run(process.cwd(), {
       format: flags.format,
       patterns: flags.patterns,
       check: flags.check,
       changed: flags.changed,
       since: flags.since,
+      staged: flags.staged,
       lint: flags.lint,
       precise: flags.precise,
       options,
