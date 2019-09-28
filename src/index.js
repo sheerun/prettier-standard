@@ -195,30 +195,32 @@ async function run (cwd, config) {
       }
     })
 
-    if (config.lint) {
-      console.log('Formatting and linting all staged files...')
-    } else {
-      console.log('Formatting all staged files...')
-    }
-
-    const success = await lintStaged(
-      {
-        config: lintConfig,
-        shell: false,
-        quiet: true,
-        debug: false
-      },
-      {
-        log: msg => console.log(msg),
-        error: msg =>
-          console.error(
-            msg.replace(new RegExp(command, 'g'), 'prettier-standard').trim()
-          )
+    if (Object.keys(lintConfig).length > 0) {
+      if (config.lint) {
+        console.log('Formatting and linting all staged files...')
+      } else {
+        console.log('Formatting all staged files...')
       }
-    )
 
-    if (!success) {
-      process.exit(1)
+      const success = await lintStaged(
+        {
+          config: lintConfig,
+          shell: false,
+          quiet: true,
+          debug: false
+        },
+        {
+          log: msg => console.log(msg),
+          error: msg =>
+            console.error(
+              msg.replace(new RegExp(command, 'g'), 'prettier-standard').trim()
+            )
+        }
+      )
+
+      if (!success) {
+        process.exit(1)
+      }
     }
 
     return
