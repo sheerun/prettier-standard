@@ -23,7 +23,6 @@ Usage
   $ prettier-standard [<glob>]
 
 Options
-  --format  Format all files
   --lint    Additionally lint code after formatting
   --check   Do not format, just check formatting
   --staged  Run only on staged files

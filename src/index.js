@@ -73,14 +73,22 @@ async function run (cwd, config) {
   // Filepaths will be relative to this directory
   let root = cwd
 
-  let patterns = config.patterns || []
+  const scm = getScm(cwd)
 
-  if (patterns.length === 0) {
-    patterns.push('**/*')
-  }
+  let patterns = config.patterns || []
 
   if (!Array.isArray(patterns)) {
     return new Error('patterns should be an array')
+  }
+
+  if (patterns.length === 0) {
+    if (scm) {
+      patterns.push('**/*')
+    } else {
+      return new Error(
+        'Error: You must provide patterns to match outside of git repository'
+      )
+    }
   }
 
   const onStart = config.onStart || function () {}
@@ -140,8 +148,6 @@ async function run (cwd, config) {
   let files
 
   if (config.changed || config.since || config.lines || config.staged) {
-    const scm = getScm(cwd)
-
     if (!scm) {
       return new Error('No git repository detected...')
     }
