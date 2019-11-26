@@ -22,19 +22,19 @@
   "dependencies": {
     "chalk": "^2.4.2",
     "diff": "^4.0.1",
-    "eslint": "^6.4.0",
+    "eslint": "^6.7.1",
     "execa": "^2.0.4",
     "find-up": "^4.1.0",
     "get-stdin": "^7.0.0",
     "globby": "^6.1.0",
     "ignore": "^3.3.7",
-    "lint-staged": "9.4.0",
+    "lint-staged": "9.4.3",
     "mri": "^1.1.4",
     "multimatch": "^3.0.0",
-    "prettierx": "0.7.1"
+    "prettierx": "0.11.0"
   },
   "devDependencies": {
-    "isomorphic-git": "0.67.2",
+    "isomorphic-git": "0.70.8",
     "jest": "24.9.0",
     "tmp": "0.1.0"
   },
