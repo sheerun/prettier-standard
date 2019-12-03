@@ -4,6 +4,7 @@ const mri = require('mri')
 const getStdin = require('get-stdin')
 const { run, format, check } = require('./')
 const chalk = require('chalk')
+const prettierx = require('prettierx')
 
 const cliHelp = `
 Prettier and standard brought together!
@@ -19,6 +20,7 @@ Options
   --since   Run only on changed files since given revision
   --lines   Run only on changed lines (warning: experimental!)
   --stdin   Force reading input from stdin
+  --stdin-filepath  (with --stdin, which filename to use to find the config file)
   --parser  Force parser to use for stdin (default: babel)
   --help    Tells how to use prettier-standard
 
@@ -49,7 +51,7 @@ async function main () {
   }
 
   const flags = mri(process.argv.slice(2), {
-    string: ['parser', 'since'],
+    string: ['parser', 'since', 'stdin-filepath'],
     default: defaultFlags
   })
 
@@ -71,6 +73,12 @@ async function main () {
     if (flags._.length > 0) {
       return new Error(`Cannot provide patterns when --stdin is used`)
     }
+  } else {
+    if (flags['stdin-filepath']) {
+      return new Error(
+        `--stdin-filepath is not supported unless --stdin is used`
+      )
+    }
   }
 
   if (flags.help) {
@@ -87,6 +95,15 @@ async function main () {
     const stdin = await getStdin()
 
     options.filepath = '(stdin)'
+
+    if (flags['stdin-filepath']) {
+      Object.assign(
+        options,
+        prettierx.resolveConfig.sync(flags['stdin-filepath'], {
+          editorconfig: true
+        })
+      )
+    }
 
     try {
       if (flags.check) {
