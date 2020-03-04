@@ -13,6 +13,7 @@ Usage
   $ prettier-standard [<glob>]
 
 Options
+  --format  Just format all files in current repository
   --lint    Additionally lint code after formatting
   --check   Do not format, just check formatting
   --staged  Run only on staged files
