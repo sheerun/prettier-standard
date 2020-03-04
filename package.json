@@ -1,6 +1,6 @@
 {
   "name": "prettier-standard",
-  "version": "16.2.0",
+  "version": "16.2.1",
   "description": "Prettier and standard brought together!",
   "main": "src/index.js",
   "bin": {
