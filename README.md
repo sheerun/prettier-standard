@@ -48,7 +48,7 @@ Warning: `--lines` flag should be considered experimental as prettier has issues
 - https://github.com/prettier/prettier/issues/4926
 - https://github.com/prettier/prettier/issues/6428
 
-## Usage
+## Examples
 
 Typically you'll use this in your [npm scripts][npm scripts] (or [package scripts][package scripts]):
 
