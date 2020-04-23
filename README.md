@@ -143,7 +143,7 @@ dist
 **/*.ts
 ```
 
-This package currently doesn't recognize `.eslintignore` file for linting and just uses `.prettierignore`.
+You can also use `.eslintignore` to format some files, but prevent linting others.
 
 ### API
 
