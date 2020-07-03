@@ -68,9 +68,7 @@ We also encourage to use [modern-node](https://github.com/sheerun/modern-node) a
     "precommit": "lint-staged"
   },
   "lint-staged": {
-    "linters": {
-      "**/*": ["prettier-standard --lint", "git add"]
-    }
+    "*": ["prettier-standard --lint"]
   }
 }
 ```
