@@ -21,7 +21,7 @@ const DEFAULT_IGNORE = [
   '!./.{git,svn,hg}/**'
 ]
 
-const LINT_REGEXP = /\.(js|mjs|cjs|jsx)$/
+const LINT_REGEXP = /\.(js|mjs|cjs|jsx|ts|tsx)$/
 
 function format (source, options) {
   return prettierx.format(source, getOptions(options))
@@ -235,6 +235,7 @@ async function run (cwd, config) {
   }
 
   for (const file of files) {
+    console.log(file)
     const start = Date.now()
     const { filepath, changes } = file
 
@@ -291,6 +292,7 @@ async function run (cwd, config) {
 
     let report
     if (config.lint && fullpath.match(LINT_REGEXP)) {
+      console.log(fullpath)
       report = engine.executeOnText(output, fullpath)
     }
 
