@@ -18,6 +18,9 @@ yarn add --dev prettier-standard
 
 ## Usage
 
+Prettier-standard is best used with `prettier-standard --lint` command which formats and lints all non-ignored files in repository. Here's full usage:
+
+
 ```
 Usage
   $ prettier-standard [<glob>]
@@ -130,6 +133,27 @@ You can also configure linting by creating appropriate [.eslintrc]() file that w
   }
 }
 ```
+
+
+Prettier-standard includes following packages so you don't need to install them in your repository:
+
+- eslint
+- babel-eslint
+- eslint-config-prettier
+- eslint-config-standard
+- eslint-config-standard-jsx
+- eslint-config-standard-react
+- eslint-config-standard-with-typescript
+- eslint-plugin-import
+- eslint-plugin-jest
+- eslint-plugin-node
+- eslint-plugin-promise
+- eslint-plugin-react
+- eslint-plugin-react-hooks
+- eslint-plugin-standard
+- @typescript-eslint/eslint-plugin
+- @typescript-eslint/parser
+
 
 ### Ignoring Files
 
