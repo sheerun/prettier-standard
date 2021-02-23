@@ -121,9 +121,9 @@ async function run (cwd, config) {
 
     const eslint = require(eslintPath)
     engine = new eslint.CLIEngine({
-      parser: babelEslintPath,
       resolvePluginsRelativeTo: path.join(__dirname, 'vendor'),
       baseConfig: {
+        parser: babelEslintPath,
         plugins: ['jest'],
         env: {
           'jest/globals': true
