@@ -122,6 +122,9 @@ async function run (cwd, config) {
     const eslint = require(eslintPath)
     engine = new eslint.CLIEngine({
       parser: babelEslintPath,
+      parserOptions: {
+        requireConfigFile: false
+      },
       resolvePluginsRelativeTo: path.join(__dirname, 'vendor'),
       baseConfig: {
         plugins: ['jest'],
