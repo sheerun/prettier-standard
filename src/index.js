@@ -131,14 +131,7 @@ async function run (cwd, config) {
         extends: [
           getConfig('standard', 'index.js'),
           getConfig('standard-jsx', 'index.js'),
-          getConfig('prettier', 'index.js'),
-          getConfig('prettier', '@typescript-eslint.js'),
-          getConfig('prettier', 'babel.js'),
-          getConfig('prettier', 'flowtype.js'),
-          getConfig('prettier', 'react.js'),
-          getConfig('prettier', 'standard.js'),
-          getConfig('prettier', 'unicorn.js'),
-          getConfig('prettier', 'vue.js')
+          getConfig('prettier', 'index.js')
         ]
       }
     })
