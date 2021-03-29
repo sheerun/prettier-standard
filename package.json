@@ -1,6 +1,6 @@
 {
   "name": "prettier-standard",
-  "version": "16.4.1",
+  "version": "16.5.0",
   "description": "Prettier and standard brought together!",
   "main": "src/index.js",
   "bin": {
@@ -22,7 +22,7 @@
   "dependencies": {
     "chalk": "^2.4.2",
     "diff": "^4.0.2",
-    "eslint": "^6.8.0",
+    "eslint": "^7.23.0",
     "execa": "^2.0.4",
     "find-up": "^4.1.0",
     "get-stdin": "^7.0.0",

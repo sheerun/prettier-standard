@@ -109,7 +109,7 @@ async function run (cwd, config) {
 
   if (config.lint) {
     const eslintPath = getPathInHostNodeModules('eslint')
-    const babelEslintPath = getPathInHostNodeModules('babel-eslint')
+    const babelEslintPath = getPathInHostNodeModules('@babel/eslint-parser')
 
     const configs = {
       prettier: getPathInHostNodeModules('eslint-config-prettier'),
@@ -122,6 +122,9 @@ async function run (cwd, config) {
     const eslint = require(eslintPath)
     engine = new eslint.CLIEngine({
       parser: babelEslintPath,
+      parserOptions: {
+        requireConfigFile: false
+      },
       resolvePluginsRelativeTo: path.join(__dirname, 'vendor'),
       baseConfig: {
         plugins: ['jest'],
@@ -131,14 +134,7 @@ async function run (cwd, config) {
         extends: [
           getConfig('standard', 'index.js'),
           getConfig('standard-jsx', 'index.js'),
-          getConfig('prettier', 'index.js'),
-          getConfig('prettier', '@typescript-eslint.js'),
-          getConfig('prettier', 'babel.js'),
-          getConfig('prettier', 'flowtype.js'),
-          getConfig('prettier', 'react.js'),
-          getConfig('prettier', 'standard.js'),
-          getConfig('prettier', 'unicorn.js'),
-          getConfig('prettier', 'vue.js')
+          getConfig('prettier', 'index.js')
         ]
       }
     })
