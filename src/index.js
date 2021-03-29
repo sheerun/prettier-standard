@@ -109,7 +109,7 @@ async function run (cwd, config) {
 
   if (config.lint) {
     const eslintPath = getPathInHostNodeModules('eslint')
-    const babelEslintPath = getPathInHostNodeModules('babel-eslint')
+    const babelEslintPath = getPathInHostNodeModules('@babel/eslint-parser')
 
     const configs = {
       prettier: getPathInHostNodeModules('eslint-config-prettier'),
