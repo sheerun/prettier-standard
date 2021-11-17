@@ -1,7 +1,7 @@
-const findUp = require('find-up')
-const execa = require('execa')
-const path = require('path')
-const parseDiff = require('../parse-diff')
+import findUp from 'find-up'
+import execa from 'execa'
+import path from 'path'
+import parseDiff from '../parse-diff.js'
 
 const SPECIAL_EMPTY_TREE_COMMIT_HASH =
   '4b825dc642cb6eb9a060e54bf8d69288fbee4904'
@@ -71,7 +71,7 @@ class Git {
   }
 }
 
-module.exports = cwd => {
+export default cwd => {
   const gitDirectory = findUp.sync('.git', { cwd, type: 'directory' })
 
   if (gitDirectory) {

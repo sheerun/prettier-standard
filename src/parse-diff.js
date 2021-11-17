@@ -9,7 +9,7 @@ var defaultToWhiteSpace,
   trimLeft,
   slice = [].slice
 
-module.exports = function (input) {
+export default function (input) {
   var add,
     chunk,
     current,

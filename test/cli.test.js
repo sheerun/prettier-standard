@@ -1,5 +1,7 @@
-const execa = require('execa')
-const path = require('path')
+import execa from 'execa'
+import path from 'path'
+
+const __dirname = new URL('./', import.meta.url).pathname
 
 function run (args, options) {
   try {

@@ -1,17 +1,18 @@
-const globby = require('globby')
-const path = require('path')
-const fs = require('fs')
-const prettierx = require('prettierx')
-const lintStaged = require('lint-staged')
-const {
+import globby from 'globby'
+import path from 'node:path'
+import fs from 'node:fs'
+import prettierx from 'prettierx'
+import lintStaged from 'lint-staged'
+import {
   createIgnorer,
   isSupportedExtension,
   getOptions,
   getScm,
   getRanges,
   getPathInHostNodeModules,
-  createMatcher
-} = require('./utils')
+  createMatcher,
+  importDirectoryModule
+} from './utils.js'
 
 const DEFAULT_IGNORE = [
   '!**/*.min.js',
@@ -23,19 +24,21 @@ const DEFAULT_IGNORE = [
 
 const LINT_REGEXP = /\.(js|mjs|cjs|jsx|ts|tsx)$/
 
-function format (source, options) {
+const __dirname = new URL('./', import.meta.url).pathname
+
+export function format (source, options) {
   return prettierx.format(source, getOptions(options))
 }
 
-function check (source, options) {
+export function check (source, options) {
   return prettierx.check(source, getOptions(options))
 }
 
-function getFileInfo (filePath, options) {
+export function getFileInfo (filePath, options) {
   return prettierx.getFileInfo(filePath, options)
 }
 
-function formatWithCursor (source, options) {
+export function formatWithCursor (source, options) {
   return prettierx.formatWithCursor(source, getOptions(options))
 }
 
@@ -70,7 +73,7 @@ function checkWithRanges (source, ranges, options) {
   return valid
 }
 
-async function run (cwd, config) {
+export async function run (cwd, config) {
   // Filepaths will be relative to this directory
   let root = cwd
 
@@ -119,7 +122,7 @@ async function run (cwd, config) {
 
     const getConfig = (config, file) => path.join(configs[config], file)
 
-    const eslint = require(eslintPath)
+    const eslint = (await importDirectoryModule(eslintPath)).default
     engine = new eslint.CLIEngine({
       parser: babelEslintPath,
       parserOptions: {
@@ -301,13 +304,6 @@ async function run (cwd, config) {
   }
 }
 
-module.exports = {
-  format,
-  check,
-  run,
-  getFileInfo,
-  formatWithCursor,
-  resolveConfig: prettierx.resolveConfig,
-  clearConfigCache: prettierx.clearConfigCache,
-  getSupportInfo: prettierx.getSupportInfo
-}
+export const resolveConfig = prettierx.resolveConfig
+export const clearConfigCache = prettierx.clearConfigCache
+export const getSupportInfo = prettierx.getSupportInfo

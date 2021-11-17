@@ -2,6 +2,7 @@
   "name": "@ksmithut/prettier-standard",
   "version": "0.0.1",
   "description": "Prettier and standard brought together!",
+  "type": "module",
   "main": "src/index.js",
   "bin": {
     "prettier-standard": "src/cli.js"
@@ -40,7 +41,7 @@
   "scripts": {
     "format": "node src/cli.js --format",
     "lint": "node src/cli.js --lint",
-    "test": "jest"
+    "test": "NODE_OPTIONS=--experimental-vm-modules jest"
   },
   "files": [
     "src"

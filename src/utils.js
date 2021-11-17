@@ -1,12 +1,15 @@
-const fs = require('fs')
-const path = require('path')
-const prettierx = require('prettierx')
-const { getSupportInfo } = prettierx
-const ignore = require('ignore')
-const multimatch = require('multimatch')
-const findUp = require('find-up')
+import fs from 'node:fs'
+import path from 'node:path'
+import prettierx from 'prettierx'
+import ignore from 'ignore'
+import multimatch from 'multimatch'
+import findUp from 'find-up'
 
-const git = require('./scms/git')
+import git from './scms/git.js'
+
+const { getSupportInfo } = prettierx
+
+const __dirname = new URL('./', import.meta.url).pathname
 
 const extensions = {}
 
@@ -17,11 +20,11 @@ getSupportInfo()
   )
   .forEach(e => (extensions[e] = true))
 
-function isSupportedExtension (file) {
+export function isSupportedExtension (file) {
   return extensions[path.extname(file)] || false
 }
 
-function createIgnorer (directory, filename = '.prettierignore') {
+export function createIgnorer (directory, filename = '.prettierignore') {
   const file = path.join(directory, filename)
   if (fs.existsSync(file)) {
     const text = fs.readFileSync(file, 'utf8')
@@ -34,7 +37,7 @@ function createIgnorer (directory, filename = '.prettierignore') {
   return () => true
 }
 
-function createMatcher (relative, patterns) {
+export function createMatcher (relative, patterns) {
   if (!Array.isArray(patterns) || patterns.length === 0) {
     return () => true
   }
@@ -57,7 +60,7 @@ const defaultOptions = {
   arrowParens: 'avoid'
 }
 
-function getOptions (options) {
+export function getOptions (options) {
   const final = Object.assign({}, defaultOptions, options)
 
   if (!final.filepath || (final.filepath === '(stdin)' && !final.parser)) {
@@ -67,7 +70,7 @@ function getOptions (options) {
   return final
 }
 
-function getRanges (source, changes) {
+export function getRanges (source, changes) {
   const lines = source.split('\n')
   const ranges = changes.slice()
 
@@ -94,11 +97,11 @@ function getRanges (source, changes) {
   return result
 }
 
-function getScm (cwd) {
+export function getScm (cwd) {
   return git(cwd)
 }
 
-function getPathInHostNodeModules (module) {
+export function getPathInHostNodeModules (module) {
   const modulePath = findUp.sync(`node_modules/${module}`, {
     type: 'directory'
   })
@@ -119,12 +122,10 @@ function getPathInHostNodeModules (module) {
   throw new Error(`Module not found: ${module}`)
 }
 
-module.exports = {
-  isSupportedExtension,
-  createIgnorer,
-  createMatcher,
-  getOptions,
-  getScm,
-  getRanges,
-  getPathInHostNodeModules
+export async function importDirectoryModule (directory) {
+  const packagePath = path.join(directory, 'package.json')
+  const packageContents = await fs.promises.readFile(packagePath, 'utf-8')
+  const packageJSON = JSON.parse(packageContents)
+  const importPath = path.resolve(directory, packageJSON.main)
+  return import(importPath)
 }

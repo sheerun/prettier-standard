@@ -1,8 +1,8 @@
-const { format, check, run } = require('..')
-const git = require('isomorphic-git')
-const fs = require('fs')
-const path = require('path')
-const tmp = require('tmp')
+import { format, check, run } from '..'
+import git from 'isomorphic-git'
+import fs from 'node:fs'
+import path from 'node:path'
+import tmp from 'tmp'
 tmp.setGracefulCleanup()
 
 describe('format', () => {
