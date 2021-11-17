@@ -1,4 +1,4 @@
-import { format, check, run } from '..'
+import { format, check, run } from '../src/index.js'
 import git from 'isomorphic-git'
 import fs from 'node:fs'
 import path from 'node:path'

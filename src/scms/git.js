@@ -1,5 +1,5 @@
 import findUp from 'find-up'
-import execa from 'execa'
+import { execaSync } from 'execa'
 import path from 'path'
 import parseDiff from '../parse-diff.js'
 
@@ -41,7 +41,7 @@ class Git {
   }
 
   runGit (args) {
-    return execa.sync('git', args, { cwd: this.cwd }).stdout.trim()
+    return execaSync('git', args, { cwd: this.cwd }).stdout.trim()
   }
 
   getRevision (branch) {
