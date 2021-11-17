@@ -1,4 +1,4 @@
-import findUp from 'find-up'
+import { findUpSync } from 'find-up'
 import { execaSync } from 'execa'
 import path from 'path'
 import parseDiff from '../parse-diff.js'
@@ -72,7 +72,7 @@ class Git {
 }
 
 export default cwd => {
-  const gitDirectory = findUp.sync('.git', { cwd, type: 'directory' })
+  const gitDirectory = findUpSync('.git', { cwd, type: 'directory' })
 
   if (gitDirectory) {
     return new Git(path.dirname(gitDirectory), cwd)

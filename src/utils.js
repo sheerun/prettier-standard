@@ -3,7 +3,7 @@ import path from 'node:path'
 import prettierx from 'prettierx'
 import ignore from 'ignore'
 import multimatch from 'multimatch'
-import findUp from 'find-up'
+import { findUpSync } from 'find-up'
 
 import git from './scms/git.js'
 
@@ -102,7 +102,7 @@ export function getScm (cwd) {
 }
 
 export function getPathInHostNodeModules (module) {
-  const modulePath = findUp.sync(`node_modules/${module}`, {
+  const modulePath = findUpSync(`node_modules/${module}`, {
     type: 'directory'
   })
 
@@ -110,7 +110,7 @@ export function getPathInHostNodeModules (module) {
     return modulePath
   }
 
-  const result = findUp.sync(`node_modules/${module}`, {
+  const result = findUpSync(`node_modules/${module}`, {
     cwd: path.join(__dirname, 'vendor'),
     type: 'directory'
   })
