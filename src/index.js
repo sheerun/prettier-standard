@@ -168,7 +168,7 @@ async function run (cwd, config) {
 
     try {
       filePaths = globby
-        .sync(patterns, { dot: true, nodir: true, cwd })
+        .sync(patterns, { dot: true, onlyFiles: true, cwd })
         .map(filePath => path.relative(process.cwd(), filePath))
     } catch (error) {
       return new Error(`Unable to expand glob pattern: ${error.message}`)
@@ -195,7 +195,7 @@ async function run (cwd, config) {
     files.forEach(f => {
       const mask = '*' + path.extname(f.filepath)
       if (!lintConfig[mask]) {
-        lintConfig[mask] = [command, 'git add']
+        lintConfig[mask] = [command]
       }
     })
 
@@ -215,6 +215,7 @@ async function run (cwd, config) {
         },
         {
           log: msg => console.log(msg),
+          warn: msg => console.warn(msg),
           error: msg =>
             console.error(
               msg.replace(new RegExp(command, 'g'), 'prettier-standard').trim()
