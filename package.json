@@ -25,7 +25,7 @@
     "eslint": "^8.2.0",
     "execa": "^6.0.0",
     "find-up": "^6.2.0",
-    "get-stdin": "^8.0.0",
+    "get-stdin": "^9.0.0",
     "globby": "^11.0.4",
     "ignore": "^5.1.9",
     "lint-staged": "v11.2.6",
