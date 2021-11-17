@@ -1,4 +1,4 @@
-import globby from 'globby'
+import { globbySync } from 'globby'
 import path from 'node:path'
 import fs from 'node:fs'
 import prettierx from 'prettierx'
@@ -170,9 +170,9 @@ export async function run (cwd, config) {
     let filePaths = []
 
     try {
-      filePaths = globby
-        .sync(patterns, { dot: true, onlyFiles: true, cwd })
-        .map(filePath => path.relative(process.cwd(), filePath))
+      filePaths = globbySync(patterns, { dot: true, onlyFiles: true, cwd }).map(
+        filePath => path.relative(process.cwd(), filePath)
+      )
     } catch (error) {
       return new Error(`Unable to expand glob pattern: ${error.message}`)
     }
