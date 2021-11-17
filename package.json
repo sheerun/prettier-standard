@@ -15,7 +15,7 @@
     "formatting"
   ],
   "engines": {
-    "node": ">=8"
+    "node": ">=12"
   },
   "author": "Adam Stankiewicz <sheerun@sher.pl>",
   "license": "MIT",
