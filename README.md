@@ -20,12 +20,12 @@ requirements).
 ## Installation
 
 ```
-yarn add --dev prettier-standard
+yarn add --dev @ksmithut/prettier-standard
 ```
 
-> If you're using the [`npm`][npm]: `npm install --save-dev prettier-standard`.
+> If you're using the [`npm`][npm]: `npm install --save-dev @ksmithut/prettier-standard`.
 
-> You can also install globally with `npm install -g prettier-standard`
+> You can also install globally with `npm install -g @ksmithut/prettier-standard`
 
 ## Usage
 
