@@ -20,5 +20,5 @@ jobs:
         with:
           node-version: ${{ matrix.node }}
       - run: yarn install
-      - run: yarn --cwd src/vender install
+      - run: yarn --cwd src/vendor install
       - run: yarn test
