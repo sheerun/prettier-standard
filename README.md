@@ -1,10 +1,21 @@
 # ![prettier-standard](https://i.imgur.com/F62GQUk.png)
 
-[![Build Status][build-badge]][build] [![version][version-badge]][package] [![Modern Node](https://img.shields.io/badge/modern-node-9BB48F.svg)](https://github.com/sheerun/modern-node)
+<!-- [![Build Status][build-badge]][build] [![version][version-badge]][package] [![Modern Node](https://img.shields.io/badge/modern-node-9BB48F.svg)](https://github.com/sheerun/modern-node) -->
 
 Formats with [prettier](https://github.com/prettier/prettier) (actually [prettierx](https://github.com/brodybits/prettierx)) and lints with [eslint](https://eslint.org/) preconfigured with [standard](https://github.com/standard/standard) rules (✿◠‿◠)
 
 You don't have to fix any whitespace errors and waste time configuring eslint presets :relieved:
+
+## Note on Fork
+
+This is a fork of [sheerun/prettier-standard](https://github.com/sheerun/prettier-standard).
+At the time of forking, it seemed that the project was in need of dependency
+updates. The author seemed unable to attend to the issues, but it was a package
+I used and felt strongly enough to do something about it. If the package
+maintainer returns to maintain the package, I will happily stop work on this
+and move back over to using that one. In the meantime, I have [this Pull Request](https://github.com/sheerun/prettier-standard/pull/125)
+opened there to get dependencies up to date (with breaking node version
+requirements).
 
 ## Installation
 
@@ -189,14 +200,16 @@ MIT
 [yarn]: https://yarnpkg.com/
 [npm]: https://www.npmjs.com/
 [node]: https://nodejs.org
-[build-badge]: https://img.shields.io/travis/sheerun/prettier-standard.svg?style=flat-square
-[build]: https://travis-ci.org/sheerun/prettier-standard
-[coverage-badge]: https://img.shields.io/codecov/c/github/sheerun/prettier-standard.svg?style=flat-square
-[coverage]: https://codecov.io/github/sheerun/prettier-standard
-[dependencyci-badge]: https://dependencyci.com/github/sheerun/prettier-standard/badge?style=flat-square
-[dependencyci]: https://dependencyci.com/github/sheerun/prettier-standard
-[version-badge]: https://img.shields.io/npm/v/prettier-standard.svg?style=flat-square
-[package]: https://www.npmjs.com/package/prettier-standard
+
+<!-- [build-badge]: https://img.shields.io/travis/sheerun/prettier-standard.svg?style=flat-square -->
+<!-- [build]: https://travis-ci.org/sheerun/prettier-standard -->
+<!-- [coverage-badge]: https://img.shields.io/codecov/c/github/sheerun/prettier-standard.svg?style=flat-square -->
+<!-- [coverage]: https://codecov.io/github/sheerun/prettier-standard -->
+<!-- [dependencyci-badge]: https://dependencyci.com/github/sheerun/prettier-standard/badge?style=flat-square -->
+<!-- [dependencyci]: https://dependencyci.com/github/sheerun/prettier-standard -->
+<!-- [version-badge]: https://img.shields.io/npm/v/prettier-standard.svg?style=flat-square -->
+<!-- [package]: https://www.npmjs.com/package/prettier-standard -->
+
 [npm scripts]: https://docs.npmjs.com/misc/scripts
 [package scripts]: https://github.com/kentcdodds/p-s
 [glob]: https://github.com/isaacs/node-glob
