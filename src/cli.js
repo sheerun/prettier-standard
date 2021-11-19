@@ -1,10 +1,10 @@
 #!/usr/bin/env node
 
-const mri = require('mri')
-const getStdin = require('get-stdin')
-const { run, format, check } = require('./')
-const chalk = require('chalk')
-const prettierx = require('prettierx')
+import mri from 'mri'
+import getStdin from 'get-stdin'
+import { run, format, check } from './index.js'
+import chalk from 'chalk'
+import prettierx from 'prettierx'
 
 const cliHelp = `
 Prettier and standard brought together!
@@ -30,7 +30,7 @@ Examples
   $ prettier-standard --lint --changed
   $ prettier-standard --lint '**/*.{js,css}'
   $ prettier-standard --since master
-  $ "precommit": "prettier-standard --lint --staged" # in package.json 
+  $ "precommit": "prettier-standard --lint --staged" # in package.json
   $ echo 'const {foo} = "bar";' | prettier-standard --stdin
   $ echo '.foo { color: "red"; }' | prettier-standard --parser css
 `
