@@ -1,10 +1,12 @@
-const execa = require('execa')
-const path = require('path')
+import { execaSync } from 'execa'
+import path from 'path'
+
+const __dirname = new URL('./', import.meta.url).pathname
 
 function run (args, options) {
   try {
     return {
-      stdout: execa.sync(path.join(__dirname, '../src/cli.js'), args, options)
+      stdout: execaSync(path.join(__dirname, '../src/cli.js'), args, options)
         .stdout
     }
   } catch (e) {
