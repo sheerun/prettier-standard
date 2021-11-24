@@ -169,7 +169,7 @@ async function main () {
     const errorCount = results.map(r => r.errorCount).reduce((a, b) => a + b, 0)
 
     if (engine && errorCount > 0) {
-      const formatter = engine.getFormatter()
+      const formatter = engine.loadFormatter()
       const output = formatter(results)
       if (output) {
         console.error(output)
