@@ -157,7 +157,7 @@ async function main () {
         }
 
         if (report) {
-          results = results.concat(report.results)
+          results = results.concat(report)
         }
       }
     })

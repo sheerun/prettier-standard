@@ -11,7 +11,8 @@ import {
   getRanges,
   getPathInHostNodeModules,
   createMatcher,
-  importDirectoryModule
+  importDirectoryModule,
+  normalizeEslint
 } from './utils.js'
 
 const DEFAULT_IGNORE = [
@@ -123,10 +124,12 @@ export async function run (cwd, config) {
     const getConfig = (config, file) => path.join(configs[config], file)
 
     const eslint = (await importDirectoryModule(eslintPath)).default
-    engine = new eslint.CLIEngine({
-      parser: babelEslintPath,
-      parserOptions: {
-        requireConfigFile: false
+    const eslintOptions = {
+      overrideConfig: {
+        parser: babelEslintPath,
+        parserOptions: {
+          requireConfigFile: false
+        }
       },
       resolvePluginsRelativeTo: path.join(__dirname, 'vendor'),
       baseConfig: {
@@ -140,7 +143,8 @@ export async function run (cwd, config) {
           getConfig('prettier', 'index.js')
         ]
       }
-    })
+    }
+    engine = normalizeEslint(eslint, eslintOptions)
   }
 
   onStart({ engine })
@@ -266,7 +270,7 @@ export async function run (cwd, config) {
 
       let report
       if (config.lint && fullpath.match(LINT_REGEXP)) {
-        report = engine.executeOnText(input, fullpath)
+        report = await engine.lintText(input, { filePath: fullpath })
       }
 
       onProcessed({
@@ -291,7 +295,7 @@ export async function run (cwd, config) {
 
     let report
     if (config.lint && fullpath.match(LINT_REGEXP)) {
-      report = engine.executeOnText(output, fullpath)
+      report = await engine.lintText(output, { filePath: fullpath })
     }
 
     onProcessed({
