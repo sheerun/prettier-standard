@@ -28,10 +28,7 @@ export function createIgnorer (directory, filename = '.prettierignore') {
   const file = path.join(directory, filename)
   if (fs.existsSync(file)) {
     const text = fs.readFileSync(file, 'utf8')
-    return ignore
-      .default()
-      .add(text)
-      .createFilter()
+    return ignore.default().add(text).createFilter()
   }
 
   return () => true
@@ -128,4 +125,29 @@ export async function importDirectoryModule (directory) {
   const packageJSON = JSON.parse(packageContents)
   const importPath = path.resolve(directory, packageJSON.main)
   return import(importPath)
+}
+
+export function normalizeEslint (eslint, eslintOptions) {
+  if (eslint.CLIEngine) {
+    const { overrideConfig, ...options } = eslintOptions
+    const engine = new eslint.CLIEngine({
+      ...options,
+      ...overrideConfig
+    })
+    return {
+      async lintText (text, options) {
+        const report = engine.executeOnText(
+          text,
+          options.filePath,
+          options.warnIgnored
+        )
+        return report.results
+      },
+      loadFormatter (name) {
+        return engine.getFormatter(name)
+      }
+    }
+  } else {
+    return new eslint.ESLint(eslintOptions)
+  }
 }
