@@ -1,6 +1,6 @@
 {
   "name": "@ksmithut/prettier-standard",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "Prettier and standard brought together!",
   "type": "module",
   "main": "src/index.js",
@@ -21,7 +21,7 @@
   "license": "MIT",
   "repository": "ksmithut/prettier-standard",
   "dependencies": {
-    "chalk": "^4.1.2",
+    "chalk": "^5.0.0",
     "eslint": "^8.3.0",
     "execa": "^6.0.0",
     "find-up": "^6.2.0",
