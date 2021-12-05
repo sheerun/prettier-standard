@@ -22,7 +22,7 @@
   "repository": "ksmithut/prettier-standard",
   "dependencies": {
     "chalk": "^5.0.0",
-    "eslint": "^8.3.0",
+    "eslint": "^8.4.0",
     "execa": "^6.0.0",
     "find-up": "^6.2.0",
     "get-stdin": "^9.0.0",
@@ -35,7 +35,7 @@
   },
   "devDependencies": {
     "isomorphic-git": "1.10.1",
-    "jest": "27.3.1",
+    "jest": "27.4.3",
     "tmp": "0.2.1"
   },
   "scripts": {
