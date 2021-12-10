@@ -1,7 +1,7 @@
 import { format, check, run } from '../src/index.js'
 import git from 'isomorphic-git'
-import fs from 'node:fs'
-import path from 'node:path'
+import fs from 'fs'
+import path from 'path'
 import tmp from 'tmp'
 tmp.setGracefulCleanup()
 

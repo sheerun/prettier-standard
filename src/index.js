@@ -1,6 +1,6 @@
 import { globbySync } from 'globby'
-import path from 'node:path'
-import fs from 'node:fs'
+import path from 'path'
+import fs from 'fs'
 import prettierx from 'prettierx'
 import lintStaged from 'lint-staged'
 import {
