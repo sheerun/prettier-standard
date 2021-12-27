@@ -9,14 +9,14 @@
   dependencies:
     tslib "^2.1.0"
 
-"@babel/code-frame@7.14.5", "@babel/code-frame@^7.0.0":
+"@babel/code-frame@7.14.5":
   version "7.14.5"
   resolved "https://registry.yarnpkg.com/@babel/code-frame/-/code-frame-7.14.5.tgz#23b08d740e83f49c5e59945fbf1b43e80bbf4edb"
   integrity sha512-9pzDqyc6OLDaqe+zbACgFkb6fKMNG6CObKpnYXChRsvYGyEdc7CA2BaqeOM+vOtCS5ndmJicPJhKAwYRI6UfFw==
   dependencies:
     "@babel/highlight" "^7.14.5"
 
-"@babel/code-frame@^7.12.13", "@babel/code-frame@^7.16.0":
+"@babel/code-frame@^7.0.0", "@babel/code-frame@^7.12.13", "@babel/code-frame@^7.16.0":
   version "7.16.0"
   resolved "https://registry.yarnpkg.com/@babel/code-frame/-/code-frame-7.16.0.tgz#0dfc80309beec8411e65e706461c408b0bb9b431"
   integrity sha512-IF4EOMEV+bfYwOmNxGzSnjR2EmQod7f1UXOpZM3l4i4o4QNwzjtJAu/HxdjHq0aYBvdqMuQEY1eg0nqW9ZPORA==
@@ -1002,19 +1002,6 @@ balanced-match@^1.0.0:
   resolved "https://registry.yarnpkg.com/balanced-match/-/balanced-match-1.0.2.tgz#e83e3a7e3f300b34cb9d87f615fa0cbf357690ee"
   integrity sha512-3oSeUO0TMV67hN1AmbXsK4yaqU7tjiHlbxRDZOpH0KW9+CeX4bRAaX0Anxt0tx2MrpRpWwQaPwIlISEJhYU5Pw==
 
-base64-js@0.0.2:
-  version "0.0.2"
-  resolved "https://registry.yarnpkg.com/base64-js/-/base64-js-0.0.2.tgz#024f0f72afa25b75f9c0ee73cd4f55ec1bed9784"
-  integrity sha1-Ak8Pcq+iW3X5wO5zzU9V7Bvtl4Q=
-
-bops@~0.0.6:
-  version "0.0.7"
-  resolved "https://registry.yarnpkg.com/bops/-/bops-0.0.7.tgz#b4a0a5a839a406454af0fe05a8b91a7a766a54e2"
-  integrity sha1-tKClqDmkBkVK8P4FqLkaenZqVOI=
-  dependencies:
-    base64-js "0.0.2"
-    to-utf8 "0.0.1"
-
 brace-expansion@^1.1.7:
   version "1.1.11"
   resolved "https://registry.yarnpkg.com/brace-expansion/-/brace-expansion-1.1.11.tgz#3c7fcbf529d87226f3d2f52b966ff5271eb441dd"
@@ -1968,14 +1955,6 @@ get-stream@^6.0.0:
   resolved "https://registry.yarnpkg.com/get-stream/-/get-stream-6.0.1.tgz#a262d8eef67aced57c2852ad6167526a43cbf7b7"
   integrity sha512-ts6Wi+2j3jQjqi70w5AlN8DFnkSwC+MqmxEzdEALB2qXZYV3X/b1CTfgPLGJNMeAWxdPfU8FO1ms3NUfaHCPYg==
 
-git-apply-delta@0.0.7:
-  version "0.0.7"
-  resolved "https://registry.yarnpkg.com/git-apply-delta/-/git-apply-delta-0.0.7.tgz#fb76ae144540d79440b52b31de03e63c993c7219"
-  integrity sha1-+3auFEVA15RAtSsx3gPmPJk8chk=
-  dependencies:
-    bops "~0.0.6"
-    varint "0.0.3"
-
 glob-parent@^5.0.0, glob-parent@^5.1.2:
   version "5.1.2"
   resolved "https://registry.yarnpkg.com/glob-parent/-/glob-parent-5.1.2.tgz#869832c58034fe68a4093c17dc15e8340d8401c4"
@@ -2006,11 +1985,6 @@ globals@^12.1.0:
   integrity sha512-BWICuzzDvDoH54NHKCseDanAhE3CeDorgDL5MT6LMXXj2WCnd9UC2szdk4AWLfjdgNBCXLUanXYcpBBKOSWGwg==
   dependencies:
     type-fest "^0.8.1"
-
-globalyzer@^0.1.4:
-  version "0.1.4"
-  resolved "https://registry.yarnpkg.com/globalyzer/-/globalyzer-0.1.4.tgz#bc8e273afe1ac7c24eea8def5b802340c5cc534f"
-  integrity sha512-LeguVWaxgHN0MNbWC6YljNMzHkrCny9fzjmEUdnF1kQ7wATFD1RHFRqA1qxaX2tgxGENlcxjOflopBwj3YZiXA==
 
 globby@11.0.4, globby@^11.0.3:
   version "11.0.4"
@@ -2048,11 +2022,6 @@ globby@^6.1.0:
     object-assign "^4.0.1"
     pify "^2.0.0"
     pinkie-promise "^2.0.0"
-
-globrex@^0.1.2:
-  version "0.1.2"
-  resolved "https://registry.yarnpkg.com/globrex/-/globrex-0.1.2.tgz#dd5d9ec826232730cd6793a5e33a9302985e6098"
-  integrity sha512-uHJgbwAMwNFf5mLst7IWLNg14x1CkeqglJb/K3doi4dw6q2IvAAmM/Y81kevy83wP+Sst+nutFTYOGg3d1lsxg==
 
 graceful-fs@^4.2.2, graceful-fs@^4.2.4:
   version "4.2.8"
@@ -2396,20 +2365,16 @@ isexe@^2.0.0:
   resolved "https://registry.yarnpkg.com/isexe/-/isexe-2.0.0.tgz#e8fbf374dc556ff8947a10dcb0572d633f2cfa10"
   integrity sha1-6PvzdNxVb/iUehDcsFctYz8s+hA=
 
-isomorphic-git@0.70.8:
-  version "0.70.8"
-  resolved "https://registry.yarnpkg.com/isomorphic-git/-/isomorphic-git-0.70.8.tgz#28705c882a35c6e1f8d4e331b44d65d7aec3d418"
-  integrity sha512-Ach9z/kljB5tjDH5MvTIk8SpBUw5Tbnokl6Ibi7OPyuaFNWzXvLYpNghQMEGEINGxJpONuRD3j1VCZeYfGkP5Q==
+isomorphic-git@1.10.3:
+  version "1.10.3"
+  resolved "https://registry.yarnpkg.com/isomorphic-git/-/isomorphic-git-1.10.3.tgz#4bcf7b25284828761ba2f861fa5d92a8b474bc6a"
+  integrity sha512-Q++mEoh8NBazBujZycflotlGTSkAhyYS6tE9XAVJ7RO+Bzu6WLQc2knyJD1Onh+4Io7NmfFHvv80COremCaV8w==
   dependencies:
     async-lock "^1.1.0"
     clean-git-ref "^2.0.1"
     crc-32 "^1.2.0"
     diff3 "0.0.3"
-    git-apply-delta "0.0.7"
-    globalyzer "^0.1.4"
-    globrex "^0.1.2"
     ignore "^5.1.4"
-    marky "^1.2.1"
     minimisted "^2.0.0"
     pako "^1.0.10"
     pify "^4.0.1"
@@ -3137,11 +3102,6 @@ markdown-escapes@^1.0.0:
   version "1.0.4"
   resolved "https://registry.yarnpkg.com/markdown-escapes/-/markdown-escapes-1.0.4.tgz#c95415ef451499d7602b91095f3c8e8975f78535"
   integrity sha512-8z4efJYk43E0upd0NbVXwgSTQs6cT3T06etieCMEg7dRbzCbxUCK/GHlX8mhHRDcp+OLlHkPKsvqQTCvsRl2cg==
-
-marky@^1.2.1:
-  version "1.2.2"
-  resolved "https://registry.yarnpkg.com/marky/-/marky-1.2.2.tgz#4456765b4de307a13d263a69b0c79bf226e68323"
-  integrity sha512-k1dB2HNeaNyORco8ulVEhctyEGkKHb2YWAhDsxeFlW2nROIirsctBYzKwwS3Vza+sKTS1zO4Z+n9/+9WbGLIxQ==
 
 mem@8.1.1:
   version "8.1.1"
@@ -4263,11 +4223,6 @@ to-regex-range@^5.0.1:
   dependencies:
     is-number "^7.0.0"
 
-to-utf8@0.0.1:
-  version "0.0.1"
-  resolved "https://registry.yarnpkg.com/to-utf8/-/to-utf8-0.0.1.tgz#d17aea72ff2fba39b9e43601be7b3ff72e089852"
-  integrity sha1-0Xrqcv8vujm55DYBvns/9y4ImFI=
-
 tough-cookie@^4.0.0:
   version "4.0.0"
   resolved "https://registry.yarnpkg.com/tough-cookie/-/tough-cookie-4.0.0.tgz#d822234eeca882f991f0f908824ad2622ddbece4"
@@ -4450,11 +4405,6 @@ v8-to-istanbul@^8.1.0:
     "@types/istanbul-lib-coverage" "^2.0.1"
     convert-source-map "^1.6.0"
     source-map "^0.7.3"
-
-varint@0.0.3:
-  version "0.0.3"
-  resolved "https://registry.yarnpkg.com/varint/-/varint-0.0.3.tgz#b821de9b04b38b3cd22f72c18d94a9fb72ab3518"
-  integrity sha1-uCHemwSzizzSL3LBjZSp+3KrNRg=
 
 vfile-location@^3.0.0:
   version "3.2.0"

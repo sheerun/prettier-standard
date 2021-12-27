@@ -34,7 +34,7 @@
     "prettierx": "0.19.0"
   },
   "devDependencies": {
-    "isomorphic-git": "0.70.8",
+    "isomorphic-git": "1.10.3",
     "jest": "27.4.5",
     "tmp": "0.1.0"
   },

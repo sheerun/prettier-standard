@@ -4,7 +4,6 @@ const fs = require('fs')
 const path = require('path')
 const tmp = require('tmp')
 tmp.setGracefulCleanup()
-git.plugins.set('fs', fs)
 
 describe('format', () => {
   it('formats non-standard code', () => {
@@ -43,22 +42,23 @@ describe('run', () => {
   })
 
   it('formats changed files', async () => {
-    await git.init({ dir })
+    await git.init({ dir, fs })
     write('file.js', 'const foo=()=>"12";')
-    await git.add({ dir, filepath: 'file.js' })
+    await git.add({ dir, fs, filepath: 'file.js' })
     run(dir, { changed: true })
     expect(read('file.js')).toEqual("const foo = () => '12'\n")
   })
 
   it('formats changed lines', async () => {
-    await git.init({ dir })
+    await git.init({ dir, fs })
     write(
       'file.js',
       'function test(){\n  const foo = "bar";\n  let fiz="fuz";\n}\n'
     )
-    await git.add({ dir, filepath: 'file.js' })
+    await git.add({ dir, fs, filepath: 'file.js' })
     await git.commit({
       dir,
+      fs,
       message: 'test',
       author: {
         name: 'Anonymous',
