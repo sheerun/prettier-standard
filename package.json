@@ -31,7 +31,7 @@
     "lint-staged": "9.4.3",
     "mri": "^1.1.4",
     "multimatch": "^3.0.0",
-    "prettierx": "0.11.0"
+    "prettierx": "0.19.0"
   },
   "devDependencies": {
     "isomorphic-git": "0.70.8",
