@@ -28,13 +28,13 @@
     "get-stdin": "^9.0.0",
     "globby": "^12.0.2",
     "ignore": "^5.2.0",
-    "lint-staged": "12.1.6",
+    "lint-staged": "12.1.7",
     "mri": "^1.2.0",
     "multimatch": "^6.0.0",
     "prettierx": "0.19.0"
   },
   "devDependencies": {
-    "isomorphic-git": "1.10.3",
+    "isomorphic-git": "1.10.4",
     "jest": "27.4.7",
     "tmp": "0.2.1"
   },
