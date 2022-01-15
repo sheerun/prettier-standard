@@ -128,7 +128,10 @@ export async function run (cwd, config) {
       overrideConfig: {
         parser: babelEslintPath,
         parserOptions: {
-          requireConfigFile: false
+          requireConfigFile: false,
+          babelOptions: {
+            presets: [getPathInHostNodeModules('@babel/preset-react')]
+          }
         }
       },
       resolvePluginsRelativeTo: path.join(__dirname, 'vendor'),

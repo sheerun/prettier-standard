@@ -143,8 +143,9 @@ export function normalizeEslint (eslint, eslintOptions) {
         )
         return report.results
       },
-      loadFormatter (name) {
-        return engine.getFormatter(name)
+      async loadFormatter (name) {
+        const formatter = engine.getFormatter(name)
+        return { format: formatter }
       }
     }
   } else {
