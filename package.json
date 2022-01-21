@@ -22,13 +22,13 @@
   "repository": "ksmithut/prettier-standard",
   "dependencies": {
     "chalk": "^5.0.0",
-    "eslint": "^8.6.0",
+    "eslint": "^8.7.0",
     "execa": "^6.0.0",
     "find-up": "^6.2.0",
     "get-stdin": "^9.0.0",
-    "globby": "^12.1.0",
+    "globby": "^12.2.0",
     "ignore": "^5.2.0",
-    "lint-staged": "12.1.7",
+    "lint-staged": "12.2.2",
     "mri": "^1.2.0",
     "multimatch": "^6.0.0",
     "prettierx": "0.19.0"
