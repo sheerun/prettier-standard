@@ -26,15 +26,15 @@
     "execa": "^6.0.0",
     "find-up": "^6.2.0",
     "get-stdin": "^9.0.0",
-    "globby": "^12.2.0",
+    "globby": "^13.1.0",
     "ignore": "^5.2.0",
-    "lint-staged": "12.2.2",
+    "lint-staged": "12.3.1",
     "mri": "^1.2.0",
     "multimatch": "^6.0.0",
     "prettierx": "0.19.0"
   },
   "devDependencies": {
-    "isomorphic-git": "1.10.4",
+    "isomorphic-git": "1.10.5",
     "jest": "27.4.7",
     "tmp": "0.2.1"
   },
