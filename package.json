@@ -24,7 +24,7 @@
     "chalk": "^5.0.0",
     "eslint": "^8.8.0",
     "execa": "^6.0.0",
-    "find-up": "^6.2.0",
+    "find-up": "^6.3.0",
     "get-stdin": "^9.0.0",
     "globby": "^13.1.1",
     "ignore": "^5.2.0",
@@ -35,7 +35,7 @@
   },
   "devDependencies": {
     "isomorphic-git": "1.11.2",
-    "jest": "27.4.7",
+    "jest": "27.5.1",
     "tmp": "0.2.1"
   },
   "scripts": {
