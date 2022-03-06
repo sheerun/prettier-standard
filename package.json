@@ -1,6 +1,6 @@
 {
   "name": "@ksmithut/prettier-standard",
-  "version": "0.0.10",
+  "version": "0.0.11",
   "description": "Prettier and standard brought together!",
   "type": "module",
   "main": "src/index.js",
