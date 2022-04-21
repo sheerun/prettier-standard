@@ -156,7 +156,7 @@ Prettier-standard includes following packages so you don't need to install them 
 - eslint-config-standard-with-typescript
 - eslint-plugin-import
 - eslint-plugin-jest
-- eslint-plugin-node
+- eslint-plugin-n
 - eslint-plugin-promise
 - eslint-plugin-react
 - eslint-plugin-react-hooks
