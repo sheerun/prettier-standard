@@ -22,7 +22,7 @@
   "repository": "ksmithut/prettier-standard",
   "dependencies": {
     "chalk": "^5.0.1",
-    "eslint": "^8.13.0",
+    "eslint": "^8.14.0",
     "execa": "^6.1.0",
     "find-up": "^6.3.0",
     "get-stdin": "^9.0.0",
