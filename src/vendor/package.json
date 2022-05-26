@@ -1,16 +1,16 @@
 {
   "dependencies": {
-    "@babel/core": "7.17.9",
-    "@babel/eslint-parser": "^7.17.0",
-    "@babel/preset-react": "^7.16.7",
+    "@babel/core": "7.18.2",
+    "@babel/eslint-parser": "^7.18.2",
+    "@babel/preset-react": "^7.17.12",
     "eslint-config-prettier": "^8.5.0",
     "eslint-config-standard": "^17.0.0",
     "eslint-config-standard-jsx": "^11.0.0",
     "eslint-plugin-import": "^2.26.0",
-    "eslint-plugin-jest": "^26.1.5",
-    "eslint-plugin-n": "15.1.0",
+    "eslint-plugin-jest": "^26.2.2",
+    "eslint-plugin-n": "15.2.0",
     "eslint-plugin-promise": "^6.0.0",
-    "eslint-plugin-react": "^7.29.4",
+    "eslint-plugin-react": "^7.30.0",
     "eslint-plugin-standard": "^5.0.0"
   }
 }

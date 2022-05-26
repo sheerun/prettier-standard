@@ -22,20 +22,20 @@
   "repository": "ksmithut/prettier-standard",
   "dependencies": {
     "chalk": "^5.0.1",
-    "eslint": "^8.14.0",
+    "eslint": "^8.16.0",
     "execa": "^6.1.0",
     "find-up": "^6.3.0",
     "get-stdin": "^9.0.0",
     "globby": "^13.1.1",
     "ignore": "^5.2.0",
-    "lint-staged": "12.4.0",
+    "lint-staged": "12.4.2",
     "mri": "^1.2.0",
     "multimatch": "^6.0.0",
     "prettierx": "0.19.0"
   },
   "devDependencies": {
-    "isomorphic-git": "1.17.1",
-    "jest": "27.5.1",
+    "isomorphic-git": "1.17.2",
+    "jest": "28.1.0",
     "tmp": "0.2.1"
   },
   "scripts": {
