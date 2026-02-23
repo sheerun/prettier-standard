@@ -52,7 +52,7 @@ class Git {
       if (error.stderr) {
         if (
           error.stderr.includes(`Needed a single revision`) ||
-          error.stderr === 'fatal: Not a valid object name HEAD'
+          error.stderr.toLowerCase().includes('not a valid object name')
         ) {
           return SPECIAL_EMPTY_TREE_COMMIT_HASH
         }
